@@ -1,0 +1,16 @@
+.slides-style {
+    height: 80%; 
+    width: 100%; 
+    padding-bottom: 50px;
+}
+
+ion-slides {
+    --bullet-background: white;
+    --bullet-background-active: blue;    
+}
+
+.splash {
+    position: absolute; 
+    top:0px; 
+    width: 100%;
+}

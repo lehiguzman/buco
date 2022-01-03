@@ -1,0 +1,73 @@
+<ion-header no-border>
+    <ion-toolbar class="ion-text-center">
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="secondary" mode="md"></ion-back-button>
+        </ion-buttons>
+        <ion-title> <b>Tareas y Tarifas</b> </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngIf="servicio.nombre">
+        <ion-card-header>
+            <ion-card-subtitle>Servicio:</ion-card-subtitle>
+            <ion-card-title>{{ servicio.nombre }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content> {{ servicio.descripcion }} </ion-card-content>
+
+        <ion-item>
+            <ion-icon name="cash" slot="start"></ion-icon>
+            <ion-label class="ion-text-wrap">
+                Seleccione y configure la tarifa de al menos una de las siguentes tareas:
+            </ion-label>
+        </ion-item>
+    </ion-card>
+
+    <form (ngSubmit)="registro()">
+        <ion-list lines="none">
+            <div class="ion-padding-top" *ngFor="let tarea of formDinamico; let i = index;">
+                <!-- {{ i | json }} | {{ tarea | json }} -->
+                <ion-item>
+                    <ion-row class="ion-align-items-center ion-justify-content-center">
+                        <ion-col size="2" class="ion-text-center">
+                            <ion-checkbox mode="ios" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="tarea.isChecked" (ionChange)="checkboxChange($event, i)">
+                            </ion-checkbox>
+                        </ion-col>
+                        <ion-col size="6">
+                            <div> <h4>{{ tarea.nombre }}</h4> </div>
+                        </ion-col>
+
+                        <ion-col size="4" class="ion-text-center">
+                            <ion-item class="roundedInput mandatory">
+                                <ion-input (ionChange)="inputChange($event, tarea, i)"
+                                     type="number" required="true"
+                                     [name]="tarea.id" [value]="tarea.valor" [disabled]="!tarea.isChecked"
+                                     [min]="tarea.tarifaMinima"       [max]="tarea.tarifaMaxima"
+                                     [minlength]="tarea.tarifaMinima" [maxlength]="tarea.tarifaMaxima">
+                                </ion-input>
+                            </ion-item>
+                        </ion-col>
+
+                        <ion-col size="12" class="ion-text-justify" *ngIf="tarea.descripcion && tarea.isChecked">
+                            {{ tarea.descripcion }}
+                        </ion-col>
+
+                        <ion-col size="6" class="ion-text-center" *ngIf="tarea.isChecked">
+                            <b>Tarifa Mínima:</b> {{ tarea.tarifaMinima | currency }}
+                        </ion-col>
+                        <ion-col size="6" class="ion-text-center" *ngIf="tarea.isChecked">
+                            <b>Tarifa Máxima:</b> {{ tarea.tarifaMaxima | currency }}
+                        </ion-col>
+                    </ion-row>
+                </ion-item>
+            </div>
+        </ion-list>
+
+        <ion-button shape="round" color="secondary" fill="outline" expand="block" type="submit"
+            [disabled]="formInValido()" class="ion-padding-horizontal ion-margin">
+            Registrar Tareas
+        </ion-button>
+    </form>
+</ion-content>

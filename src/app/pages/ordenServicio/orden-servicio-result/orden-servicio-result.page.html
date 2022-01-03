@@ -1,0 +1,88 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button class="texto-filtro" color="light" shape="round" fill="outline" (click)="irAFiltro()">Filtros</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-text class="texto-titulo">Ordenes de Servicio</ion-text>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>
+</ion-header>
+
+<ion-content color="light">  
+  
+  <ion-grid fixed>
+
+    <div class="ion-padding-bottom" *ngFor="let orden of ordenesServicio">
+    <ion-row class="col-dir" (click) = "detalle(orden.id)">
+      <ion-col size="4">
+        <img *ngIf="orden.foto" src="{{ orden.foto }}" class="icon-pro" />           
+        <img *ngIf="!orden.foto" src="assets/icons/Outline.png" class="icon-pro" />
+      </ion-col>
+      <ion-col size="8">              
+        <ion-row style="height: 20%;">
+          <ion-col size="7" class="ion-text-center">
+            <ion-text>
+             <b> {{ orden.nombre }} {{ orden.apellido }} </b>
+            </ion-text>
+          </ion-col>
+          <ion-col size="5" class="ion-text-center" >
+           <!-- <ion-icon name="pin"></ion-icon> -->
+            <ion-text *ngIf="orden.estatus == 1" color="primary">
+              <b>En espera</b>
+            </ion-text>
+            <ion-text *ngIf="orden.estatus == 2" color="secondary">
+              <b>Confirmada</b>
+            </ion-text>
+            <ion-text *ngIf="orden.estatus == 7" color="tertiary">
+              <b>Pagada</b>
+            </ion-text>
+            <ion-text *ngIf="orden.estatus == 3" color="warning">
+              <b>Rechazada</b>
+            </ion-text>
+            <ion-text *ngIf="orden.estatus == 0" color="danger">
+              <b>Cancelada</b>
+            </ion-text> 
+            <ion-text *ngIf="orden.estatus == 5" color="dark">
+              <b>Pendiente</b>
+            </ion-text>              
+          </ion-col>
+        </ion-row>
+        <ion-row style="height: 30%;">
+          <ion-col size="1"></ion-col>
+          <ion-col size="11">
+            <ion-text>
+              {{ orden.servicio }}
+            </ion-text>
+          </ion-col>
+        </ion-row>                  
+        <ion-row class="ion-text-center">
+          <ion-col size="5">
+            Fecha
+          </ion-col>
+          <ion-col size="4">
+            Hora
+          </ion-col>
+          <ion-col size="3">
+            <ion-icon name="md-locate" ></ion-icon>
+          </ion-col>    
+        </ion-row>
+        <ion-row class="ion-text-center">
+          <ion-col size="5" >                   
+            {{ orden.fecha }}               
+          </ion-col>
+          <ion-col size="4">
+            {{ orden.hora }}:00 {{ orden.meridiano }}
+          </ion-col>
+          <ion-col size="3">
+            {{ orden.distancia }}
+          </ion-col>              
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    </div>
+  </ion-grid>  
+
+</ion-content>

@@ -1,0 +1,55 @@
+<ion-header no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="secondary"></ion-back-button>
+        </ion-buttons>
+        <ion-title color="medium" class="ion-text-center">Lista Método de Pago</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-icon slot="start" name="md-card" color="primary"></ion-icon>
+                    <ion-label position="floating">Número de Tarjeta</ion-label>
+                    <ion-input type="text" name="tdc" placeholder="XXXX-XXXX-XXXX-XXXX" class="ion-margin-top" required></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+            <ion-col>
+                <ion-img src="assets/imgs/pagos/tdc.png"></ion-img>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+            <ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-icon slot="start" name="md-card" color="primary"></ion-icon>
+                        <ion-label position="floating">Número de Tarjeta</ion-label>
+                        <ion-input type="text" name="tdc" placeholder="XXXX-XXXX-XXXX-XXXX" class="ion-margin-top" required></ion-input>
+                        <ion-checkbox mode="ios" slot="end"></ion-checkbox>
+                    </ion-item>
+                </ion-col>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <!-- Advanced: explicity set the icon for each platform -->
+                    <ion-icon slot="start" ios="logo-usd" md="logo-usd" color="primary"></ion-icon>
+                    <ion-label position="floating">Efectivo</ion-label>
+                    <ion-input type="text" name="dinero" placeholder="$XXX" class="ion-margin-top" required></ion-input>
+                    <ion-checkbox mode="ios" slot="end"></ion-checkbox>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer no-border>
+    <ion-button expand="block" class="ion-padding-horizontal" class="ion-margin" type="submit">
+        Guardar
+    </ion-button>
+</ion-footer>

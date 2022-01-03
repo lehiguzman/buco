@@ -1,0 +1,3 @@
+#### v1.2.0 (release)
+
+- Búsqueda de talentos por datos especifico según el servicio (profesión)

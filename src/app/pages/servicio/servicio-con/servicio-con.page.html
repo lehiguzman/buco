@@ -1,0 +1,106 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="light" (click)="irAtras()" mode="md"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end" size="large" color="light">
+            <p class="texto-titulo"></p>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-label class="texto-titulo">Solicitud de Servicio</ion-label>
+    <ion-img src="/assets/imgs/pico.png"></ion-img>
+</ion-header>
+<ion-content>
+    <ion-item *ngIf="idSistema == 1">
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">PROFESIONAL</div>
+            <div class="ion-padding-left">{{ profesional.nombre }} {{ profesional.apellido }}</div>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">SERVICIO</div>
+            <div class="ion-padding-left">{{ profesional.servicio }}</div>
+        </ion-label>
+    </ion-item>
+    <ion-item *ngIf="idSistema == 2">
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">TÍTULO</div>
+            <div class="ion-padding-left">{{ titulo }}</div>
+        </ion-label>
+    </ion-item>
+    <ion-item *ngIf="idSistema == 2">
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">PROFESIONALES</div>
+            <div class="ion-padding-left">{{ cantidadProfesionales }}</div>
+        </ion-label>
+    </ion-item>     
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">Lista de tareas</div>
+            <div class="ion-padding-left">
+                <ion-row class="ion-text-center texto">                                
+                    <ion-col size="2">Cant.</ion-col>
+                    <ion-col size="7">Tarea</ion-col>
+                    <ion-col size="3">Monto</ion-col>
+                </ion-row>
+                <ion-row *ngFor="let tarea of tareas; let i = index">
+                    <ion-col size="2" class="texto-tarea">{{ tarea.cantidad }}</ion-col>
+                    <ion-col size="7" class="texto-tarea">{{ tarea.nombre }}</ion-col>
+                    <ion-col size="3" class="monto-tarea">$ {{ tarea.totalPrecio }}</ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="7" class="ion-text-end"><b>Total : </b></ion-col>
+                    <ion-col size="2"></ion-col>
+                    <ion-col size="3" class="ion-text-center"><b>$ {{ montoTotal }}</b></ion-col>
+                </ion-row>
+                <ion-row  *ngIf="idSistema == 2">
+                    <ion-col size="7" class="ion-text-end"><b>Porcentaje backup : </b></ion-col>
+                    <ion-col size="2"></ion-col>
+                    <ion-col size="3" class="ion-text-center"><b>{{ porcentajeBackup }} %</b></ion-col>
+                </ion-row>
+            </div>
+        </ion-label>
+    </ion-item>
+    
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">FECHA</div>
+            <div class="ion-padding-left">{{ dia }} de {{ mesLetra }} de {{ anio }}, hora:
+                {{ horaVista }} {{ meridiano }}</div>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">DIRECCIÓN</div>
+            <div class="ion-padding-left">{{ direccion }}</div>
+        </ion-label>
+    </ion-item>    
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">MÉTODO DE PAGO</div>
+            <div class="ion-padding-left">{{ metodoPago }}</div>            
+        </ion-label>
+    </ion-item>    
+    <ion-item>
+        <ion-label class="ion-text-wrap ion-text-justify">
+            <div class="ion-padding-bottom shade-text">DESCRIPCIÓN</div>
+            {{ descripcion }}
+        </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+        <ion-label>
+            <div class=" shade-text">OBSERVACIÓN</div>
+        </ion-label>
+    </ion-item>
+    <ion-item lines="none" class="ion-padding-bottom ion-padding-top" class="borde-textarea">
+        <ion-textarea [(ngModel)]="observacion"></ion-textarea>
+    </ion-item>
+
+</ion-content>
+
+<ion-footer>
+    <ion-button shape="round" color="primary" expand="block" (click)="confirmarOrden()" class="ion-margin-bottom">
+        Confirmar
+    </ion-button>
+</ion-footer>

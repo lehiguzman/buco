@@ -1,0 +1,145 @@
+<ion-header no-border>
+  <ion-toolbar class="ion-text-center">
+    <ion-buttons slot="start" text="Atrás">
+      <ion-back-button color="secondary" mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <b>Datos básicos</b>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="registroForm" (ngSubmit)="registro()">
+    <!-- Input with placeholder -->
+    <ion-list lines="none" class="ion-padding-horizontal">
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-input type="text" formControlName="nombre" name="nombre" placeholder="Nombre Completo" required>
+            <ion-icon class="align-self-center" name="contact" slot="start" class="icon-style"> </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-icon name="people" class="icon-style-select"></ion-icon>
+          <ion-select formControlName="genero" name="genero" cancelText="Cancelar" placeholder="Genero"
+            class="select-style" required>
+            <ion-select-option value="1">Femenino</ion-select-option>
+            <ion-select-option value="2">Masculino</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-icon name="calendar" class="icon-style-date"></ion-icon>
+          <ion-datetime formControlName="fechaNacimiento" name="fechaNacimiento" dateFormat="DD MMMM YYYY"
+            placeholder="Fecha de nacimiento" cancelText="Cancelar" doneText="Continuar" [monthShortNames]="globalServ.meses"
+            class="date-style" required></ion-datetime>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-input type="number" formControlName="identificacion" name="identificacion" placeholder="Cédula" required>
+            <ion-icon class="align-self-center" name="document" slot="start" class="icon-style">
+            </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-input type="text" formControlName="nacionalidad" name="nacionalidad" placeholder="Nacionalidad">
+            <ion-icon class="align-self-center" name="map" slot="start" class="icon-style">
+            </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-input type="number" formControlName="celular" name="celular" placeholder="Celular" required>
+            <ion-icon class="align-self-center" name="phone-portrait" slot="start" class="icon-style">
+            </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+            <ion-input type="email" formControlName="email" name="email" placeholder="Correo Electrónico" required>
+                <ion-icon class="align-self-center" name="mail" slot="start" class="icon-style"> </ion-icon>
+            </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-input type="number" formControlName="radioCobertura" name="radioCobertura" placeholder="Àrea cobertura de servicio" required>
+            <ion-icon class="align-self-center" name="cellular" slot="start" class="icon-style">
+            </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div> 
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-input type="number" formControlName="aniosExperiencia" name="aniosExperiencia" placeholder="Años experiencia">
+            <ion-icon class="align-self-center" name="book" slot="start" class="icon-style">
+            </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-icon name="car" class="icon-style-select"></ion-icon>
+          <ion-select formControlName="auto" name="auto" cancelText="Cancelar" placeholder="¿Posee auto propio?" class="select-style">
+            <ion-select-option value="1">Si</ion-select-option>
+            <ion-select-option value="2" checked>No</ion-select-option>            
+          </ion-select>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item lines="none" class="item-style">
+          <ion-label class="shade-text">Redes sociales</ion-label>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput">
+          <ion-input type="text" formControlName="ctaTwitter" name="ctaTwitter" placeholder="Cuenta Twitter">
+              <ion-icon class="align-self-center" name="logo-twitter" slot="start" class="icon-style"> </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput">
+          <ion-input type="text" formControlName="ctaFacebook" name="ctaFacebook" placeholder="Cuenta Facebook">
+              <ion-icon class="align-self-center" name="logo-facebook" slot="start" class="icon-style"> </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput">
+          <ion-input type="text" formControlName="ctaLinkedin" name="ctaLinkedin" placeholder="Cuenta Linkedin">
+              <ion-icon class="align-self-center" name="logo-linkedin" slot="start" class="icon-style"> </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput">
+          <ion-input type="text" formControlName="ctaInstagram" name="ctaInstagram" placeholder="Cuenta Instagram">
+              <ion-icon class="align-self-center" name="logo-instagram" slot="start" class="icon-style"> </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-icon name="construct" class="icon-style-select"></ion-icon>
+          <ion-textarea formControlName="destrezaDetalle" name="destrezaDetalle" placeholder="Especialidad">            
+          </ion-textarea>
+        </ion-item>
+      </div>      
+    </ion-list>
+
+    <ion-button shape="round" color="secondary" block outline expand="block" [disabled]="registroForm.invalid" class="ion-padding-horizontal" class="ion-margin" type="submit">
+      Registrar
+    </ion-button>
+
+  </form>
+
+</ion-content>

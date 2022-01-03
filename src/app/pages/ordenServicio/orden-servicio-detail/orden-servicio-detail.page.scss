@@ -1,0 +1,74 @@
+.header-img {
+  width: 100%;
+  height: 90px;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.texto-titulo {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  color: white;
+  font-size: 1.5em !important;
+  font-weight: bold;
+}
+
+.texto-style {
+  font-size: 1em !important;
+}
+
+.texto-monto {
+  padding-top: 6%;
+  font-size: 1em !important;
+}
+
+.texto-tarea {
+  font-size: 1em !important;
+  text-align: center;
+  padding-top: 2%;
+}
+
+.tarea-row {
+  margin-top: 2%;
+  padding-right: 0%;
+  height: 10%;
+}
+
+.texto {
+  background-color: #daf0f8;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.monto-tarea {
+  font-size: 1em !important;
+  text-align: center;
+}
+
+.fondo-input {
+  --background: #a6c1f9;
+  border-radius: 10px 10px 10px 10px;
+  height: 2em;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.shade-text {
+  color: #b8b8b8;
+}
+
+.no-padding {
+  padding-top: 0px;
+}
+
+.no-padding-bottom {
+  padding-bottom: 0px;
+}
+
+.bordes {
+  border: 2px solid red;
+}

@@ -1,0 +1,65 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-azul ha-5">
+        <ion-buttons *ngIf="!esPreregistro" slot="start">
+            <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+            <!-- <ion-back-button autoHide="false" color="light"></ion-back-button> -->
+        </ion-buttons>
+        <ion-title *ngIf="!esPreregistro" class="perfil"><small>Perfil: {{ globalServ.UsuarioTipo }}</small></ion-title>
+
+        <ion-icon class="ion-padding-left" *ngIf="esPreregistro" name="close" color="light" (click)="irAPreregistro()" style="font-size: 3em;"></ion-icon>
+    </ion-toolbar>
+
+    <ion-title *ngIf="!esPreregistro" class="header-titulo">Mis Direcciones</ion-title>
+    <ion-title *ngIf=" esPreregistro" class="header-titulo">Dirección Base</ion-title>
+
+    <ion-img class="linea-azul" src="/assets/imgs/pico_transparente.png"></ion-img>
+
+    <div *ngIf="esPreregistro">
+        <p class="text-subtitle">
+            <ion-icon slot="start" name="play" style="vertical-align: middle; font-size: 1.5em;"></ion-icon>
+            <i> marque o registre la dirección base de la cobertura del servicio del profesional o afiliado </i>
+        </p>
+    </div>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+  <div *ngFor="let direccion of direcciones" class="ion-padding-bottom" style="inset-inline-end: initial;">
+    <ion-item-sliding class="roundedInput">
+      <ion-item>
+        <ion-button fill="clear" color="dark" (click)="verDetalle(direccion.id)" style="width: 85%;">
+          <!-- <ion-input disabled="true" *ngIf="direccion.tipo == 1"> -->
+          <ion-input disabled="true" *ngIf="direccion.tipo == 1">
+            <ion-icon name="pin" class="icon-style"> </ion-icon>
+            Casa
+          </ion-input>
+          <ion-input disabled="true" *ngIf="direccion.tipo == 2">
+            <ion-icon name="pin" class="icon-style"> </ion-icon>
+            Trabajo
+          </ion-input>
+          <ion-input disabled="true" *ngIf="direccion.tipo == 3">
+            <ion-icon name="pin" class="icon-style"> </ion-icon>
+            Otro
+          </ion-input>
+        </ion-button>
+        <ion-radio *ngIf="esPreregistro" (click)="cambiarDireccion(direccion.id)"
+          [checked]="direccion.id == idPrincipal" mode="md" style="z-index: 99; --color-checked: #0066d3;"></ion-radio>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="dark" (click)="editar(direccion.id)">
+          <img src="assets/icons/edit-icon.png" height="20" width="20" />
+        </ion-item-option>
+        <ion-item-option color="dark" (click)="eliminar(direccion.id)">
+          <img src="assets/icons/delete-icon.png" height="20" width="20" />
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </div>
+  <div class="ion-padding-bottom">
+    <ion-item lines="none">
+      <ion-button (click)="agregarDireccion()" expand="block" fill="clear" shape="round" class="btn-save">
+        <ion-icon name="add-circle" class="icon-style-btn"> </ion-icon>
+        Agregar dirección
+      </ion-button>
+    </ion-item>
+  </div>
+</ion-content>

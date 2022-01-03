@@ -1,0 +1,36 @@
+<ion-header no-border>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title class="ion-text-center">
+          <b>Dirección</b>
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-padding-top">
+    <ion-item class="roundedInput">
+        <ion-input [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Panamá" clearInput="true">
+            <ion-icon name="pin" slot="start" class="icon-style"></ion-icon>
+        </ion-input>
+    </ion-item>
+  </div>
+
+  <ion-list [hidden]="closeSelect">
+    <ion-item *ngFor="let item of autocompleteItems" (click)="selectPlace(item)">
+        {{ item.description }}
+    </ion-item>
+  </ion-list>
+
+  <!--<img class="markador-flotante" src="assets/imgs/mapa/marcador-naranja.png">-->
+        <div #map id="map" (click)="direccionMap()"></div>
+ 
+</ion-content>
+<ion-footer>
+  <ion-button shape="round" color="secondary" expand="block" (click)="irAMetodoPago()" class="ion-margin-bottom">
+    Continuar
+  </ion-button>
+</ion-footer>

@@ -1,0 +1,52 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-azul ha-5">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+            <!-- <ion-back-button autoHide="false" color="light"></ion-back-button> -->
+        </ion-buttons>
+        <ion-title class="perfil"><small>Perfil: {{ globalServ.UsuarioTipo }}</small></ion-title>
+    </ion-toolbar>
+
+    <ion-title class="header-titulo">Mis Documentos</ion-title>
+
+    <ion-img class="linea-azul" src="/assets/imgs/pico_transparente.png"></ion-img>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+    <div *ngFor="let documento of documentos; let i = index;" class="ion-padding-bottom">
+        <ion-item-sliding class="roundedInput">
+            <ion-item detail="false" href="{{ globalServ.urlDominioAPI }}{{ documento.ruta }}" download target="_blank">
+                <ion-button fill="clear" color="dark" (click)="verDetalle(documento)">
+                    <ion-input disabled="true">
+                        <ion-icon class="align-self-center" name="book" slot="start" class="icon-style"> </ion-icon>
+                        {{ documento.tipoDocumento.nombre }}
+                    </ion-input>
+                </ion-button>
+            </ion-item>
+
+            <ion-item-options side="end">
+                <!-- <ion-item-option color="dark" (click)="editar(documento, i)">
+                    <img src="assets/icons/edit-icon.png" height="20" width="20" />
+                </ion-item-option> -->
+                <ion-item-option color="dark" (click)="eliminar(documento.id, i)">
+                    <img src="assets/icons/delete-icon.png" height="20" width="20" />
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </div>
+
+    <div>
+        <!--<ion-item class="roundedInput">
+      <ion-input button (click) = "agregarDocumento()">
+        <ion-icon class="align-self-center" name="add-circle" slot="start" class="icon-style"> </ion-icon>
+        Agregar documento
+      </ion-input>
+    </ion-item> -->
+        <ion-item lines="none">
+            <ion-button (click)="agregarDocumento()" expand="block" fill="clear" shape="round" class="btn-save">
+                <ion-icon name="add-circle" class="icon-style-btn"> </ion-icon>
+                Agregar documento
+            </ion-button>
+        </ion-item>
+    </div>
+</ion-content>

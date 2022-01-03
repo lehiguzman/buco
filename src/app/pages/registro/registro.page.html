@@ -1,0 +1,154 @@
+<ion-header no-border>
+    <ion-toolbar class="ion-text-center">
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="secondary" mode="md"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <b>Únete a Buco Talent</b>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item lines="none" class="text-center">
+        <ion-label>Ahora crearemos tu cuenta</ion-label>
+    </ion-item>
+
+    <div>
+        <form [formGroup]="registroForm" (ngSubmit)="registro()">
+            <!-- Input with placeholder -->
+            <ion-list lines="none" class="ion-padding-horizontal">
+                <div class="ion-padding-top">
+                    <ion-item class="roundedInput mandatory">
+                        <ion-input type="text" formControlName="nombre" name="nombre" placeholder="Nombre Completo" required>
+                            <ion-icon class="align-self-center" name="contact" slot="start" class="icon-style"> </ion-icon>
+                        </ion-input>
+                    </ion-item>
+                </div>
+
+                <div class="ion-padding-top">
+                    <ion-item class="roundedInput mandatory">
+                        <ion-input type="email" formControlName="email" name="email" placeholder="Correo Electrónico" required>
+                            <ion-icon class="align-self-center" name="mail" slot="start" class="icon-style"> </ion-icon>
+                        </ion-input>
+                    </ion-item>
+                </div>
+
+                <!--<div class="ion-padding-bottom">
+                    <ion-item class="roundedInput">                    
+                        <ion-input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="telefono" placeholder="Teléfono" name="telefono" required>
+                            <ion-icon class="align-self-center" name="phone-portrait" slot="start" class="icon-style"> </ion-icon>
+                        </ion-input>
+                    </ion-item>
+                </div> -->
+
+                <div class="ion-padding-top">
+                    <ion-item class="roundedInput">
+                        <ion-icon name="calendar" class="icon-style-date"></ion-icon>
+                        <ion-datetime formControlName="cumpleannos" name="cumpleannos" dateFormat="DD MMMM YYYY"
+                            placeholder="Fecha de nacimiento" cancelText="Cancelar" doneText="Continuar" [monthShortNames]="globalServ.meses"
+                            class="date-style"></ion-datetime>
+                    </ion-item>
+                </div>
+
+                <div class="ion-padding-top">
+                    <ion-item class="roundedInput">
+                        <ion-icon name="people" class="icon-style-select"></ion-icon>
+                        <ion-select formControlName="genero" name="genero" cancelText="Cancelar" placeholder="Genero" class="select-style">
+                            <ion-select-option value="1">Femenino</ion-select-option>
+                            <ion-select-option value="2">Masculino</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+
+                <div class="ion-padding-top">
+                    <ion-item class="roundedInput mandatory">
+                        <!-- <ion-label position="floating">Correo Electrónico</ion-label> -->
+                        <ion-input type="text" formControlName="username" name="username" placeholder="Usuario">
+                            <ion-icon class="align-self-center" name="person" slot="start" class="icon-style"> </ion-icon>
+                        </ion-input>
+                    </ion-item>
+                </div>
+
+                <div class="ion-padding-top">
+                    <ion-item lines="none" class="roundedInput mandatory">
+                        <ion-input [type]="typeclave" name="password" formControlName="password" placeholder="Contraseña" name="password">
+                            <ion-icon class="align-self-center" name="key" slot="start" class="icon-style"> </ion-icon>
+                        </ion-input>
+                    </ion-item>
+                </div>
+
+                <ion-item class="ion-margin-top no-item" lines="none">
+                    <ion-label color="dark">{{ mensajeEdad }}</ion-label>
+                    <ion-checkbox [checked]="edad > 18" color="secondary" formControlName="mayor" name="mayor"> </ion-checkbox>
+                </ion-item>
+
+                <div>
+                    <p class="text-subtitle">
+                        <b>
+                            <ion-icon slot="start" name="play" style="vertical-align: middle; font-size: 1.5em;"></ion-icon>
+                            <i> Debe marcar los documentos de términos y condiciones </i>
+                        </b>
+                    </p>
+                </div>
+
+                <ion-item no-border>
+                    <ion-label>Aceptar todo</ion-label>
+                    <ion-checkbox color="secondary" name="todosLosTermns" formControlName="todosLosTermns" checked="false" (ionChange)="selectAllTermns($event)"></ion-checkbox>
+                </ion-item>
+
+                <ion-item no-border>
+                    <ion-text class="politicas-text">Acepto los Términos y Condiciones</ion-text>
+                    <ion-checkbox color="secondary" name="terminos" formControlName="terminos" checked="false"> </ion-checkbox>
+                    <button ion-button icon-only icon-center item-end clear>
+                        <ion-icon name="eye"></ion-icon>
+                    </button>
+                </ion-item>
+
+                <ion-item no-border>
+                    <ion-text class="politicas-text">Acepto las Políticas de Cancelacion</ion-text>
+                    <ion-checkbox color="secondary" name="cancelacion" formControlName="cancelacion" checked="false"> </ion-checkbox>
+                    <button ion-button icon-only icon-center item-end clear>
+                        <ion-icon name="eye"></ion-icon>
+                    </button>
+                </ion-item>
+
+                <ion-item no-border>
+                    <ion-text class="politicas-text">Acepto las Políticas de Cookies</ion-text>
+                    <ion-checkbox color="secondary" name="cookies" formControlName="cookies" checked="false"> </ion-checkbox>
+                    <button ion-button icon-only icon-center item-end clear>
+                        <ion-icon name="eye"></ion-icon>
+                    </button>
+                </ion-item>
+
+                <ion-item no-border>
+                    <ion-text class="politicas-text">Acepto las Políticas de Servicios</ion-text>
+                    <ion-checkbox color="secondary" name="servicios" formControlName="servicios" checked="false"> </ion-checkbox>
+                    <button ion-button icon-only icon-center item-end clear>
+                        <ion-icon name="eye"></ion-icon>
+                    </button>
+                </ion-item>
+
+                <ion-item no-border>
+                    <ion-text class="politicas-text">Acepto las Políticas de Tratamiento y Protección de Datos </ion-text>
+                    <ion-checkbox color="secondary" name="tratamiendo" formControlName="tratamiendo" checked="false"> </ion-checkbox>
+                    <button ion-button icon-only icon-center item-end clear>
+                        <ion-icon name="eye"></ion-icon>
+                    </button>
+                </ion-item>
+            </ion-list>
+
+            <ion-button shape="round" color="secondary" block outline expand="block" [disabled]="registroForm.invalid" class="ion-padding-horizontal" class="ion-margin" type="submit">
+                Registrarse
+            </ion-button>
+        </form>
+    </div>
+</ion-content>
+
+<ion-footer class="ion-text-center ion-padding" no-border>
+    <a>
+        <ion-text class="ion-text-center" color="secondary">
+            Condiciones y políticas de privacidad
+        </ion-text>
+    </a>
+</ion-footer>

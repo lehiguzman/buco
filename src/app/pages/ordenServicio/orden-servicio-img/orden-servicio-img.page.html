@@ -1,0 +1,45 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">   
+    <ion-buttons slot="start" text="Atrás">
+      <ion-back-button color="light" (click)="irAtras()" mode="md"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-label class="texto-titulo">Fotos</ion-label>  
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>    
+</ion-header>
+
+<ion-content color="light">  
+
+  <ion-grid fixed style="margin-top: 15%;">
+    <ion-row style="height: 12em;">
+      <ion-col size="6" style="width: 100%; height: 100%;" class="ion-text-center"> 
+        <div *ngIf="fotos[0]" (click)="verFoto(0)">          
+          <!--<img style="max-width: 100px; max-height: 80px; margin-top: .5em;" [src]="fotos[0].ruta" />          -->
+          <img width="120px" height="120px" object-fit="cover" [src]="fotos[0].ruta" />
+        </div>
+      </ion-col>
+      <ion-col size="6" style="width: 100%; height: 100%;" class="ion-text-center"> 
+        <div *ngIf="fotos[1]" (click)="verFoto(1)">          
+          <img width="120px" height="120px" object-fit="cover" [src]="fotos[1].ruta" />          
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row style="height: 10em;">
+      <ion-col size="6" style="width: 100%; height: 100%;" class="ion-text-center"> 
+        <div *ngIf="fotos[2]" (click)="verFoto(2)">          
+          <img width="120px" height="120px" object-fit="cover" [src]="fotos[2].ruta" />          
+        </div>
+      </ion-col>
+      <ion-col size="6" style="width: 100%; height: 100%;" class="ion-text-center"> 
+        <div *ngIf="fotos[3]" (click)="verFoto(3)">          
+          <img width="120px" height="120px" object-fit="cover" [src]="fotos[3].ruta" />          
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
+
+  <div class="image-modal" (click)="dismissImage()">
+    <img [src]="fotoVer" class="fullscreen-image" *ngIf="fotoVer" />
+  </div>
+
+</ion-content>

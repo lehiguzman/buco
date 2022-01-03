@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "appbuco-dev",
+    "dev": "appbuco-dev",
+    "cert": "appbuco-cert",
+    "preprod": "app-buco",
+    "prod": "appbuco-prod"
+  }
+}

@@ -1,0 +1,67 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <!--<ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>-->
+    <!--<ion-buttons slot="end">
+      <ion-button class="texto-filtro" color="light" shape="round" fill="outline" (click)="irAFiltro()">Filtros</ion-button>
+    </ion-buttons> -->
+    <ion-buttons slot="start">
+      <ion-back-button autoHide="false" color="light" mode="md"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-label class="texto-titulo">Solicitud de Servicio</ion-label>
+  <ion-label class="texto-subtitulo">Elija su método de pago</ion-label>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>  
+  <ion-item class="roundedInput buscador">   
+    <ion-input (ionChange) = "buscarMetodoPago( $event )" placeholder="Introduzca número de tarjeta">    
+        <ion-icon class="align-self-center" name="search" slot="start" class="icon-style"> </ion-icon>  
+    </ion-input>
+  </ion-item>
+</ion-header>
+<ion-content color="light">
+
+   <div *ngFor="let met of metodosPago | filtro: textoBuscar: 'numero_tarjeta'">    
+    <ion-row (click)="validarMetodoPago(met.metodoPago)">
+        <ion-col size="3">
+          <ion-img [src]="tarjeta" style="height: 70%;"></ion-img>
+        </ion-col>
+        <ion-col size="9" class="ion-text-center">          
+          <ion-label color="dark" class="texto-lista">
+            {{ met.metodoPago.nombre }}
+          </ion-label>
+          <div *ngIf="met.metodoPago.requiereVuelto">
+            <ion-input type="number" placeholder="Monto en efectivo" *ngIf="esEfectivo" [(ngModel)]="montoEfectivo" style="height: 3em !important;" class="mandatory roundedInput"></ion-input>
+            <ion-text color="danger" *ngIf="esEfectivo && montoEfectivo < montoTotal" class="ion-padding-top" style="font-size: 0.9em;">
+              Monto debe ser mayor o igual a: {{ montoTotal }} $
+            </ion-text>
+          </div>          
+        </ion-col>    
+    </ion-row>
+  </div>
+  <!--<ion-row (click)="desplegarMonto()">   
+    <ion-col size="3">
+      <ion-img [src]="efectivo" style="height: 70%"></ion-img>
+    </ion-col>
+    <ion-col size="9" style="font-size: 1.2em !important;" class="ion-text-center">
+      <ion-text class="texto-lista">
+         Efectivo
+      </ion-text>
+      <ion-input type="number" placeholder="Monto" *ngIf="esEfectivo" [(ngModel)]="montoEfectivo" style="height: 3em !important;" class="mandatory roundedInput"></ion-input>
+      <ion-text color="danger" *ngIf="esEfectivo && montoEfectivo < montoTotal" class="ion-padding-top" style="font-size: 0.9em;">
+        Monto debe ser mayor o igual a: {{ montoTotal }} $
+     </ion-text>
+    </ion-col>
+  </ion-row> -->
+ <!-- <ion-row style="font-size: 10px; height: 5px;" *ngIf="esEfectivo">     
+    <ion-col size="3"></ion-col>
+    <ion-col size="9">
+      <ion-input type="number" placeholder="Monto"></ion-input>
+    </ion-col>
+  </ion-row>   -->
+</ion-content>
+<ion-footer *ngIf="montoEfectivo > 0 && montoEfectivo >= montoTotal">
+  <ion-button shape="round" color="secondary" expand="block" (click)="continuar(null)" class="ion-margin-bottom">
+      Continuar
+  </ion-button>
+</ion-footer>

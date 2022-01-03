@@ -1,0 +1,40 @@
+{
+    "ios": {
+        "debug": {
+            "codeSignIdentity": "iPhone Developer",
+            "developmentTeam": "XXXXXXXXXX",
+            "packageType": "development",
+            "automaticProvisioning": true,
+            "buildFlag": [
+                "-UseModernBuildSystem=0",
+                "-allowProvisioningUpdates"
+            ]
+        },
+        "release": {
+            "codeSignIdentity": "iPhone Developer",
+            "developmentTeam": "XXXXXXXXXX",
+            "packageType": "app-store",
+            "automaticProvisioning": true,
+            "buildFlag": [
+                "-UseModernBuildSystem=0",
+                "-allowProvisioningUpdates"
+            ]
+        }
+    },
+    "android": {
+        "debug": {
+            "keystore": "./docs/android/dev.jks",
+            "storePassword": "u8JvDVMcqbU7WBrG",
+            "alias": "bucoapp",
+            "password": "u8JvDVMcqbU7WBrG",
+            "keystoreType": "JKS"
+        },
+        "release": {
+            "keystore": "./docs/android/prod.jks",
+            "storePassword": "u8JvDVMcqbU7WBrG",
+            "alias": "bucoapp",
+            "password": "u8JvDVMcqbU7WBrG",
+            "keystoreType": "JKS"
+        }
+    }
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>876852923539-5mlrqdt8uedmv1tk7v9k810bh9dbr8qu.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.876852923539-5mlrqdt8uedmv1tk7v9k810bh9dbr8qu</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCX5pzMeu4jUC6c5wX_CM00XFM5rxA5LTg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>876852923539</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.strappinc.buco</string>
+	<key>PROJECT_ID</key>
+	<string>appbuco-prod</string>
+	<key>STORAGE_BUCKET</key>
+	<string>appbuco-prod.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:876852923539:ios:e325503b99ce9d231bd166</string>
+	<key>DATABASE_URL</key>
+	<string>https://appbuco-prod.firebaseio.com</string>
+</dict>
+</plist>

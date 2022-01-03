@@ -1,0 +1,264 @@
+//@import "globals.scss";
+:root {
+    --ion-color-primary: #ff3d00;
+    --ion-color-primary-rgb: 255, 61, 0;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #e03600;
+    --ion-color-primary-tint: #ff501a;
+    --ion-color-secondary: #0066d3;
+    --ion-color-secondary-rgb: 30, 114, 179;
+    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-contrast-rgb: 255, 255, 255;
+    --ion-color-secondary-shade: #1a649e;
+    --ion-color-secondary-tint: #3580bb;
+    --ion-color-tertiary: #0131b9;
+    --ion-color-tertiary-rgb: 1, 49, 185;
+    --ion-color-tertiary-contrast: #ffffff;
+    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+    --ion-color-tertiary-shade: #012ba3;
+    --ion-color-tertiary-tint: #1a46c0;
+    --ion-color-success: #10dc60;
+    --ion-color-success-rgb: 16, 220, 96;
+    --ion-color-success-contrast: #ffffff;
+    --ion-color-success-contrast-rgb: 255, 255, 255;
+    --ion-color-success-shade: #0ec254;
+    --ion-color-success-tint: #28e070;
+    --ion-color-warning: #ffce00;
+    --ion-color-warning-rgb: 255, 206, 0;
+    --ion-color-warning-contrast: #ffffff;
+    --ion-color-warning-contrast-rgb: 255, 255, 255;
+    --ion-color-warning-shade: #e0b500;
+    --ion-color-warning-tint: #ffd31a;
+    --ion-color-danger: #f04141;
+    --ion-color-danger-rgb: 245, 61, 61;
+    --ion-color-danger-contrast: #ffffff;
+    --ion-color-danger-contrast-rgb: 255, 255, 255;
+    --ion-color-danger-shade: #d33939;
+    --ion-color-danger-tint: #f25454;
+    --ion-color-dark: #222428;
+    --ion-color-dark-rgb: 34, 34, 34;
+    --ion-color-dark-contrast: #ffffff;
+    --ion-color-dark-contrast-rgb: 255, 255, 255;
+    --ion-color-dark-shade: #1e2023;
+    --ion-color-dark-tint: #383a3e;
+    --ion-color-medium: #989aa2;
+    --ion-color-medium-rgb: 152, 154, 162;
+    --ion-color-medium-contrast: #ffffff;
+    --ion-color-medium-contrast-rgb: 255, 255, 255;
+    --ion-color-medium-shade: #86888f;
+    --ion-color-medium-tint: #a2a4ab;
+    --ion-color-light: #f4f5f8;
+    --ion-color-light-rgb: 244, 244, 244;
+    --ion-color-light-contrast: #000000;
+    --ion-color-light-contrast-rgb: 0, 0, 0;
+    --ion-color-light-shade: #d7d8da;
+    --ion-color-light-tint: #f5f6f9;
+    //Colores nuevos
+    --ion-color-gradiente-1: #041a59;
+    --ion-color-gradiente-1-rgb: 255, 0, 17;
+    --ion-color-gradiente-1-contrast: #ffffff;
+    --ion-color-gradiente-1-contrast-rgb: 255, 255, 255;
+    --ion-color-gradiente-1-shade: #04174e;
+    --ion-color-gradiente-1-tint: #1d316a;
+    --ion-color-gradiente-2: #3d21ce;
+    --ion-color-gradiente-2-rgb: 255, 0, 17;
+    --ion-color-gradiente-2-contrast: #ffffff;
+    --ion-color-gradiente-2-contrast-rgb: 255, 255, 255;
+    --ion-color-gradiente-2-shade: #361db5;
+    --ion-color-gradiente-2-tint: #5037d3;
+    --ion-color-gradiente-3: #00d5f6;
+    --ion-color-gradiente-3-rgb: 255, 0, 17;
+    --ion-color-gradiente-3-contrast: #ffffff;
+    --ion-color-gradiente-3-contrast-rgb: 255, 255, 255;
+    --ion-color-gradiente-3-shade: #7783e0;
+    --ion-color-gradiente-3-tint: #93a0ff;
+    --ion-color-gradiente-4: #008de1;
+    --ion-color-gradiente-4-rgb: 255, 0, 17;
+    --ion-color-gradiente-4-contrast: #ffffff;
+    --ion-color-gradiente-4-contrast-rgb: 255, 255, 255;
+    --ion-color-gradiente-4-shade: #3737b5;
+    --ion-color-gradiente-4-tint: #5252d3;
+    //Fuentes
+    --ion-font-family: "Poppins";
+    //
+    ion-input {
+        --background: white;
+        --padding-start: 15px;
+        --padding-end: 15px;
+        --padding-top: 15px;
+        --padding-bottom: 15px;
+        font-size: 1.3rem;
+    }
+    ion-checkbox {
+        padding: 0 !important;
+        margin: 3%;
+    }
+    ion-datetime {
+        padding: 0 !important;
+    }
+    ion-title {
+        padding: 0 !important;
+        margin: 0;
+    }
+    ion-back-button {
+        margin: 0;
+        padding: 0 !important;
+    }
+}
+
+.ion-color-gradiente-1 {
+    --ion-color-base: var(--ion-color-gradiente-1) !important;
+    --ion-color-base-rgb: var(--ion-color-gradiente-1-rgb) !important;
+    --ion-color-contrast: var(--ion-color-gradiente-1-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-gradiente-1-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-gradiente-1-shade) !important;
+    --ion-color-tint: var(--ion-color-gradiente-1-tint) !important;
+}
+
+.ion-color-gradiente-2 {
+    --ion-color-base: var(--ion-color-gradiente-2) !important;
+    --ion-color-base-rgb: var(--ion-color-gradiente-2-rgb) !important;
+    --ion-color-contrast: var(--ion-color-gradiente-2-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-gradiente-2-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-gradiente-2-shade) !important;
+    --ion-color-tint: var(--ion-color-gradiente-2-tint) !important;
+}
+
+.ion-color-gradiente-3 {
+    --ion-color-base: var(--ion-color-gradiente-3) !important;
+    --ion-color-base-rgb: var(--ion-color-gradiente-3-rgb) !important;
+    --ion-color-contrast: var(--ion-color-gradiente-3-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-gradiente-3-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-gradiente-3-shade) !important;
+    --ion-color-tint: var(--ion-color-gradiente-3-tint) !important;
+}
+
+.ion-color-gradiente-4 {
+    --ion-color-base: var(--ion-color-gradiente-4) !important;
+    --ion-color-base-rgb: var(--ion-color-gradiente-4-rgb) !important;
+    --ion-color-contrast: var(--ion-color-gradiente-4-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-gradiente-4-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-gradiente-4-shade) !important;
+    --ion-color-tint: var(--ion-color-gradiente-4-tint) !important;
+}
+
+.ion-color-graniente-menu {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#0a85f9+0,6f00ff+98 */
+    background: #0488db;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #0488db 0%, #005dd3 98%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #0488db 0%, #005dd3 98%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #0488db 0%, #005dd3 98%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+// Fonts
+// --------------------------------------------------
+//@import "roboto";
+//@import "noto-sans";
+$font-path: "../assets/fonts";
+@font-face {
+    font-family: "Material Icons";
+    font-style: normal;
+    font-weight: 400;
+    src: url($font-path + "/MaterialIcons-Regular.eot");
+    /* For IE6-8 */
+    src: local("Material Icons"), local("MaterialIcons-Regular"),
+        url($font-path + "/MaterialIcons-Regular.woff2") format("woff2"),
+        url($font-path + "/MaterialIcons-Regular.woff") format("woff"),
+        url($font-path + "/MaterialIcons-Regular.ttf") format("truetype");
+}
+
+.material-icons {
+    font-family: "Material Icons";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "liga";
+}
+
+.fondo-menu {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#0a85f9+0,6f00ff+98 */
+    background: #00d5f6;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #00d5f6 0%, #0066d3 98%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #00d5f6 0%, #0066d3 98%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #00d5f6 0%, #0066d3 98%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.buttonConfirm {
+    color: #0ec254 !important;
+}
+
+.buttonCancel {
+    color: #e03600 !important;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/poppins-v8-latin-regular.woff2") format("woff2"),
+        url("../assets/fonts/poppins-v8-latin-regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: "Poppins";
+    .label-md-dark,
+    .item-input .label-md-dark,
+    .item-select .label-md-dark,
+    .item-datetime .label-md-dark {
+        font-size: 0.93em;
+    }
+    .checkbox-md + .item-inner ion-label {
+        font-size: 0.93em;
+    }
+    .toolbar-title-md {
+        font-weight: 700 !important;
+    }
+}
+
+//
+html {
+    font-size: 12px;
+}
+
+input {
+    font-size: 10px;
+}
+
+h1 {
+    font-size: 1.2rem;
+}
+
+button {
+    font-size: 5px;
+}
+
+checkbox {
+    font-size: 10px;
+}
+
+ion-label {
+    font-size: 10px;
+}
+
+@import "ionic.theme.custom.scss";
+@import "application.icons.custom.scss";

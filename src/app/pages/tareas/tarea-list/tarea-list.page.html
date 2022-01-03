@@ -1,0 +1,67 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-azul ha-5">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+            <!-- <ion-back-button autoHide="false" color="light"></ion-back-button> -->
+        </ion-buttons>
+        <ion-title class="perfil"><small>Perfil: {{ globalServ.UsuarioTipo }}</small></ion-title>
+    </ion-toolbar>
+
+    <ion-title class="header-titulo">Mis Tareas</ion-title>
+
+    <ion-img class="linea-azul" src="/assets/imgs/pico_transparente.png"></ion-img>
+</ion-header>
+
+<ion-content>
+    <form (ngSubmit)="actualizar()">
+        <ion-list lines="none">
+            <div class="ion-padding-top" *ngFor="let servicio of servicios; let i = index;">                
+                <!-- {{ i | json }} | {{ pt | json }} -->
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle>Servicio:</ion-card-subtitle>
+                        <ion-card-title>{{ servicio.nombre }}</ion-card-title>
+                    </ion-card-header>
+            
+                    <ion-card-content> {{ servicio.descripcion }} </ion-card-content>
+                    
+                </ion-card>
+                <div *ngFor="let servicioTarea of servicio.servicioTareas;">
+                    <ion-item>
+                        <ion-row class="ion-align-items-center ion-justify-content-center">
+                            <ion-col size="6">
+                                <div> <h4>{{ servicioTarea.tarea.nombre }}</h4> </div>
+                            </ion-col>
+    
+                            <ion-col size="4" class="ion-text-center">
+                                <ion-item class="roundedInput mandatory">
+                                    <ion-input (ionChange)="inputChange($event, servicioTarea, i)"
+                                         type="number" [name]="servicioTarea.tarea.id" [value]="servicioTarea.precio"
+                                         [min]="servicioTarea.tarea.tarifaMinima"       [max]="servicioTarea.tarea.tarifaMaxima"
+                                         [minlength]="servicioTarea.tarea.tarifaMinima" [maxlength]="servicioTarea.tarea.tarifaMaxima">
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+    
+                            <ion-col size="12" class="ion-text-justify">
+                                {{ servicioTarea.tarea.descripcion }}
+                            </ion-col>
+    
+                            <ion-col size="6" class="ion-text-center">
+                                <b>Tarifa Mínima:</b> {{ servicioTarea.tarea.tarifaMinima | currency }}
+                            </ion-col>
+                            <ion-col size="6" class="ion-text-center">
+                                <b>Tarifa Máxima:</b> {{ servicioTarea.tarea.tarifaMaxima | currency }}
+                            </ion-col>
+                        </ion-row>
+                    </ion-item>
+                </div>                
+            </div>
+        </ion-list>
+
+        <ion-button shape="round" color="secondary" fill="outline" expand="block" type="submit"
+            [disabled]="formInValido()" class="ion-padding-horizontal ion-margin">
+            Actualizar Tarifas de Tareas
+        </ion-button>
+    </form>
+</ion-content>

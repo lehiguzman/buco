@@ -1,0 +1,38 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-azul ha-5">
+        <ion-buttons slot="start">
+            <!--<ion-menu-button autoHide="false" color="light"></ion-menu-button>-->
+            <ion-back-button autoHide="false" color="light"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="perfil"><small>Perfil: {{ globalServ.UsuarioTipo }}</small></ion-title>
+    </ion-toolbar>
+
+    <ion-title class="header-titulo">Métodos de pago</ion-title>
+
+    <ion-img class="linea-azul" src="/assets/imgs/pico_transparente.png"></ion-img>
+
+    <div>
+        <p class="text-subtitle">
+            <ion-icon slot="start" name="play" style="vertical-align: middle; font-size: 1.5em;"></ion-icon>
+            <i> Seleccioné los metodos de pago que aceptará como Afiliado </i>
+        </p>
+    </div>
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+        <ion-item *ngFor="let metodoPago of metodosPago">
+            <ion-label>{{metodoPago.nombre}}</ion-label>
+            <ion-checkbox slot="end" [(ngModel)]="metodoPago.isChecked"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+
+</ion-content>
+
+<ion-footer>
+    <ion-button shape="round" color="secondary" block outline expand="block" class="ion-padding-horizontal"
+        (click)="registrarMetodos()">
+        Registrar
+    </ion-button>
+</ion-footer>

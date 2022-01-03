@@ -1,0 +1,41 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <ion-buttons slot="start">
+        <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+        <ion-button class="texto-filtro" color="light" shape="round" fill="outline">Filtros</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-text class="texto-titulo">Ordenes de Servicio</ion-text>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>
+</ion-header>
+
+<ion-content color="light">
+
+  <ion-item lines="none" color="light">
+    <ion-label class="ion-text-center"><b>Filtros</b></ion-label>
+  </ion-item>
+
+  <ion-item lines="none" color="light" style="padding-bottom: 0px;">
+
+    <ion-label>
+      <div class="shade-text">Proximidad</div>
+      <div>
+          <ion-range id="dual-range" min="0" max="100" step="5" snaps="true" ticks="true" pin="true" dual-knobs class="range" (ionBlur)="asignarValores($event)">
+              <ion-text color="primary" slot="start">
+                  <h5>Km</h5> 
+              </ion-text>
+          </ion-range>
+      </div>
+    </ion-label>
+  </ion-item>
+
+</ion-content>
+<ion-footer lines="none">
+  <ion-toolbar color="light">
+      <ion-button expand="block" shape="round" color="secondary" class="ion-margin" (click)="filtrarDistancia()">
+          Buscar
+      </ion-button>
+  </ion-toolbar>
+</ion-footer>

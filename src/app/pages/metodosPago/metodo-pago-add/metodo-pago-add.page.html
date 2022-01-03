@@ -1,0 +1,69 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="light" (click)="irAtras()" mode="md"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end" size="large" color="light" (click)="scan()">
+            <p class="texto-tarjeta">Escanea tu tarjeta</p>
+            <ion-icon slot="icon-only" name="camera" color="light" style="padding-right: 10px;"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <ion-label class="texto-titulo"> {{ titulo }} </ion-label>
+
+    <ion-img src="/assets/imgs/pico.png"></ion-img>
+    <ion-img src="/assets/imgs/tarjeta.png" class="header-img-2"></ion-img>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="registroForm" (ngSubmit)="registro()" class="form-style">
+        <!-- Input with placeholder -->
+        <ion-list lines="none" class="ion-padding-horizontal" style="margin-bottom: 0px;">
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">
+                    <ion-input type="text" name="numero" placeholder="Número de tarjeta"
+                        onKeyPress="if(this.value.length==16) return false;" formControlName="numero" required>
+                        <ion-icon class="align-self-center" name="card" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+            </div>
+
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">
+                    <ion-icon name="calendar" class="icon-style-date"></ion-icon>
+                    <ion-datetime formControlName="fechaExpiracion" name="fechaExpiracion" displayFormat="MM/YY"
+                        pickerFormat="MM/YYYY" placeholder="Fecha de expiración" max="2030-12-31" cancelText="Cancelar"
+                        doneText="Continuar" mode="md" class="date-style"></ion-datetime>
+                </ion-item>
+                <!-- <ion-item class="roundedInput mandatory">
+                    <ion-input type="text" formControlName="fechaExpiracion" name="fechaExpiracion" required>
+                        <ion-icon class="align-self-center" name="card" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item> -->
+            </div>
+
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">
+                    <ion-input type="number" onKeyPress="if(this.value.length==3) return false;"
+                        formControlName="cvv" name="cvv" placeholder="CVV">
+                        <ion-icon class="align-self-center" name="map" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+            </div>
+
+            <div class="ion-padding-vertical">
+                <ion-item class="roundedInput mandatory">
+                    <ion-input type="text" formControlName="nombre" name="nombre" placeholder="Nombre">
+                        <ion-icon class="align-self-center" name="person" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+            </div>
+        </ion-list>
+
+        <ion-item lines="none" class="ion-margin-horizontal">
+            <ion-button class="btn-size" color="secondary" [disabled]="!registroForm.valid" type="submit">
+                Registrar
+            </ion-button>
+        </ion-item>
+    </form>
+</ion-content>

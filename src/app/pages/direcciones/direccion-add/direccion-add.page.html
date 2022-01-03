@@ -1,0 +1,74 @@
+<ion-header no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="irAtras()">
+            <ion-back-button mode="md"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">
+            <b>{{ titulo }}</b>
+        </ion-title>
+    </ion-toolbar>
+</ion-header> 
+<ion-content>
+	<form [formGroup]="registroForm" (ngSubmit)="registro()">
+            <!-- Input with placeholder -->
+        <ion-list lines="none" class="ion-padding-horizontal">
+        	<div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">                        
+                    <ion-icon name="home" class="icon-style-select"></ion-icon>
+                    <ion-select formControlName="tipo" name="tipo" cancelText="Cancelar" placeholder="Tipo" class="select-style">
+                        <ion-select-option value="1">Casa</ion-select-option>
+                        <ion-select-option value="2">Trabajo</ion-select-option>
+                        <ion-select-option value="3">Otro</ion-select-option>
+                    </ion-select>                    
+                </ion-item>
+            </div>
+            <div class="ion-padding-top" >
+                <ion-item class="roundedInput mandatory" [ngClass]="direccion ? 'blue' : 'red'">
+                    <ion-input type="text" formControlName="nombre" name="nombre" placeholder="Dirección" required disabled="true">
+                        <ion-icon class="align-self-center" name="locate" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+            </div>            
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">                    
+                    <ion-input type="text" formControlName="residencia" name="residencia" placeholder="Residencia">
+                        <ion-icon class="align-self-center" name="home" slot="start" class="icon-style" >
+                        </ion-icon> 
+                    </ion-input>
+                </ion-item>
+            </div>
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">                    
+                    <ion-input type="number" onKeyPress="if(this.value.length==3) return false;" formControlName="pisoNumero" placeholder="Número de piso" name="pisoNumero" required>
+                        <ion-icon class="align-self-center" name="trending-up" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+            </div>
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">                    
+                    <ion-input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="telefono" placeholder="Teléfono" name="telefono" required>
+                        <ion-icon class="align-self-center" name="phone-portrait" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+            </div>
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">                    
+                    <ion-input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="telefonoMovil" placeholder="Teléfono Móvil" name="telefonoMovil" required>
+                        <ion-icon class="align-self-center" name="phone-portrait" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+            </div>
+            <div class="ion-padding-vertical">
+                <ion-item class="roundedInput mandatory">                    
+                    <ion-input type="text" formControlName="instruccion" name="instruccion" placeholder="Referencias">
+                        <ion-icon class="align-self-center" name="map" slot="start" class="icon-style" >
+                        </ion-icon> 
+                    </ion-input>
+                </ion-item>
+            </div>                 
+        </ion-list>
+        <ion-button shape="round" color="secondary" block outline expand="block" [disabled]="!registroForm.valid" class="ion-padding-horizontal" class="ion-margin" type="submit">
+            Registrar
+        </ion-button>
+    </form>
+</ion-content>

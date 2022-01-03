@@ -1,0 +1,40 @@
+.header-img {
+    width: 100%;    
+      position: relative;
+      top: 0;
+      left: 0;
+      height: 90px;
+      z-index: -1;
+  }
+
+  .texto-titulo {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .margins {    
+    padding-top: 3%;
+    padding-left: 3%; 
+    padding-right: 3%; 
+  }
+
+  .round {
+    border-radius: 20px 20px 20px 20px;
+  }
+
+  .shade-text {
+    color: #B8B8B8;
+  }
+
+  .borde-textarea {
+    border-radius: 25px 25px 25px 25px;    
+    border: 1px solid;
+    border-width: 0.1em;
+    margin-left: 4%;
+    margin-right: 4%;
+    border-color: #B8B8B8; 
+  }

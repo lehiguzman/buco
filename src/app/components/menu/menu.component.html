@@ -1,0 +1,72 @@
+<div *ngIf="globalServ.UsuarioTipo == 'cliente'" (click)="preRegistro()" class="texto-postular">
+    <strong><i>UNETE A BUCO SERVICIO/TALENTO</i></strong>
+</div>
+
+
+<div class="menu" style="position: absolute;">
+    <div class="circulo animated bounceInLeft"> </div>
+
+    <ul>
+        <li class="menu-opcion aHome" (click)="home()" *ngIf="globalServ.UsuarioTipo == 'cliente'">
+            <a>
+                <span color="light">Home</span>
+            </a>
+        </li>
+
+        <li class="menu-opcion aPort" (click)="portafolio()" *ngIf="globalServ.UsuarioTipo == 'profesional'">
+            <a>
+                <span color="light">Mi Portafolio</span>
+            </a>
+        </li>
+
+        <li class="menu-opcion aMPago" (click)="metodoPago()">
+            <a>
+                <span color="light" class="fav">Mis Métodos de Pago</span>
+            </a>
+        </li>
+
+        <li class="menu-opcion aFav" (click)="favorito()" *ngIf="globalServ.UsuarioTipo == 'cliente'">
+            <a>
+                <span class="serv">Mis Favoritos</span>
+            </a>
+        </li>
+
+        <li class="menu-opcion aTask" (click)="tareas()" *ngIf="globalServ.UsuarioTipo == 'profesional'">
+            <a>
+                <span class="task">Mis Tareas</span>
+            </a>
+        </li>
+
+        <li class="menu-opcion aPerfil" (click)="perfil()">
+            <a>
+                <span class="perf">Mi Perfil</span>
+            </a>
+        </li>
+
+        <li class="menu-opcion aServ" (click)="ordenServicio()">
+            <a>
+                <span class="ord">Mis Servicios</span>
+            </a>
+        </li>
+
+        <li class="menu-opcion aDoc" (click)="documentos()" *ngIf="globalServ.UsuarioTipo == 'profesional'">
+            <a>
+                <span color="light" class="fav">Mis Documentos</span>
+            </a>
+        </li>
+
+        <li class="menu-opcion aDir" (click)="direccion()" *ngIf="globalServ.UsuarioTipo == 'cliente'">
+            <a>
+                <span class="conf">Mis Direcciones</span>
+            </a>
+        </li>
+
+        <li class="menu-opcion aLogout" (click)="logout()">
+            <a>
+                <span class="cerrar">Cerrar Sesión</span>
+            </a>
+        </li>
+    </ul>
+
+    <button class="cn-button animated bounceInLeft" id="cn-button" (click)="home()"></button>
+</div>

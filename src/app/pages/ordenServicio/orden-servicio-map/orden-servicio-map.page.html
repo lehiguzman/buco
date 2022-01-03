@@ -1,0 +1,19 @@
+<ion-header no-border>
+  <ion-toolbar>
+      <ion-buttons slot="start" text="Atrás">
+          <ion-back-button mode="md"></ion-back-button>
+      </ion-buttons>      
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+
+  <app-mapa></app-mapa>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button shape="round" color="secondary" expand="block" (click)="abrirWaze()" class="ion-margin-bottom">
+    Google Maps / Waze
+  </ion-button>
+</ion-footer> 

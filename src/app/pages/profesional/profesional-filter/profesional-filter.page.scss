@@ -1,0 +1,140 @@
+.header-img {
+  width: 100%;    
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 90px;
+    z-index: -1;
+}
+
+.texto-titulo {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hora-text {
+
+  padding-top: 5%;
+  padding-left: 40%; 
+  color: #0029C2;   
+
+}
+
+.roundedInput {
+  border-radius: 25px 25px 25px 25px;
+  width: 90%;
+  height: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;     
+  -webkit-box-shadow: 0px 0px 10px -3px rgba(165,163,168,1);
+  -moz-box-shadow: 0px 0px 10px -3px rgba(165,163,168,1);
+  box-shadow: 0px 0px 10px -3px rgba(165,163,168,1);
+
+  highlight-height: 0;   
+}
+
+.date-style {
+  height: 50px;  
+	text-align: center;
+	padding-left: 0;
+  line-height: 50px;
+  
+	//font-size: 15px;
+}
+
+
+.texto-filtro {
+  width: 80px;
+  height: 20px;
+  font-size: 12px;
+  padding-right: 20px;
+  text-transform: none;
+}
+
+.range {    
+  --bar-background: linear-gradient(90deg, rgba(255,152,0,1) 0%, rgba(255,82,0,1) 100%);
+  --bar-background-active: #0029C2; 
+  --bar-height: 5px;
+  --knob-size: 20px; 
+  
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.shade-text {
+  color: #B8B8B8;    
+  font-size: 1em !important;  
+  margin-top: 0;
+  //border: 1px solid;
+}
+
+.calificacion {
+  text-align: center;  
+}
+
+.btn-metodo-pago {
+  height: 40px; 
+  width: 100px;
+}
+
+.item-style {
+  height: 2em;
+}
+
+.label-style {
+  font-size: 1.5em !important; 
+  margin-top: 0;
+}
+
+.div-range {
+  //border: 1px solid; 
+  height: 3em;
+}
+
+@media (min-height: 440px) and (max-height: 580px) {
+  .item-style {
+    height: 1.5em;
+  }
+
+  .label-style {
+    font-size: 1em !important; 
+    margin-top: 0;
+  }
+
+  .div-range {
+    //border: 1px solid; 
+    height: 2em;
+  }
+
+  .item-distancia {
+    height: 6em;
+  }
+
+  .item-radio-genero {
+    height: 1.6em;
+  }
+
+  .label-genero {
+    margin-top: 0; 
+    font-size: 0.8em !important;
+  }
+
+  .radio-genero {
+    margin-top: 0; 
+  }
+
+  .label-metodoPago {
+    margin-top: 0; 
+    font-size: 0.8em !important;
+  }
+
+  .check-metodoPago {
+    margin-top: 0; 
+    --size: 1.2em !important;
+  }
+}

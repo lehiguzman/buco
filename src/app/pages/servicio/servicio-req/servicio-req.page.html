@@ -1,0 +1,127 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="light" (click)="irAtras()" mode="md"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end" size="large" color="light">
+            <p class="texto-editar"></p>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-img src="/assets/imgs/pico.png"></ion-img>
+    <ion-label class="texto-titulo"><b>Solicitar Servicio </b></ion-label>
+</ion-header>
+
+<ion-content>
+
+    <ion-row style="height: 20vw;">
+        <ion-col size="2" style="padding-left: 5%;">
+            <img *ngIf="profesional.foto" src="{{ profesional.foto }}" alt="Imagen Perfil" class="circle-pic">
+            <img *ngIf="!profesional.foto" src="/assets/imgs/userDefault.png" alt="Imagen Perfil" class="circle-pic">
+        </ion-col>
+        <ion-col size="7">
+            <ion-row style="height: 50%;">
+                <ion-col size="12">
+                    <span class="texto-nombre">
+                        <b>{{ profesional.nombre }} {{ profesional.apellido }}</b><br>
+                    </span>
+                    <span class="texto-servicio">
+                        <b>{{ profesional.servicio }} </b>
+                    </span>
+                </ion-col>
+            </ion-row>
+        </ion-col>
+        <ion-col size="3" class="ion-text-center">
+            <p class="texto-monto">
+                $ 90000.00
+            </p>
+        </ion-col>
+    </ion-row>
+
+    <div class="shade-text" *ngIf="idSistema == 2">Título</div>
+
+    <ion-item lines="none" class="ion-padding-bottom borde-textarea" *ngIf="idSistema == 2">
+        <ion-input [(ngModel)]="titulo"></ion-input>
+    </ion-item>
+
+    <div class="shade-text">1. Elige el mes</div>
+
+    <ion-row class="ion-padding-top">
+        <ion-col size="2" class="ion-text-center sliderprev">
+            <span (click)="slidePrev(slider)">
+                <ion-icon mode="ios" name="arrow-back"></ion-icon>
+            </span>
+        </ion-col>
+        <ion-col size="8">
+            <ion-slides #slider style="padding-top: 5px;" (ionSlideTouchEnd)="asignarDias(slider)"
+                (ionSlidesDidLoad)="slidesDidLoad(slider)">
+                <ion-slide *ngFor="let mes of meses" class="ion-text-capitalize">
+                    <b>{{mes}}</b>
+                </ion-slide>
+            </ion-slides>
+        </ion-col>
+        <ion-col size="2" style="font-size: 30px;" class="ion-text-center slidernext">
+            <span (click)="slideNext(slider)">
+                <ion-icon mode="ios" name="arrow-forward"></ion-icon>
+            </span>
+        </ion-col>
+    </ion-row>
+
+    <div class="shade-text">2. Elige el dia</div>
+
+    <ion-row class="ion-padding-top">
+        <ion-col size="1" class="ion-text-center sliderprev">
+            <span (click)="slidePrev(slider2)">
+                <ion-icon mode="ios" name="arrow-back" style="margin-top: 100%; width: 20px;"></ion-icon>
+            </span>
+        </ion-col>
+        <ion-col size="10">
+            <ion-slides [options]="slideOpts" #slider2 (ionSlidesDidLoad)="slides2DidLoad(slider2)">
+                <ion-slide #fecha *ngFor="let dia of dias;" style="font-size: 12px;">
+                    <ion-grid>
+                        <ion-row size="12" class="ion-no-padding">
+                            <ion-col>
+                                <div shape="round" class="shade-btn"
+                                    [ngClass]="{'activeIndex': diaSeleccion===dia.numeroDia }"
+                                    (click)="seleccionarDia(dia.numeroDia)">
+                                    {{dia.numeroDia}}
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="12">
+                                {{dia.dia|slice:0:3|uppercase}}
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-slide>
+            </ion-slides>
+        </ion-col>
+        <ion-col size="1" style="font-size: 30px;" class="ion-text-center slidernext">
+            <span (click)="slideNext(slider2)">
+                <ion-icon mode="ios" name="arrow-forward" style="margin-top: 100%; width: 20px;"></ion-icon>
+            </span>
+        </ion-col>
+    </ion-row>
+
+    <div class="shade-text">3. Elige la Hora</div>
+
+    <ion-item lines="none">
+        <div class="rango-text">
+            <ion-datetime mode="md" displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="horaActual"
+                cancelText="Cancelar" doneText="Confirmar" (ionChange)="horaSelect($event)">
+            </ion-datetime>
+        </div>
+    </ion-item>
+
+    <div class="shade-text">4. Descripción</div>
+
+    <ion-item lines="none" class="ion-padding-bottom" class="borde-textarea">
+        <ion-textarea [(ngModel)]="descripcion"></ion-textarea>
+    </ion-item>
+
+</ion-content>
+<ion-footer *ngIf="aprobado">
+    <ion-button shape="round" color="secondary" expand="block" (click)="irAConfirmacion()" class="ion-margin-bottom">
+        Continuar
+    </ion-button>
+</ion-footer>

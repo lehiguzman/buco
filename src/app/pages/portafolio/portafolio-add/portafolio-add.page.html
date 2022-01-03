@@ -1,0 +1,53 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-azul ha-5">
+      <ion-buttons slot="start">
+          <!--<ion-menu-button autoHide="false" color="light"></ion-menu-button>-->
+          <ion-back-button autoHide="false" color="light"></ion-back-button>
+      </ion-buttons>
+      <ion-title class="perfil"><small>Perfil: {{ globalServ.UsuarioTipo }}</small></ion-title>
+  </ion-toolbar>
+
+  <ion-title class="header-titulo">Agregar Archivo</ion-title>
+
+  <ion-img class="linea-azul" src="/assets/imgs/pico_transparente.png"></ion-img>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="registroForm">
+    <ion-list lines="none" class="ion-padding">
+      <div class="ion-padding-vertical">
+        <ion-item class="roundedInput">                    
+          <ion-input type="text" name="nombre" formControlName="nombre" placeholder="Nombre *" (ionInput)="verificarNombre( $event )" required>
+            <ion-icon class="align-self-center" name="document" slot="start" class="icon-style"> </ion-icon>
+          </ion-input>
+        </ion-item>    
+      </div>  
+
+      <div class="ion-padding-vertical" *ngIf="habilitarTipoArc">
+        <ion-item class="roundedInput">      
+          <ion-icon name="document" class="icon-style-select"> </ion-icon>
+          <ion-select name="tipo_archivo" formControlName="tipo_archivo" cancelText="Cancelar" placeholder="Tipo Archivo" class="select-style" (ionChange)="verificarTipo( $event )">
+            <ion-select-option value="1">Archivo</ion-select-option>
+            <ion-select-option value="2">Imagen</ion-select-option>
+            <ion-select-option value="3" *ngIf="!blockVideo">Video</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <div class="fileUpload ion-padding-vertical" *ngIf="tipoDoc">
+        <ion-item class="roundedInput">          
+          <ion-icon class="align-self-center" name="cloud-upload" slot="start" class="icon-style"> </ion-icon>
+          <span class="shade-text-select">{{ tipoArchivoTexto }}</span>
+          <input type="file" [accept]="tipoDoc" formControlName="ruta" class="upload" name="ruta" (change)="transformarArchivo($event)">
+        </ion-item>
+      </div>      
+    </ion-list>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button shape="round" color="secondary" block outline expand="block" class="ion-padding-horizontal" (click)="registro()">
+      {{ accion }}
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

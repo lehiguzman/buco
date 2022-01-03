@@ -1,0 +1,45 @@
+<ion-header no-border>
+    <ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button (click)="irAtras()" mode="md"></ion-back-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-item lines="none" class="no-item ion-padding-top">
+        <ion-label class="ion-text-center">
+            <h2><b>Restablecer contraseña</b></h2>
+        </ion-label>
+    </ion-item>
+	<form ngNativeValidate [formGroup]="passwordForm" (ngSubmit)="renovarClave()">
+        <!-- Input with placeholder -->
+        <ion-list lines="none" class="ion-padding-horizontal">
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">                    
+                    <ion-input type="text" formControlName="_email" name="_email" placeholder="Tu correo electrónico" [disabled]="autenticado" required>
+                        <ion-icon class="align-self-center" name="mail" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+            </div>                 
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput mandatory">                    
+                    <ion-input type="tel" maxlength="4" formControlName="_code" name="_code" placeholder="Código (4 dígitos)" required>
+                        <ion-icon class="align-self-center" name="lock" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item> 
+            </div>        
+            <div class="ion-padding-vertical">
+                <ion-item class="roundedInput mandatory">                    
+                    <ion-input type="password" formControlName="_password" name="_password" placeholder="Contraseña" required>
+                        <ion-icon class="align-self-center" name="key" slot="start" class="icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+            </div>
+            <!--<ion-toggle color="primary" slot="end" (ionChange)="mostrar()" formControlName="mostrarClave"></ion-toggle> -->          
+        </ion-list>
+        <ion-button shape="round" block outline expand="block" class="sin-mayscula" class="ion-padding" class="ion-margin" color="secondary" type="submit" [disabled]="!passwordForm.valid" >
+             Restablecer contraseña
+        </ion-button>
+    </form>
+</ion-content>

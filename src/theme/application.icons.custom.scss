@@ -1,0 +1,31 @@
+/* INICIO --- CSS ICONOS PERSONALIZADOS DE LA APLICACIÓN */
+//  https://golb.hplar.ch/2018/01/Custom-SVG-icons-in-Ionic.html
+
+ion-icon {
+    &[class*="mr-"] {
+        mask-size: contain;
+        mask-position: 50% 50%;
+        mask-repeat: no-repeat;
+        background: currentColor;
+        width: 1em;
+        height: 1em;
+    }
+
+    /* &[class*="mr-bolsita-blanco"] {
+        mask-image: url(../assets/icon/svg/bolsita-blanco.svg) !important;
+    }
+
+    &[class*="mr-bolsita-negro"] {
+        mask-image: url(../assets/icon/svg/bolsita-negro.svg) !important;
+    }
+
+    &[class*="mr-bolsita-circulo-blanco"] {
+        mask-image: url(../assets/icon/svg/bolsita-circulo-blanco.svg) !important;
+    }
+
+    &[class*="mr-bolsita-circulo-negro"] {
+        mask-image: url(../assets/icon/svg/bolsita-circulo-negro.svg) !important;
+    } */
+}
+
+/* FIN --- CSS ICONOS PERSONALIZADOS DE LA APLICACIÓN */

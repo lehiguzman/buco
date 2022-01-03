@@ -1,0 +1,36 @@
+$colors: (
+    primary: #f16521,
+    primary-dark: #d1571c,
+    secondary: #e6ea28,
+    danger: #f53d3d,
+    dark2: #222,
+    dark: #000000,
+    light: #f4f4f4,
+    azul: #1e72b3,
+    blanco: #ffffff,
+    borde-facebook: #3b5998,
+    boton-amarillo: #e6ea28,
+    boton-azul: #1e72b3,
+    botonTransparent: transparent,
+    facebook: #3b5998,
+    focus-facebook: #4466ac,
+    icono-gris: #dedede,
+    lineas-gris: #dedede,
+    negro: #000000,
+    regular: #629c44,
+    rojo: red,
+    textColorTabs: #ffffff,
+    texto-gris: #8f8f8f,
+    texto-modal: #444,
+    texto-verde: #9eb57d,
+    verde: #08be44,
+    vinculo: #68b2db,
+) !default;
+$text-color: #000 !default;
+$link-color: color($colors, primary) !default;
+$background-color: #fff !default;
+$toolbar-background: color($colors, primary) !default;
+$toolbar-border-color: color($colors, primary) !default;
+$toolbar-text-color: color($colors, light) !default;
+$toolbar-active-color: $link-color !default;
+$toolbar-inactive-color: #8c8c8c !default;

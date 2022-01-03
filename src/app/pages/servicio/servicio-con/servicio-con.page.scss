@@ -1,0 +1,47 @@
+.header-img {
+    width: 100%;  
+    height: 90px;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.texto-titulo {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    color: white;
+    font-size: 1.5em !important;
+    font-weight: bold;
+  }
+
+  .shade-text {
+    color: #B8B8B8;
+  }
+
+  .texto {    
+    background-color: #DAF0F8;
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 0.04em;    
+  }
+
+  .monto-tarea {
+    font-size: 0.8em !important;
+    text-align: center;
+  }
+
+  .texto-tarea {
+    font-size: 1em !important;
+    text-align: center;
+  }
+
+  .borde-textarea {
+    border-radius: 25px 25px 25px 25px;    
+    border: 1px solid;
+    border-width: 0.1em;
+    margin-left: 4%;
+    margin-right: 4%;
+    border-color: #B8B8B8; 
+  }

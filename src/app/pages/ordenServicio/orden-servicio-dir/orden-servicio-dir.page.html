@@ -1,0 +1,21 @@
+<ion-header no-border>
+  <ion-toolbar>
+      <ion-buttons slot="start" text="Atrás">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>      
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>  
+  
+  <div class="ion-padding shade-text" style="font-size: 16px;">{{ direccion }}</div>
+
+  <img class="markador-flotante" src="assets/imgs/mapa/marcador-naranja.png">
+  <div #map id="map"></div>
+</ion-content>
+
+<ion-footer>
+  <ion-button shape="round" color="secondary" expand="block" (click)="irAOrden()" class="ion-margin-bottom">
+    Cerrar
+  </ion-button>
+</ion-footer>  

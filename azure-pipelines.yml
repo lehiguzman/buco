@@ -1,0 +1,594 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/build-artifacts?view=azure-devops&tabs=yaml
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/copy-files?view=azure-devops&tabs=yaml
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/app-center-distribute?view=azure-devops
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml
+
+trigger:
+  - dev
+  - master
+  - certification
+  - '*production*'
+  - '*/feature*'
+  - '*/hotfix*'
+  - '*/fix*'
+  - '*test*'
+  - '*build*'
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  nodeVersion: 14.x
+  Project.Firebase.token: "1//05byKqvogrdqRCgYIARAAGAUSNwF-L9Irwgki29YzMLnHIjM1eM-29bJ23Uj5Y_vxa5r2xsmOmzrYjYuVy4PGg4xcusTjE5jxBgA"
+  Project.AppCenter.apiToken: "3516127a98321a8b6fbf50f65bbb98fcb4cd794f"
+  Project.AppCenter.userToken: "487709442c059cf38ffd8b5a738a8d2a0813fa81"
+  Project.AppCenter.cert.distributionGroupId: "32bd40f6-a239-4e70-a49e-68022165efd2"
+  Project.AppCenter.preprod.distributionGroupId: "519d01c5-04d8-4d6c-b2c4-ea47424cc7c7"
+  Project.AppCenter.playStoreAlpha: "c9b03c7c-56be-48eb-96b3-c05ced8af10f"
+  Project.AppCenter.playStoreProduction: "58ad222b-aced-47cf-b530-e1bf7cfb5b90"
+  Project.Build.npmInstall: "rm -rf node_modules package-look.json plugins www && npm install"
+  Project.Build.android.debug: "ionic cordova platform rm android && ionic cordova platform add android && node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng run app:ionic-cordova-build --platform=android && ionic cordova prepare android && ionic cordova build android --no-build --release --buildConfig=build.json"
+  Project.Build.android.prod: "ionic cordova platform rm android && ionic cordova platform add android && node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng run app:ionic-cordova-build --platform=android && ionic cordova prepare android && node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng run app:ionic-cordova-build:production --platform=android && cordova build android --release --buildConfig build.json"
+  ${{ if or(contains(variables['Build.sourceBranch'], 'production'), contains(variables['Build.sourceBranch'], 'production_release')) }}:
+    stageName: "preprod"
+  ${{ if or(contains(variables['Build.sourceBranch'], 'certification'), contains(variables['Build.sourceBranch'], 'master')) }}:
+    stageName: "cert"
+  ${{ if ne(or(contains(variables['Build.sourceBranch'], 'production'), contains(variables['Build.sourceBranch'], 'certification'), contains(variables['Build.sourceBranch'], 'master')), 'True') }}:
+    stageName: "dev"
+
+jobs:
+  # Pruebas Unitarias
+  - job: testUnit
+    displayName: "Pruebas Unitarias"
+    condition: and(succeeded(), or(contains(variables['Build.sourceBranch'], 'build'), contains(variables['Build.sourceBranch'], 'feature'), contains(variables['Build.sourceBranch'], 'fix'), contains(variables['Build.sourceBranch'], 'dev'), contains(variables['Build.sourceBranch'], 'master'), contains(variables['Build.sourceBranch'], 'certification'), contains(variables['Build.sourceBranch'], 'production'), contains(variables['Build.sourceBranch'], 'production_release')))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(nodeVersion)
+        displayName: "Node 14.x"
+
+      # Build App Prod
+      - script: |
+          #$(Project.Build.npmInstall)
+          npm run actualizar:dependencias
+          echo "========== npm audit fix =========="
+          npm audit
+          # npm audit fix 2>/dev/null
+          echo "========== ========== =========="
+          npm run build:prod
+        displayName: "Build Prod"
+
+      # # Install Karma Jasmine
+      # - script: |
+      #     npm install -g @ionic/cli @angular/cli
+      #     # npm audit
+      #     npm install karma jasmine puppeteer
+      #     npm install karma-jasmine --save-dev
+      #     ng config -g cli.warnings.versionMismatch false
+      #     whereis chromium
+      #     export CHROME_BIN=/usr/bin/chromium-browser
+      #     # npm install protractor webdriver-manager -g
+      #     # node_modules/protractor/bin/webdriver-manager update --versions.chrome 84.0.4147.0
+      #   displayName: "Install Karma Jasmine"
+
+      # # Pruebas Unitarias | ng test
+      # - script: |
+      #     # https://angular.io/guide/testing
+      #     ng test --no-watch --no-progress --browsers=ChromeHeadlessCI
+      #   displayName: "ng test"
+
+      # # Pruebas Unitarias | ng e2e
+      # - script: |
+      #     ng e2e --protractor-config=e2e/protractor-ci.conf.js
+      #   displayName: "ng e2e"
+
+      # # Pruebas Unitarias | ng test
+      # - script: |
+      #     ng test --no-watch --code-coverage
+      #   displayName: "ng test"
+
+  # Despliega WebApp en Ambiente respectivo
+  - job: BuildWebApp
+    displayName: "Construir WebApp"
+    dependsOn: testUnit
+    condition: and(succeeded(), or(contains(variables['Build.sourceBranch'], 'build'), contains(variables['Build.sourceBranch'], 'feature'), contains(variables['Build.sourceBranch'], 'fix'), contains(variables['Build.sourceBranch'], 'dev'), contains(variables['Build.sourceBranch'], 'certification'), contains(variables['Build.sourceBranch'], 'production')))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(nodeVersion)
+        displayName: "Node 14.x"
+
+      # Build App (Dev | Cert | PreProd)
+      - script: |
+          npm install -g @ionic/cli @angular/cli
+          npm install -g cordova@latest
+          npm install
+          mv src/environments/environment.prod.ts src/environments/environment.prod.ts.backup
+          cp src/environments/environment.$(stageName).ts src/environments/environment.prod.ts
+          npm run construir:web-$(stageName)
+          ionic info
+        displayName: "Build $(stageName)"
+
+      # Deploy WebApp (Dev | Cert | PreProd)
+      - script: |
+          npm install -g firebase-tools
+          firebase deploy --project=$(stageName) --token '$(Project.Firebase.token)'
+        displayName: "Deploy WebApp $(stageName)"
+
+      # Build|Deploy WebApp Prod
+      - script: |
+          rm src/environments/environment.prod.ts
+          mv src/environments/environment.prod.ts.backup src/environments/environment.prod.ts
+          npm run construir:web-prod
+          firebase deploy --project=prod --token '$(Project.Firebase.token)'
+        displayName: "Build|Deploy WebApp Prod"
+        condition: and(succeeded(), or(eq(variables['Build.sourceBranch'], 'refs/heads/production'), eq(variables['Build.sourceBranch'], 'refs/heads/production_release')))
+
+  # Generar APK en Ambiente de Certificación | Distribuir en AppCenter
+  - job: BuildBinaryCert
+    displayName: "Generar APK Cert"
+    dependsOn: BuildWebApp
+    condition: and(succeeded(), eq(variables['Build.sourceBranch'], 'refs/heads/certification'))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(nodeVersion)
+        displayName: "Node 14.x"
+
+      # instalar dependencias
+      - script: |
+          npm install -g @ionic/cli @angular/cli
+          npm install -g cordova@latest
+          npm run actualizar:dependencias
+        displayName: "Instalar Dependencias"
+
+      # ambiente cert: remplazar archivos
+      - script: |
+          mv src/environments/environment.prod.ts src/environments/environment.prod.ts.backup
+          cp src/environments/environment.cert.ts src/environments/environment.prod.ts
+        displayName: "Cert: Configurar Entorno"
+
+      # construir app
+      - script: |
+          npm run construir:web-cert
+          ionic info
+        displayName: "Construir Aplicación"
+
+      # compilar apk
+      - script: |
+          # ajuste de Java JDK 8
+          sudo update-alternatives --set java /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/java
+          sudo update-alternatives --set javac /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/javac
+          # https://ionicframework.com/docs/cli/commands/cordova-build
+          $(Project.Build.android.debug)
+          cp platforms/android/app/build/outputs/apk/release/app-release.apk appBucoCert.apk
+        displayName: "Compilar Android"
+
+      # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/copy-files
+      - task: CopyFiles@2
+        inputs:
+          contents: 'appBucoCert.apk'
+          targetFolder: $(Build.ArtifactStagingDirectory)
+        displayName: "Obtener APK"
+
+      # https://docs.microsoft.com/es-es/azure/devops/pipelines/tasks/utility/publish-build-artifacts
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: apkBucoCert
+        displayName: "Guardar APK"
+
+      # AppCenter Install|Login
+      - script: |
+          sudo npm install -g appcenter-cli
+          npm install -g appcenter-cli
+          appcenter login --token '$(Project.AppCenter.userToken)'
+        displayName: "AppCenter Install|Login"
+
+      # Config latest changes Cert
+      - script: |
+          rm releases/latestchanges.txt
+          cat releases/cert.md releases/releasesnotes.md > releases/latestchanges.txt
+        displayName: "Config LATEST CHANGES Cert"
+
+      # AppCenter Distribute Cert
+      - task: AppCenterDistribute@3
+        inputs:
+          serverEndpoint: "Buco-App-Android"
+          appSlug: "strapp/Buco-App-Cliente-Android"
+          appFile: "appBucoCert.apk"
+          symbolsOption: "Android"
+          releaseNotesOption: file
+          releaseNotesFile: './releases/latestchanges.txt'
+          destinationType: "groups"
+          distributionGroupId: "$(Project.AppCenter.cert.distributionGroupId)"
+          isSilent: false
+        displayName: "AppCenter Distribute Cert"
+
+  # Generar APK en Ambiente de PreProducción | Distribuir en AppCenter
+  - job: BuildBinaryPreProd
+    displayName: "Generar APK PreProd"
+    dependsOn: BuildWebApp
+    condition: and(succeeded(), or(eq(variables['Build.sourceBranch'], 'refs/heads/preproduction'), eq(variables['Build.sourceBranch'], 'refs/heads/production')))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(nodeVersion)
+        displayName: "Node 14.x"
+
+      # instalar dependencias
+      - script: |
+          npm install -g @ionic/cli @angular/cli
+          npm install -g cordova@latest
+          npm run actualizar:dependencias
+        displayName: "Instalar Dependencias"
+
+      # ambiente preprod: remplazar archivos
+      - script: |
+          mv src/environments/environment.prod.ts src/environments/environment.prod.ts.backup
+          cp src/environments/environment.preprod.ts src/environments/environment.prod.ts
+        displayName: "PreProd: Configurar Entorno"
+        condition: and(succeeded(), or(eq(variables['Build.sourceBranch'], 'refs/heads/preproduction'), eq(variables['Build.sourceBranch'], 'refs/heads/production')))
+
+      # construir app
+      - script: |
+          npm run construir:web-preprod
+        displayName: "Construir Aplicación"
+        condition: and(succeeded(), or(eq(variables['Build.sourceBranch'], 'refs/heads/preproduction'), eq(variables['Build.sourceBranch'], 'refs/heads/production')))
+
+      # compilar apk
+      - script: |
+          # ajuste de Java JDK 8
+          sudo update-alternatives --set java /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/java
+          sudo update-alternatives --set javac /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/javac
+          # https://ionicframework.com/docs/cli/commands/cordova-build
+          $(Project.Build.android.prod)
+          cp platforms/android/app/build/outputs/apk/release/app-release.apk appBucoPreProd.apk
+        displayName: "Compilar Android"
+
+      # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/copy-files
+      - task: CopyFiles@2
+        inputs:
+          contents: 'appBucoPreProd.apk'
+          targetFolder: $(Build.ArtifactStagingDirectory)
+        displayName: "Obtener APK"
+
+      # https://docs.microsoft.com/es-es/azure/devops/pipelines/tasks/utility/publish-build-artifacts
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: apkBucoPreProd
+        displayName: "Guardar APK"
+
+      # AppCenter Install|Login
+      - script: |
+          sudo npm install -g appcenter-cli
+          npm install -g appcenter-cli
+          appcenter login --token '$(Project.AppCenter.userToken)'
+        displayName: "AppCenter Install|Login"
+
+      # AppCenter Distribute PreProd
+      - task: AppCenterDistribute@3
+        inputs:
+          serverEndpoint: "Buco-App-Android"
+          appSlug: "strapp/Buco-App-Cliente-Android"
+          appFile: "appBucoPreProd.apk"
+          symbolsOption: "Android"
+          releaseNotesOption: file
+          releaseNotesFile: './releases/releasesnotes_prod.txt'
+          isMandatory: true
+          destinationType: "groups"
+          distributionGroupId: "$(Project.AppCenter.preprod.distributionGroupId)"
+          isSilent: false
+        displayName: "AppCenter Distribute PreProd"
+
+      # AppCenter PlayStore PreProd (CHANEL ALPHA)
+      - task: AppCenterDistribute@3
+        inputs:
+          serverEndpoint: "Buco-App-Android"
+          appSlug: "strapp/Buco-App-Cliente-Android"
+          appFile: "appBucoPreProd.apk"
+          symbolsOption: "Android"
+          releaseNotesOption: file
+          releaseNotesFile: './releases/releasesnotes_prod.txt'
+          isMandatory: true
+          destinationType: "store"
+          destinationStoreId: "$(Project.AppCenter.playStoreAlpha)"
+          isSilent: false
+        displayName: "AppCenter PlayStore PreProd"
+
+  # # Generar APK en Ambiente de Producción | Distribuir en AppCenter
+  # - job: BuildBinaryProd
+  #   displayName: "Generar APK Prod"
+  #   dependsOn: BuildWebApp
+  #   condition: and(succeeded(), or(eq(variables['Build.sourceBranch'], 'refs/heads/production'), eq(variables['Build.sourceBranch'], 'refs/heads/production_release')))
+  #   steps:
+  #     - task: NodeTool@0
+  #       inputs:
+  #         versionSpec: $(nodeVersion)
+  #       displayName: "Node 14.x"
+
+  #     # instalar dependencias
+  #     - script: |
+  #         npm install -g @ionic/cli @angular/cli
+  #         npm install -g cordova@latest
+  #         npm run actualizar:dependencias
+  #       displayName: "Instalar Dependencias"
+
+  #     # construir app
+  #     - script: |
+  #         npm run construir:web-prod
+  #         ionic info
+  #       displayName: "Construir Aplicación"
+
+  #     # compilar apk
+  #     - script: |
+  #         # ajuste de Java JDK 8
+  #         sudo update-alternatives --set java /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/java
+  #         sudo update-alternatives --set javac /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/javac
+  #         # https://ionicframework.com/docs/cli/commands/cordova-build
+  #         $(Project.Build.android.prod)
+  #         cp platforms/android/app/build/outputs/apk/release/app-release.apk appBucoProd.apk
+  #       displayName: "Compilar Android"
+
+  #     # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/copy-files
+  #     - task: CopyFiles@2
+  #       inputs:
+  #         contents: 'appBucoProd.apk'
+  #         targetFolder: $(Build.ArtifactStagingDirectory)
+  #       displayName: "Obtener APK"
+
+  #     # https://docs.microsoft.com/es-es/azure/devops/pipelines/tasks/utility/publish-build-artifacts
+  #     - task: PublishBuildArtifacts@1
+  #       inputs:
+  #         pathToPublish: $(Build.ArtifactStagingDirectory)
+  #         artifactName: apkBucoProd
+  #       displayName: "Guardar APK"
+
+  #     # AppCenter Install|Login
+  #     - script: |
+  #         sudo npm install -g appcenter-cli
+  #         npm install -g appcenter-cli
+  #         appcenter login --token '$(Project.AppCenter.userToken)'
+  #       displayName: "AppCenter Install|Login"
+
+  #     # AppCenter PlayStore Prod (CHANEL PRODUCTION)
+  #     - task: AppCenterDistribute@3
+  #       inputs:
+  #         serverEndpoint: "Buco-App-Android"
+  #         appSlug: "strapp/Buco-App-Cliente-Android"
+  #         appFile: "appBucoProd.apk"
+  #         symbolsOption: "Android"
+  #         releaseNotesOption: file
+  #         releaseNotesFile: './releases/releasesnotes_prod.txt'
+  #         isMandatory: true
+  #         destinationType: "store"
+  #         destinationStoreId: "$(Project.AppCenter.playStoreProduction)"
+  #         isSilent: false
+  #       displayName: "AppCenter PlayStore Prod"
+
+
+###################################
+###      JOBS PARA PRUEBAS      ###
+###################################
+
+# Generar APK Ambiente de Desarrollo
+  - job: BuildAPK
+    displayName: "Generar APK Dev"
+    dependsOn: BuildWebApp
+    condition: and(succeeded(), or(contains(variables['Build.sourceBranch'], 'dev'), contains(variables['Build.sourceBranch'], 'build')))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(nodeVersion)
+        displayName: "Node 14.x"
+
+      # instalar dependencias
+      - script: |
+          npm install -g @ionic/cli @angular/cli
+          npm install -g cordova@latest
+          npm run actualizar:dependencias
+        displayName: "Instalar Dependencias"
+
+      # ambiente dev: remplazar archivos
+      - script: |
+          mv src/environments/environment.prod.ts src/environments/environment.prod.ts.backup
+          cp src/environments/environment.dev.ts src/environments/environment.prod.ts
+        displayName: "Dev: Configurar Entorno"
+
+      # construir app
+      - script: |
+          npm run construir:web-dev
+          ionic info
+        displayName: "Construir Aplicación"
+
+      # compilar apk
+      - script: |
+          # ajuste de Java JDK 8
+          sudo update-alternatives --set java /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/java
+          sudo update-alternatives --set javac /usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/javac
+          # https://ionicframework.com/docs/cli/commands/cordova-build
+          $(Project.Build.android.debug)
+          cp platforms/android/app/build/outputs/apk/release/app-release.apk appBucoDev.apk
+          # platforms/android/app/build/outputs/apk/debug/app-debug.apk
+        displayName: "Compilar Android"
+
+      # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/copy-files
+      - task: CopyFiles@2
+        inputs:
+          contents: 'appBucoDev.apk'
+          targetFolder: $(Build.ArtifactStagingDirectory)
+        displayName: "Obtener APK"
+
+      # https://docs.microsoft.com/es-es/azure/devops/pipelines/tasks/utility/publish-build-artifacts
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: apkBuco
+        displayName: "Guardar APK"
+
+      # AppCenter Install|Login
+      - script: |
+          sudo npm install -g appcenter-cli
+          npm install -g appcenter-cli
+          appcenter login --token '$(Project.AppCenter.userToken)'
+        displayName: "AppCenter Install|Login"
+
+      # Config latest changes Dev
+      - script: |
+          rm releases/latestchanges.txt
+          cat releases/dev.md releases/releasesnotes.md > releases/latestchanges.txt
+        displayName: "Config LATEST CHANGES Dev"
+
+      # AppCenter Distribute Dev
+      - task: AppCenterDistribute@3
+        inputs:
+          serverEndpoint: "Buco-App-Android"
+          appSlug: "strapp/Buco-App-Cliente-Android"
+          appFile: "appBucoDev.apk"
+          symbolsOption: "Android"
+          releaseNotesOption: file
+          releaseNotesFile: './releases/latestchanges.txt'
+          destinationType: "groups"
+          distributionGroupId: "$(Project.AppCenter.cert.distributionGroupId)"
+          isSilent: true
+        displayName: "AppCenter Distribute Dev"
+
+  # Despliega WebApp en Ambiente Desarrollo | Pruebas
+  - job: BuildDeployWebAppTest
+    displayName: "Build and Deploy WebApp"
+    condition: and(succeeded(), contains(variables['Build.sourceBranch'], 'test'))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(nodeVersion)
+        displayName: "Node 14.x"
+
+      - script: |
+          npm install -g @ionic/cli @angular/cli
+          npm install -g cordova@latest
+          npm install
+          mv src/environments/environment.prod.ts src/environments/environment.prod.ts.backup
+          cp src/environments/environment.cert.ts src/environments/environment.prod.ts
+          npm run construir:web-cert
+          npm install -g firebase-tools
+          firebase deploy --project=cert --token '$(Project.Firebase.token)'
+        displayName: "Build Deploy WebApp"
+
+  # Binary Android | Pruebas
+  - job: BuildBinaryAndroid
+    displayName: "Android: Build Binary"
+    condition: and(succeeded(), contains(variables['Build.sourceBranch'], 'build'))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(nodeVersion)
+        displayName: "Node 14.x"
+
+      - script: |
+          # https://angular.io/cli/build
+          echo " - - - Instalar Dependencias - - - "
+          npm install -g @ionic/cli @angular/cli
+          npm install -g cordova@latest
+          npm run actualizar:dependencias
+          npm run construir:web-preprod
+          echo " - - - Generar Binario - - - "
+          ionic cordova platform rm android
+          ionic cordova platform add android
+          ionic cordova prepare android
+          ionic cordova build android --prod --release --buildConfig=build.json
+          echo " - - - - - - - - - "
+          ls -lhsa
+        displayName: "Build Android"
+
+      - task: CopyFiles@2
+        inputs:
+          contents: |
+            src/app/**
+            src/environments/**
+          targetFolder: $(Build.ArtifactStagingDirectory)
+        displayName: "Obtener APK"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: apkBuco
+        displayName: "Guardar APK"
+
+  # Construir Binario para iOS
+  - job: BuildBinaryiOS_Linux
+    displayName: "Construir Binario iOS"
+    dependsOn: BuildBinaryPreProd
+    condition: and(succeeded(), contains(variables['Build.sourceBranchName'], 'production'))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(nodeVersion)
+        displayName: "Node 14.x"
+
+      - script: |
+          brew install gnu-sed --with-default-names
+          ionic cordova platform rm ios
+          ionic cordova platform add ios
+          ionic cordova prepare ios
+          node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng run app:ionic-cordova-build --platform=ios
+          cordova build ios --release
+          ls -lhsa
+        displayName: "Build iOS"
+
+      - task: CopyFiles@2
+        inputs:
+          contents: |
+            platforms/ios/**
+          targetFolder: $(Build.ArtifactStagingDirectory)
+        displayName: "Obtener IPA"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: ipaBuco
+        displayName: "Guardar IPA"
+
+  # Binary iOS | Pruebas
+  - job: BuildBinaryiOS_Mac
+    pool:
+      vmImage: 'macOS-latest'
+    displayName: "iOS: Build Binary"
+    dependsOn: BuildBinaryiOS_Linux
+    condition: and(succeeded(), contains(variables['Build.sourceBranch'], 'build'))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(nodeVersion)
+        displayName: "Node 14.x"
+
+      - script: |
+          brew install gnu-sed --with-default-names
+          npm install -g @ionic/cli @angular/cli
+          npm install -g cordova@latest
+          npm run actualizar:dependencias
+          npm run construir:web-prod
+          #npm audit fix --force
+          ionic cordova platform rm ios
+          ionic cordova platform add ios
+          ionic cordova prepare ios
+          ionic cordova build ios
+          ls -lhsa
+        displayName: "Build iOS"
+
+      - task: CopyFiles@2
+        inputs:
+          contents: |
+            platforms/ios/**
+          targetFolder: $(Build.ArtifactStagingDirectory)
+        displayName: "Obtener IPA"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: ipaBuco
+        displayName: "Guardar IPA"

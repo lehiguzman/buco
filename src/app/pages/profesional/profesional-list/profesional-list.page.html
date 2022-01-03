@@ -1,0 +1,98 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button class="texto-filtro" color="light" shape="round" fill="outline" (click)="irAFiltro()">Filtros
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-label class="texto-titulo">Afiliados</ion-label>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>
+  <ion-item class="roundedInput buscador">
+    <ion-input (ionChange)="buscarProfesional( $event )" placeholder="¿Qué quieres buscar?">
+      <ion-icon class="align-self-center" name="search" slot="start" class="icon-style"> </ion-icon>
+    </ion-input>
+  </ion-item>
+</ion-header>
+
+<ion-content color="light">
+
+  <ion-grid>
+    <div *ngFor="let pro of profesionales | filtro: textoBuscar: 'nombre'" style="height: 9.5em;">
+      <ion-row class="col-dir">
+
+        <ion-col size="4" class="ion-text-center" (click)="detalle(pro)">
+
+          <img *ngIf="pro.foto" src="{{ pro.foto }}" class="icon-pro" />
+          <img *ngIf="!pro.foto" src="assets/icons/Outline.png" class="icon-pro" />
+
+        </ion-col>
+        <ion-col size="8">
+          <ion-row style="height: 20%;" (click)="detalle(pro)">
+            <ion-col size="7" class="ion-text-center">
+              <ion-text class="text-style">
+                <b> {{ pro.nombre }} {{ pro.apellido }} </b>                
+              </ion-text>
+              <ion-icon name="checkmark-circle" style="font-size: 20px; vertical-align: middle; color: green;" *ngIf="pro.seleccionado"></ion-icon>
+            </ion-col>
+            <ion-col size="5" class="ion-text-center">
+              <ion-icon name="pin" color="secondary" class="icon-style"></ion-icon>
+              <ion-text class="text-style">
+                {{ pro.distancia | number:"1.0-2" }} Km
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="height: 15%;">
+            <ion-col size="1"></ion-col>
+            <ion-col size="8" (click)="detalle(pro)">
+              <ion-text class="text-style">
+                {{ pro.servicio }}
+              </ion-text>              
+            </ion-col>            
+            <ion-col size="3" (click)="irAPortafolio(pro)" *ngIf="pro.portafolio.length > 0">
+              <ion-icon name="briefcase" style="font-size: 24px; color: #89703C;" ></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-text-center row-style">
+            <ion-col size="4">
+              Puntuación
+            </ion-col>
+            <ion-col size="5">
+              Buconexiones
+            </ion-col>
+            <ion-col size="3">
+              Tarifa
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-text-center" (click)="detalle(pro)">
+            <ion-col size="4">
+              <ion-icon name="star" class="icon-style" color="secondary"></ion-icon>
+              <ion-text class="text-style">
+                {{ pro.calificacion | number:"1.0-1" }}
+              </ion-text>
+            </ion-col>
+            <ion-col size="5">
+              <ion-icon name="build" class="icon-style" color="secondary"></ion-icon>
+              <ion-text class="text-style">
+                {{ pro.odsFinalizadas }}
+              </ion-text>              
+            </ion-col>
+            <ion-col size="3">
+              $ {{ pro.tarifaMinima }}
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>
+
+<ion-footer lines="none" *ngIf="idSistema==2 && profesionalesSeleccionados.length > 0" no-border>
+  <ion-toolbar color="light">
+    <ion-button expand="block" shape="round" color="secondary" class="ion-margin" (click)="solicitarServicio()">
+      Solicitar servicio
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,46 @@
+<ion-header no-border>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button mode="md"></ion-back-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">	
+    	<ion-item lines="none" class="no-item ion-padding-top">
+    		<ion-label class="ion-text-center">
+    			<b>¿Olvido su contraseña?</b>
+    		</ion-label>
+    	</ion-item>	        	
+		<ion-grid>
+			<ion-row class="ion-padding-top" *ngIf="!autenticado">
+				<ion-col col-12>
+					<div class="ion-text-center">
+						Introduce la dirección de correo electrónico <br> con la que te has registrado
+					</div>
+				</ion-col>		        				      					 
+			</ion-row>	    
+			<ion-row class="ion-padding-top">
+				<ion-col col-12>
+					<div class="ion-text-center">
+						Te enviaremos un correo con el código <br> para restablecer tu contraseña
+					</div>
+				</ion-col>	  
+			</ion-row>    				       			
+		</ion-grid>	        	
+    	<form ngNativeValidate [formGroup]="emailForm" (ngSubmit)="enviarMail()">
+    		<!-- Input with placeholder -->
+    		<ion-list lines="none" class="ion-padding">
+        		<div>
+                    <ion-item class="roundedInput mandatory">
+                        <ion-input type="text" formControlName="_email" name="_email" placeholder="Tu correo electrónico" [disabled]="autenticado" required>
+                            <ion-icon class="align-self-center" name="mail" slot="start" class="icon-style"> </ion-icon>
+                        </ion-input>
+                    </ion-item>
+                </div>	            
+    		</ion-list>
+    		<ion-button shape="round" block outline expand="block" class="sin-mayscula" color="secondary" class="ion-padding-horizontal" class="ion-margin" type="submit" [disabled]="!emailForm.valid" >
+        		Enviar correo
+			</ion-button>			
+		</form>
+</ion-content>

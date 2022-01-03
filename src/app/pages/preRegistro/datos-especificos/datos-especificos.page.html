@@ -1,0 +1,84 @@
+<ion-header no-border>
+    <ion-toolbar class="ion-text-center">
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="secondary" mode="md"></ion-back-button>
+        </ion-buttons>
+        <ion-title> <b>Datos Especiales</b> </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form (ngSubmit)="registro()">
+        <ion-list lines="none" class="ion-padding-horizontal">
+            <div class="ion-padding-top" *ngFor="let campo of formDinamico; let i = index;">
+                <!-- {{ i | json }} | {{ campo | json }} -->
+                <ion-item class="roundedInput mandatory" *ngIf="campo.tipo === 'text'">
+                    <ion-input (ionChange)="inputChange($event, campo)"
+                         type="text" [name]="campo.clave" [placeholder]="campo.nombre" [value]="campo.valor"
+                         [minlength]="campo.longitudMinima" [maxlength]="campo.longitudMaxima" [required]="campo.requerido">
+                        <ion-icon name="information-circle-outline" slot="start" class="align-self-center icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+
+                <ion-item class="roundedInput mandatory" *ngIf="campo.tipo === 'number'">
+                    <ion-input (ionChange)="inputChange($event, campo)"
+                         type="number" [name]="campo.clave" [placeholder]="campo.nombre" [value]="campo.valor" [required]="campo.requerido"
+                         [min]="campo.longitudMinima" [max]="campo.longitudMaxima" [minlength]="campo.longitudMinima" [maxlength]="campo.longitudMaxima">
+                        <ion-icon name="keypad" mode="ios" slot="start" class="align-self-center icon-style"> </ion-icon>
+                    </ion-input>
+                </ion-item>
+
+                <ion-item class="roundedInput mandatory" *ngIf="campo.tipo === 'date'">
+                    <ion-icon name="calendar" class="icon-style-date"></ion-icon>
+                    <ion-label>{{ campo.nombre }}</ion-label>
+                    <ion-datetime (ionChange)="inputChange($event, campo)" [value]="campo.valor"
+                         [name]="campo.clave" [placeholder]="campo.nombre" class="date-style"
+                         displayFormat="DD MMM YYYY" dateFormat="DD MMMM YYYY" cancelText="Cancelar" doneText="OK"></ion-datetime>
+                </ion-item>
+
+                <ion-item class="roundedInput mandatory" *ngIf="campo.tipo === 'datetime'">
+                    <ion-icon name="calendar" class="icon-style-date"></ion-icon>
+                    <ion-label>{{ campo.nombre }}</ion-label>
+                    <ion-datetime (ionChange)="inputChange($event, campo)" [value]="campo.valor"
+                         [name]="campo.clave" [placeholder]="campo.nombre" class="date-style"
+                         displayFormat="DD MMM YYYY hh:mm A" dateFormat="DD MMMM YYYY hh:mm A" cancelText="Cancelar" doneText="OK"></ion-datetime>
+                </ion-item>
+
+                <ion-item class="roundedInput mandatory" *ngIf="campo.tipo === 'time'">
+                    <ion-icon name="calendar" class="icon-style-date"></ion-icon>
+                    <ion-label>{{ campo.nombre }}</ion-label>
+                    <ion-datetime (ionChange)="inputChange($event, campo)" [value]="campo.valor"
+                        [name]="campo.clave" [placeholder]="campo.nombre" class="date-style"
+                         displayFormat="hh:mm A" dateFormat="hh:mm A" cancelText="Cancelar" doneText="OK"></ion-datetime>
+                </ion-item>
+
+                <ion-item class="roundedInput mandatory" *ngIf="campo.tipo === 'selectsimple' || campo.tipo === 'selectmultiple'">
+                    <ion-label>{{ campo.nombre }}</ion-label>
+                    <ion-select [name]="campo.clave" [placeholder]="campo.nombre" [value]="campo.valor" [multiple]="campo.multiple"
+                         (ionChange)="inputChange($event, campo)" cancelText="Cancelar" okText="OK" class="select-style">
+                        <ion-select-option [value]="opc" *ngFor="let opc of campo.opciones">{{opc}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-item class="roundedInput mandatory" *ngIf="campo.tipo === 'boolean'">
+                    <!-- <ion-icon name="toggle-outline"></ion-icon> -->
+                    <ion-radio-group (ionChange)="inputChange($event, campo)" [name]="campo.clave" [value]="campo.valor">
+                        <ion-list-header>
+                            <ion-label>{{ campo.nombre }}</ion-label>
+                        </ion-list-header>
+
+                        <ion-item *ngFor="let opc of campo.opciones">
+                            <ion-label>{{ opc }}</ion-label>
+                            <ion-radio slot="start" [value]="opc"></ion-radio>
+                        </ion-item>
+                    </ion-radio-group>
+                </ion-item>
+            </div>
+        </ion-list>
+
+        <ion-button shape="round" color="secondary" fill="outline" expand="block" type="submit"
+            [disabled]="formInValido()" class="ion-padding-horizontal ion-margin">
+            Registrar
+        </ion-button>
+    </form>
+</ion-content>

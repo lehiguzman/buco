@@ -1,0 +1,66 @@
+.roundedInput {
+	border-radius: 25px 25px 25px 25px;
+	width: 95%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	-webkit-box-shadow: 0px 0px 10px -3px rgba(165, 163, 168, 1);
+	-moz-box-shadow: 0px 0px 10px -3px rgba(165, 163, 168, 1);
+	box-shadow: 0px 0px 10px -3px rgba(165, 163, 168, 1);
+
+	--highlight-height: 0;
+}
+
+.mandatory {
+	-webkit-box-shadow: 0px 0px 10px -1px rgba(129, 123, 138, 1);
+	-moz-box-shadow: 0px 0px 10px -1px rgba(129, 123, 138, 1);
+	box-shadow: 0px 0px 10px -1px rgba(129, 123, 138, 1);
+}
+
+.icon-style {
+	padding-left: 10px;
+	width: 25%;
+	font-size: 25px;
+	color: rgba(165, 163, 168, 1);
+}
+
+.select-style {
+	text-align: left;
+	padding-left: 0;
+	max-width: 70% !important;
+	//font-size: 15px;
+}
+
+.icon-style-select {
+	padding-left: 10px;
+	width: 25%;
+	font-size: 25px;
+	text-align: center;
+	color: rgba(165, 163, 168, 1);
+}
+
+.date-style {
+	height: 50px;
+	text-align: left;
+	padding-left: 0;
+	line-height: 50px;
+	//font-size: 15px;
+}
+
+.icon-style-date {
+	padding-left: 10px;
+	width: 25%;
+	font-size: 25px;
+	text-align: center;
+	color: rgba(165, 163, 168, 1);
+}
+
+.item-style {
+	height: 2em;
+}
+
+.shade-text {
+	color: #b8b8b8;
+	font-size: 1em !important;
+	margin-top: 0;
+}

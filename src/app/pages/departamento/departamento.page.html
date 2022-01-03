@@ -1,0 +1,34 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-label class="texto-titulo">Departamentos</ion-label>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>  
+  <ion-item class="roundedInput buscador">   
+    <ion-input (ionChange) = "buscarDepartamento( $event )" placeholder="¿Qué quieres buscar?">    
+        <ion-icon class="align-self-center" name="search" slot="start" class="icon-style"> </ion-icon>  
+    </ion-input>
+  </ion-item>
+</ion-header>
+
+<ion-content color="light">
+  
+    <ion-grid>           
+      <ion-row class="ion-padding-bottom">
+        <ion-col size="4" class="text-center" *ngFor="let dep of departamentos | filtro: textoBuscar: 'nombre'">
+          <div class="col-dir" (click) = "servicio(dep.id)">
+            <!-- <img src="assets/icons/Outline.png" class="icon-dep" /> <br> -->
+            <img *ngIf="dep.icono" src="{{ dep.icono }}" class="icon-dep" />
+            <img *ngIf="!dep.icono" src="assets/icons/Outline.png" class="icon-dep" /> 
+            <br>
+            <ion-text class="texto-icono">
+              {{ dep.nombre }}
+            </ion-text> 
+          </div>
+        </ion-col>        
+      </ion-row>
+    </ion-grid>
+  
+</ion-content>

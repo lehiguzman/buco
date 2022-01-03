@@ -1,0 +1,82 @@
+<ion-content class="main-view">
+    <div class="overlay" (click)="dismiss()"></div>
+
+    <div class="modal_content">
+        <ion-grid>
+            <ion-row class="header-mensaje">
+                <ion-col size="12" class="ion-text-center">
+                    <img src="assets/icons/icon-72x72.png" alt="Logo Buco" class="img-logo">
+                </ion-col>
+            </ion-row>
+            <br>
+
+            <ion-row>
+                <ion-col size="12" class="ion-text-center titulo-mensaje">
+                    Orden #{{ datos.id || '123' }}
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12" class="ion-text-center asunto-mensaje">
+                    {{ datos.title || datos.titulo }}
+                </ion-col>
+            </ion-row>
+            <br>
+
+            <ion-row *ngIf="datos.descripcion || datos.body">
+                <ion-col size="12" class="ion-text-left titulo-detalle">
+                    Detalle de la Notificación
+                </ion-col>
+                <ion-col size="12" class="ion-text-left asunto-titulo">
+                    {{ datos.body || datos.descripcion }}
+                </ion-col>
+            </ion-row>
+            <br>
+
+            <ion-row *ngIf="showIrDetalle">
+                <ion-col size="12" class="ion-text-left asunto-titulo" *ngIf="datos.estatusTexto">
+                    Estado: <i>{{ datos.estatusTexto }}</i>
+                </ion-col>
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button class="boton" color="primary" fill="outline" shape="round" (click)="irDetalle()">
+                        <i>{{ btnNombre }}</i>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+            <br><br>
+
+            <ion-row *ngIf="datos.profesional && datos.profesional.nombre">
+                <ion-col size="12" class="ion-text-left asunto-titulo">
+                    <b>Profesional:</b> {{ datos.profesional.nombre }} {{ datos.profesional.apellido || "" }}
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="datos.user && datos.user.name && globalServ.UsuarioTipo == 'profesional'">
+                <ion-col size="12" class="ion-text-left asunto-titulo">
+                    <b>Cliente:</b> {{ datos.user.name }}
+                </ion-col>
+            </ion-row>
+
+            <!-- <ion-row> <ion-col size="12" class="ion-text-left">
+                <div class="code-text">
+                    <pre *ngIf="globalServ.debug" class="ion-text-start">{{ datos | json }}</pre>
+                </div>
+                <br>
+            </ion-col> </ion-row> -->
+        </ion-grid>
+
+        <div class="modal_footer">
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="12" class="ion-text-center">
+                        <ion-button class="boton" (click)="dismiss()" color="danger" fill="outline" expand="block">CERRAR</ion-button>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="12" class="ion-text-center footer-text">
+                        Copyright BUCO © {{ anio }}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+</ion-content>

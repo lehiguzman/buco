@@ -1,0 +1,32 @@
+<ion-content>
+	<ion-slides pager="true" [options]="slideOpts" class="slides-style" #slider (ionSlidesDidLoad)="slidesDidLoad(slider)">    
+        <ion-slide>    
+
+            <ion-img src="/assets/imgs/intro/credenciales.svg" class="splash" ></ion-img>            
+
+        </ion-slide>
+        <ion-slide>
+            
+            <ion-img src="/assets/imgs/intro/herramientas.svg" class="splash" ></ion-img> 
+
+        </ion-slide>
+        <ion-slide>
+            
+            <ion-img src="/assets/imgs/intro/servicios.svg" class="splash" ></ion-img> 
+
+        </ion-slide> 
+        <ion-slide>
+
+            <ion-img src="/assets/imgs/intro/usuarios.svg" class="splash" ></ion-img> 
+
+        </ion-slide>
+        <ion-slide>
+
+            <ion-img src="/assets/imgs/intro/talentos.svg" class="splash" ></ion-img> 
+
+        </ion-slide>
+	</ion-slides> 
+	<ion-item lines="none" class="ion-text-center">
+	    <ion-label style="font-size: 10px;" (click)="login()"><b>Toca para iniciar sesión o registrarme</b></ion-label>
+	</ion-item>
+</ion-content>

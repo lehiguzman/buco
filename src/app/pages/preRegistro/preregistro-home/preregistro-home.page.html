@@ -1,0 +1,133 @@
+<ion-header no-border>
+    <ion-toolbar></ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col size="12" style="text-align: center;">
+                <ion-title><strong>Únete a Buco</strong></ion-title>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12" style="text-align: center;">
+                <span style="font-size: 1em !important;">Tu también puedes ser un proveedor de servicios</span>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12" style="text-align: center;">
+                <img src="assets/imgs/userDefault.png" class="circle-pic">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div class="ion-padding-bottom">
+        <ion-item class="roundedInput">
+            <ion-input [(ngModel)]="textoServicio" (ionInput)="buscarServicio( $event )" placeholder="Encuentra tu servicio">
+                <ion-icon class="align-self-center icon-style" name="search" slot="start"> </ion-icon>
+            </ion-input>
+        </ion-item>
+    </div>
+
+    <ion-list [hidden]="ocultaLista" class="list-style">
+        <ion-item lines="none" *ngFor="let servicioTipoDoc of resultados | slice:0:6;" (click)="seleccionaServicio(servicioTipoDoc.servicio)">
+            {{ servicioTipoDoc.servicio.nombre }}
+        </ion-item>
+    </ion-list>
+
+    <div [hidden]="ocultaOpciones">
+        <div class="ion-padding-bottom">
+            <ion-item class="roundedInput">
+                <ion-button fill="clear" color="dark" (click)="irADatosBasicos()">
+                    <ion-input disabled="true">
+                        <ion-icon class="align-self-center icon-style-start" name="person" slot="start"> </ion-icon>
+                        <ion-text class="text-style"> Datos básicos </ion-text>
+                        <ion-icon class="align-self-right icon-style-add"   *ngIf="!checkDatosBasicos" name="add"> </ion-icon>
+                        <ion-icon class="align-self-right icon-style-check" *ngIf=" checkDatosBasicos" name="checkmark-circle"> </ion-icon>
+                    </ion-input>
+                </ion-button>
+            </ion-item>
+        </div>
+
+        <div class="ion-padding-bottom">
+            <ion-item class="roundedInput">
+                <ion-button fill="clear" color="dark" (click)="irADatosEspecificos()">
+                    <ion-input disabled="true">
+                        <ion-icon class="align-self-center icon-style-start" name="person-add" slot="start"> </ion-icon>
+                        <ion-text class="text-style"> Datos específicos </ion-text>
+                        <ion-icon class="align-self-right icon-style-add"   *ngIf="!checkDatosEspecificos" name="add"> </ion-icon>
+                        <ion-icon class="align-self-right icon-style-check" *ngIf=" checkDatosEspecificos" name="checkmark-circle"> </ion-icon>
+                    </ion-input>
+                </ion-button>
+            </ion-item>
+        </div>
+
+        <div class="ion-padding-bottom">
+            <ion-item class="roundedInput">
+                <ion-button fill="clear" color="dark" (click)="irAMetodosPago()">
+                    <ion-input disabled="true">
+                        <ion-icon class="align-self-center icon-style-start" name="card" slot="start"> </ion-icon>
+                        <ion-text class="text-style"> Métodos de pago </ion-text>
+                        <ion-icon class="align-self-right icon-style-add"   *ngIf="!checkMetodosPago" name="add"> </ion-icon>
+                        <ion-icon class="align-self-right icon-style-check" *ngIf="checkMetodosPago" name="checkmark-circle"> </ion-icon>
+                    </ion-input>
+                </ion-button>
+            </ion-item>
+        </div>
+
+        <div class="ion-padding-bottom">
+            <ion-item class="roundedInput">
+                <ion-button fill="clear" color="dark" (click)="irADirecciones()">
+                    <ion-input disabled="true">
+                        <ion-icon class="align-self-center icon-style-start" name="pin" slot="start"> </ion-icon>
+                        <ion-text class="text-style"> Dirección de trabajo </ion-text>
+                        <ion-icon class="align-self-right icon-style-add"   *ngIf="!checkDireccion" name="add"> </ion-icon>
+                        <ion-icon class="align-self-right icon-style-check" *ngIf=" checkDireccion" name="checkmark-circle"> </ion-icon>
+                    </ion-input>
+                </ion-button>
+            </ion-item>
+        </div>
+
+        <div class="ion-padding-bottom">
+            <ion-item class="roundedInput">
+                <ion-button fill="clear" color="dark" (click)="irATareasTarifas()">
+                    <ion-input disabled="true">
+                        <ion-icon class="align-self-center icon-style-start" name="cash" slot="start"> </ion-icon>
+                        <ion-text class="text-style"> Tareas y tarifas </ion-text>
+                        <ion-icon class="align-self-right icon-style-add"   *ngIf="!checkTareasTarifas" name="add"> </ion-icon>
+                        <ion-icon class="align-self-right icon-style-check" *ngIf=" checkTareasTarifas" name="checkmark-circle"> </ion-icon>
+                    </ion-input>
+                </ion-button>
+            </ion-item>
+        </div>
+
+        <div class="ion-padding-bottom">
+            <ion-item class="roundedInput">
+                <ion-button fill="clear" color="dark" (click)="irADocumentos()">
+                    <ion-input disabled="true">
+                        <ion-icon class="align-self-center icon-style-start" name="document" slot="start"> </ion-icon>
+                        <ion-text class="text-style"> Documentos requeridos </ion-text>
+                        <ion-icon class="align-self-right icon-style-add"   *ngIf="!checkDocumentos" name="add"> </ion-icon>
+                        <ion-icon class="align-self-right icon-style-check" *ngIf=" checkDocumentos" name="checkmark-circle"> </ion-icon>
+                    </ion-input>
+                </ion-button>
+            </ion-item>
+        </div>
+
+        <div *ngIf="estado == 2">
+            <ion-item lines="none">
+                <ion-label class="ion-text-center">PRE-REGISTRO COMPLETADO</ion-label>
+            </ion-item>
+        </div>
+
+        <div *ngIf="(checkDatosEspecificos && checkDireccion && checkTareasTarifas && checkDocumentos) && estado == 1">
+            <ion-item lines="none">
+                <ion-button expand="block" fill="clear" shape="round" class="btn-save"
+                    [disabled]="!(checkDatosBasicos && checkDatosEspecificos && checkDireccion && checkTareasTarifas && checkDocumentos)">
+                    <ion-icon name="add-circle" class="icon-style-btn"> </ion-icon>
+                    REGISTRAR POSTULACIÓN
+                </ion-button>
+            </ion-item>
+        </div>
+    </div>
+</ion-content>

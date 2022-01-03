@@ -1,0 +1,98 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-azul ha-5">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+            <!-- <ion-back-button autoHide="false" color="light"></ion-back-button> -->
+        </ion-buttons>
+        <ion-title class="perfil"><small>Perfil: {{ globalServ.UsuarioTipo }}</small></ion-title>
+    </ion-toolbar>
+
+    <ion-title class="header-titulo">Mis Métodos de Pago</ion-title>
+
+    <ion-img class="linea-azul" src="/assets/imgs/pico_transparente.png"></ion-img>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+    <div *ngIf="globalServ.UsuarioTipo === 'cliente'">
+        <div *ngFor="let tarjeta of metodosPago" class="ion-padding-bottom">
+            <ion-item-sliding class="roundedInput">
+                <ion-item>
+                    <ion-button fill="clear" color="dark">
+                        <ion-input disabled="true">
+                            <ion-icon class="align-self-center" name="card" slot="start" class="icon-style"> </ion-icon>
+                            <span (click)="verDetalle(tarjeta.id)">{{ tarjeta.numero }}</span>
+                        </ion-input>
+                    </ion-button>
+                </ion-item>
+
+                <ion-item-options side="end">
+                    <!-- <ion-item-option color="dark" (click)="editar(tarjeta.id)">
+                        <img src="assets/icons/edit-icon.png" height="30" width="30" />
+                    </ion-item-option> -->
+
+                    <ion-item-option color="dark" (click)="eliminar(tarjeta.id)">
+                        <img src="assets/icons/delete-icon.png" height="30" width="30" />
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+        </div>
+
+        <br> <br> <br>
+
+        <div>
+            <!--<ion-item class="roundedInput">
+            <ion-input button (click) = "agregarMetodoPago()">
+              <ion-icon class="align-self-center" name="add-circle" slot="start" class="icon-style"> </ion-icon>
+              Agregar Método de Pago
+            </ion-input>
+           </ion-item>-->
+            <ion-item lines="none">
+                <ion-button (click)="agregarMetodoPago()" expand="block" fill="clear" shape="round" class="btn-save">
+                    <ion-icon name="add-circle" class="icon-style-btn"> </ion-icon>
+                    Agregar Método de Pago
+                </ion-button>
+            </ion-item>
+        </div>
+    </div>
+
+    <div *ngIf="globalServ.UsuarioTipo === 'profesional'">
+        <ion-list>
+            <ion-item-divider>
+                <ion-label> Métodos Configurados </ion-label>
+            </ion-item-divider>
+            <ion-item *ngFor="let MPP of metodosPago" [disabled]="isActive(MPP.metodoPago)">
+                <ion-label>
+                    {{ MPP.metodoPago.nombre }}
+                    <small *ngIf="isActive(MPP.metodoPago)">(Inactivo)</small>
+                </ion-label>
+                <ion-icon (click)="eliminarMetodoPago(MPP.metodoPago)" name="close-circle-outline" color="danger" slot="end"> </ion-icon>
+            </ion-item>
+            <ion-item *ngIf="metodosPago.length == 0">
+                <ion-label>No hay Métodos de Pago configurados</ion-label>
+            </ion-item>
+
+            <br> <br> <br>
+
+            <ion-item-divider>
+                <ion-label> Métodos de Buco </ion-label>
+            </ion-item-divider>
+            <ion-item *ngFor="let MP of metodosPagoBuco" [disabled]="isActive(MP)">
+                <ion-label>{{ MP.nombre }}</ion-label>
+                <ion-checkbox slot="end" [(ngModel)]="MP.isChecked"></ion-checkbox>
+            </ion-item>
+            <ion-item *ngIf="metodosPagoBuco.length == 0">
+                <ion-label>No hay Métodos de Pago disponibles</ion-label>
+            </ion-item>
+
+            <br> <br> <br>
+
+            <ion-item lines="none">
+                <ion-button expand="block" fill="clear" shape="round" class="btn-save"
+                        (click)="actualizarMetodosPago()" [disabled]="metodosPagoBuco.length == 0">
+                    <ion-icon name="refresh-circle-outline"></ion-icon>
+                    Actualizar Métodos de Pago
+                </ion-button>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

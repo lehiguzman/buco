@@ -1,0 +1,88 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <ion-buttons slot="start" text="Atrás">
+        <ion-back-button color="light" (click)="irAtras()" mode="md"></ion-back-button>
+    </ion-buttons>      
+  </ion-toolbar>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>
+  <ion-label class="texto-titulo"><b>Seleccionar profesionales</b></ion-label>
+</ion-header>
+
+<ion-content color="light">
+
+  <ion-grid>
+
+    <div>
+      <ion-row class="ion-padding-bottom ion-text-center">
+        <ion-col size="12">
+          <ion-text style="font-size: 2em;">
+            {{ servicio }}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div>
+      <ion-row style="height: 2.5em; margin-bottom: .5em; background-color: #DEF6FC;  border-radius: 20px 20px 20px 20px;  ">        
+        <ion-col size="3" class="ion-text-left">          
+          <ion-radio value="1" checked="true" color="secondary" style="height: 12px; width: 12px;"></ion-radio>
+          <ion-text style="margin-left: 5px; font-size: .9em;">Principal</ion-text>
+        </ion-col>        
+        <ion-col size="3" class="ion-text-left">
+          <ion-radio value="2" checked="true" color="success" style="height: 12px; width: 12px;"></ion-radio>
+          <ion-text style="margin-left: 5px; font-size: .9em;">Backup</ion-text>      
+        </ion-col>        
+        <ion-col size="4" class="ion-text-left">
+          <ion-radio value="3" checked="true" color="danger" style="height: 12px; width: 12px;"></ion-radio>          
+          <ion-text style="margin-left: 5px; font-size: .9em;">Descartado</ion-text>      
+        </ion-col>        
+      </ion-row>
+    </div>
+
+    <div *ngFor="let pro of profesionales" style="height: 8.5em;">
+      <ion-row class="col-dir">
+
+        <ion-col size="4" class="ion-text-center">
+
+          <img *ngIf="pro.foto" src="{{ pro.foto }}" class="icon-pro" />
+          <img *ngIf="!pro.foto" src="assets/icons/Outline.png" class="icon-pro" />
+
+        </ion-col>
+        <ion-col size="8" style="margin-top: 10px;">
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <ion-text class="text-style">
+                <b> {{ pro.nombre }} {{ pro.apellido }} </b>
+              </ion-text>
+            </ion-col>           
+          </ion-row>
+          <ion-row>            
+              <ion-col size="12" class="ion-text-center">
+                <ion-list>
+                  <ion-radio-group [(ngModel)]="pro.estatus">                    
+                    
+                      <ion-radio value="2" color="secondary" style="margin-right: 15%;" ></ion-radio>        
+                    
+                    
+                      <ion-radio value="3" color="success"></ion-radio>
+                    
+                    
+                      <ion-radio value="4" color="danger" style="margin-left: 15%;"></ion-radio>
+                    
+                  </ion-radio-group>
+                </ion-list>
+              </ion-col>                          
+          </ion-row>                
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer no-border>
+  <ion-button shape="round" color="secondary" expand="block" class="ion-margin-bottom" (click)="confirmarSeleccion()">
+      Confirmar selección
+  </ion-button>
+</ion-footer>
+

@@ -1,0 +1,47 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <ion-buttons slot="start" text="Atrás">
+      <ion-back-button color="light" (click)="irAtras()" mode="md"></ion-back-button>
+    </ion-buttons>    
+  </ion-toolbar>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>
+  <div>
+    <img *ngIf="profesional.foto" src="{{ profesional.foto }}" alt="Imagen Perfil" class="circle-pic">
+    <img *ngIf="!profesional.foto" src="/assets/imgs/userDefault.png" alt="Imagen Perfil" class="circle-pic">
+    <ion-label class="texto-titulo"><b>{{profesional.nombre}} {{profesional.apellido}} </b></ion-label>
+    <ion-label class="texto-subtitulo">{{profesional.servicio}}</ion-label>
+  </div>
+</ion-header>
+
+<ion-content color="light">
+  <ion-grid fixed class="ion-margin-top">
+    <div *ngFor="let archivo of portafolio" style="height: 7.5em;" class="ion-margin-top">
+      <ion-row class="col-dir">
+        <ion-col class="ion-text-center" size="4" (click)="descargarArchivo(archivo)">
+          <img *ngIf="archivo.tipoArchivo == 1" src="assets/icons/descargar_doc.png" class="icon-pro" />
+          <img *ngIf="archivo.tipoArchivo == 2" src="assets/icons/descargar_img.png" class="icon-pro" />
+          <img *ngIf="archivo.tipoArchivo == 3" src="assets/icons/descargar_video.jpg" class="icon-pro" />
+          <b>Descargar</b>
+        </ion-col>
+        <ion-col size="8">
+          <ion-row style="height: 25%;">
+            <ion-col size="1"></ion-col>
+            <ion-col size="10" style="font-size: 14px;"><b>Nombre:</b> {{ archivo.nombre }}</ion-col>
+            <ion-col size="1"></ion-col>
+          </ion-row>
+          <ion-row style="height: 25%;">
+            <ion-col size="1"></ion-col>
+            <ion-col size="10" style="font-size: 12px;"><b>Tipo:</b> {{ archivo.tipoArchivoTexto }}</ion-col>
+            <ion-col size="1"></ion-col>
+          </ion-row>
+          <ion-row style="height: 25%;">
+            <ion-col size="1"></ion-col>
+            <ion-col size="10" style="font-size: 12px;"><b>Fecha:</b> {{ archivo.fechaCreacion }}</ion-col>
+            <ion-col size="1"></ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </div>    
+  </ion-grid>
+
+</ion-content>

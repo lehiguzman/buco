@@ -1,0 +1,13 @@
+
+
+<ion-list>  
+  <ion-item lines="none">
+    <ion-label (click)="irADatosBasicos()">Datos básicos</ion-label>
+  </ion-item>  
+  <ion-item lines="none" *ngIf="globalServ.UsuarioTipo == 'profesional'">
+    <ion-label (click)="irAServicios()">Servicios</ion-label>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label (click)="irASolicitud()">Cambiar contraseña</ion-label>
+  </ion-item>
+</ion-list>

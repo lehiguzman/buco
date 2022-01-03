@@ -1,0 +1,61 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">   
+    <ion-buttons slot="start">
+      <ion-back-button autoHide="false" color="light" mode="md"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-label class="texto-titulo">Fotos</ion-label>
+  <ion-label class="texto-subtitulo">Seleccione imagen</ion-label>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>    
+</ion-header>
+
+<ion-content color="light">
+ 
+  <ion-grid fixed style="margin-top: 15%;">
+    <ion-row style="height: 10em;">
+      <ion-col size="6" style="width: 100%; height: 100%;" class="ion-text-center"> 
+        <div *ngIf="fotos[0]">          
+          <img width="100px" height="100px" object-fit="cover" [src]="fotos[0]" />
+          <ion-icon name="close-circle" (click)="quitarFoto(0)" color="danger" style="font-size: 2em;"></ion-icon>          
+        </div>
+      </ion-col>
+      <ion-col size="6" style="width: 100%; height: 100%;" class="ion-text-center"> 
+        <div *ngIf="fotos[1]">          
+          <img width="100px" height="100px" object-fit="cover" [src]="fotos[1]" />
+          <ion-icon name="close-circle" (click)="quitarFoto(1)" color="danger" style="font-size: 2em;"></ion-icon>          
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row style="height: 10em;">
+      <ion-col size="6" style="width: 100%; height: 100%;" class="ion-text-center"> 
+        <div *ngIf="fotos[2]">          
+          <img width="100px" height="100px" object-fit="cover" [src]="fotos[2]" />
+          <ion-icon name="close-circle" (click)="quitarFoto(2)" color="danger" style="font-size: 2em;"></ion-icon>          
+        </div>
+      </ion-col>
+      <ion-col size="6" style="width: 100%; height: 100%;" class="ion-text-center"> 
+        <div *ngIf="fotos[3]">          
+          <img width="100px" height="100px" object-fit="cover" [src]="fotos[3]" />
+          <ion-icon name="close-circle" (click)="quitarFoto(3)" color="danger" style="font-size: 2em;"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="ion-text-center">
+        <ion-col size="12">           
+            <ion-chip color="secondary" (click)="tomarFoto()">
+              <ion-icon name="add-circle"></ion-icon>
+              <ion-label>Agregar imagen</ion-label>
+            </ion-chip>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+<ion-footer>
+  <ion-button shape="round" color="secondary" expand="block" (click)="continuar()" class="ion-margin-bottom">
+      Continuar
+  </ion-button>
+</ion-footer>

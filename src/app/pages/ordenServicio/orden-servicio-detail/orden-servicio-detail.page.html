@@ -1,0 +1,298 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="light" (click)="irAtras()" mode="md"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end" size="large" color="light">
+            <p class="texto-editar"></p>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-img src="/assets/imgs/pico.png"></ion-img>
+    <ion-label class="texto-titulo"><b>Orden de Servicio</b></ion-label>
+</ion-header>
+
+<ion-content color="light">
+    <!-- <ion-item>
+        <pre> tipoListado: {{ tipoListado | json }} </pre>
+        <pre> telCliente: {{ ordenServicio.telCliente | json }} </pre>
+        <pre> telProfesional: {{ ordenServicio.telProfesional | json }} </pre>
+    </ion-item> -->
+    <ion-item *ngIf="tipoListado == 'cliente' && sistemaTipo == 1">
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">PROFESIONAL</div>
+            <div class="ion-padding-left">{{ nombreProfesional }}</div>
+        </ion-label>
+        <ion-icon *ngIf="ordenServicio.telProfesional" name="call" slot="end" (click)="llamarProfesional()"></ion-icon>
+    </ion-item>
+    <a href="tel:{{ordenServicio.telCliente}}" id="llamarCliente" style="display: none"></a>
+    <a href="tel:{{ordenServicio.telProfesional}}" id="llamarProfesional" style="display: none"></a>
+    <ion-item *ngIf="tipoListado == 'profesional'">
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">CLIENTE</div>
+            <div class="ion-padding-left">{{ ordenServicio.nombre }}</div>
+        </ion-label>
+        <ion-icon *ngIf="ordenServicio.telCliente" name="call" slot="end" (click)="llamarCliente()"></ion-icon>
+    </ion-item>
+
+    <ion-item *ngIf="sistemaTipo == 2">
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">CANTIDAD DE PROFESIONALES</div>
+            <div class="ion-padding-left">{{ ordenServicio.cantidadProfesionales }}</div>
+        </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="sistemaTipo == 2 && ordenServicio.titulo">
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">TÍTULO</div>
+            <div class="ion-padding-left">{{ ordenServicio.titulo }}</div>
+        </ion-label>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">ESTATUS</div>
+            <ion-text color="secondary" class="texto-style">
+                <b>{{ ordenServicio.estatusTexto }}</b>
+            </ion-text>
+            <!-- <ion-text *ngIf="(ordenServicio.estatus == 1 || ordenServicio.estatus == 2) && estatusOrdenProfesional == 0" color="primary" class="texto-style">
+                <b>En espera</b>
+            </ion-text> -->
+            <!-- Bloque para ordenes tipo talento-->
+            <!-- <ion-text *ngIf="(ordenServicio.estatus == 1 || ordenServicio.estatus == 2) && estatusOrdenProfesional == 1 && ordenServicio.sistemaTipo == 2" color="secondary" class="texto-style">
+                <b>Confirmada</b>
+            </ion-text>                   
+            <ion-text *ngIf="ordenServicio.estatus == 4 && !fechaHoraInicio" color="secondary" class="texto-style">
+                <b>Confirmada</b>
+            </ion-text>
+            <ion-text *ngIf="ordenServicio.estatus == 2 && ordenServicio.sistemaTipo == 1" color="secondary" class="texto-style">
+                <b>Confirmada</b>
+            </ion-text>
+            <ion-text *ngIf="ordenServicio.estatus == 4 && fechaHoraInicio" color="secondary" class="texto-style">
+                <b>Iniciada</b>
+            </ion-text>
+            <ion-text *ngIf="ordenServicio.estatus == 7" color="tertiary" class="texto-style">
+                <b>Finalizada</b>
+            </ion-text>
+            <ion-text *ngIf="ordenServicio.estatus == 3" color="warning" class="texto-style">
+                <b>Rechazada</b>
+            </ion-text>
+            <ion-text *ngIf="ordenServicio.estatus == 0" color="danger" class="texto-style">
+                <b>Cancelada</b>
+            </ion-text>
+            <ion-text *ngIf="ordenServicio.estatus == 5" color="dark" class="texto-style">
+                <b>Pendiente por aprobación</b>
+            </ion-text>
+            <ion-text *ngIf="ordenServicio.estatus == 8" color="success" class="texto-style">
+                <b>Calificada</b>
+            </ion-text> -->
+        </ion-label>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">SERVICIO</div>
+            <div class="ion-padding-left">{{ ordenServicio.servicio }}</div>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+            <div class="shade-text ion-padding-bottom">TAREAS</div>
+            <ion-row class="ion-text-center texto">
+                <ion-col size="2">Cant.</ion-col>
+                <ion-col size="6">Tarea</ion-col>
+                <ion-col size="4">Monto</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let tarea of tareas; let i = index" style="width: 100%;">
+                <ion-col size="2" class="texto-tarea">{{ tarea.cantidad }}</ion-col>
+                <ion-col size="6" class="texto-tarea">{{ tarea.nombre }}</ion-col>
+                <ion-col size="4" class="monto-tarea">$ {{ tarea.monto }}</ion-col>
+            </ion-row>
+            <div>
+                <ion-row style="font-size: 1em !important;">
+                    <ion-col size="8" class="ion-text-end"><b>Total : </b></ion-col>
+                    <ion-col size="4" class="monto-tarea"><b>$ {{ totalMonto }}</b></ion-col>
+                </ion-row>
+            </div>
+            <div *ngIf="ordenServicio.requiereVuelto">
+                <ion-row style="font-size: 1em !important;">
+                    <ion-col size="8" class="ion-text-end"><b>Monto efectivo : </b></ion-col>
+                    <ion-col size="4" class="monto-tarea"><b>$ {{ ordenServicio.montoEfectivo }}</b></ion-col>
+                </ion-row>
+            </div>
+            <div *ngIf="ordenServicio.requiereVuelto">
+                <ion-row style="font-size: 1em !important;">
+                    <ion-col size="8" class="ion-text-end"><b>Monto vuelto : </b></ion-col>
+                    <ion-col size="4" class="monto-tarea"><b>$ {{ ordenServicio.montoEfectivo - totalMonto }}</b>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div *ngIf="sistemaTipo == 2 && ordenServicio.porcentajeBackup">
+                <ion-row style="font-size: 1em !important;">
+                    <ion-col size="8" class="ion-text-end"><b>Porcentaje backup : </b></ion-col>
+                    <ion-col size="4" class="monto-tarea"><b> {{ ordenServicio.porcentajeBackup }} %</b></ion-col>
+                </ion-row>
+            </div>
+        </ion-label>
+    </ion-item>
+    <ion-item
+        *ngIf="ordenServicio.estatus == 4 && (role == 'ROLE_PROFESIONAL' || globalServ.UsuarioTipo === 'profesional') && tareas.length > 0 && fechaHoraInicio">
+        <ion-label>
+            <div class="ion-text-center">
+                <ion-button size="small" color="secondary" (click)="agregarTarea()">Agregar tareas</ion-button>
+            </div>
+        </ion-label>
+    </ion-item>
+    <div
+        *ngIf="verTareasActualizar && ordenServicio.estatus == 2 && (role == 'ROLE_PROFESIONAL' || globalServ.UsuarioTipo === 'profesional') && tareas.length > 0">
+        <ion-row class="ion-text-center texto">
+            <ion-col size="2">Sel.</ion-col>
+            <ion-col size="4">Tarea</ion-col>
+            <ion-col size="4">Cant.</ion-col>
+            <ion-col size="2">Monto</ion-col>
+        </ion-row>
+
+        <div *ngFor="let tarea of tareasProfesional; let i = index;">
+            <ion-row class="tarea-row">
+                <ion-col size="2" style="text-align: center;">
+                    <ion-checkbox mode="ios" [(ngModel)]="tarea.isChecked" class="check-color" [(value)]="tarea">
+                    </ion-checkbox>
+                </ion-col>
+                <ion-col size="4">
+                    <div class="texto-tarea">{{ tarea.nombre }}</div>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-input type="number" class="fondo-input" [value]="tarea.cantidad"
+                        (ionInput)="actualizaMonto($event, i)"></ion-input>
+                </ion-col>
+                <ion-col size="2">
+                    <div class="texto-monto">${{ tarea.totalPrecio | number:'1.2-2'}}</div>
+                </ion-col>
+            </ion-row>
+        </div>
+        <ion-item>
+            <ion-label>
+                <div class="ion-text-center">
+                    <ion-button size="small" color="secondary" (click)="guardarTareas()">Actualizar tareas</ion-button>
+                </div>
+            </ion-label>
+        </ion-item>
+    </div>
+
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">FECHA</div>
+            <div class="ion-padding-left">
+                {{ ordenServicio.dia }} de {{ ordenServicio.mes }} de {{ ordenServicio.anio }}, <br>
+                hora: {{ ordenServicio.hora }} {{ ordenServicio.meridiano }}</div>
+        </ion-label>
+    </ion-item>
+
+    <ion-item>
+        <ion-label class="ion-text-wrap">
+            <div class="ion-padding-bottom shade-text">DIRECCIÓN</div>
+            <div>
+                <ion-row>
+                    <ion-col class="ion-no-padding" size="10">
+                        <div>
+                            {{ ordenServicio.direccion }}
+                        </div>
+                    </ion-col>
+
+                    <ion-col *ngIf="tipoListado == 'profesional'" class="ion-no-padding" size="2"
+                        (click)="abrirModal()">
+                        <ion-img [src]="pinAzul" style="height: 70%"></ion-img>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </ion-label>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">MÉTODO DE PAGO</div>
+            <div class="ion-padding-left">{{ ordenServicio.metodoPago }}</div>
+        </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="ordenServicio.descripcion">
+        <ion-label class="ion-text-wrap ion-text-justify">
+            <div class="ion-padding-bottom shade-text">DESCRIPCIÓN</div>
+            {{ ordenServicio.descripcion }}
+        </ion-label>
+    </ion-item>
+
+    <ion-item lines="none" *ngIf="ordenServicio.observacion">
+        <ion-label class="ion-text-wrap ion-text-justify">
+            <div class="ion-padding-bottom shade-text">OBSERVACIÓN</div>
+            {{ ordenServicio.observacion }}
+        </ion-label>
+    </ion-item>
+
+    <br><br><br>
+</ion-content>
+
+<ion-footer>
+    <ion-button *ngIf="ordenServicio.fotos > 0" shape="round" color="danger" (click)="verFotos()" expand="block"
+        class="ion-margin-bottom">
+        Fotos
+    </ion-button>
+
+    <ion-button
+        *ngIf="(ordenServicio.estatus == 1 || ordenServicio.estatus == 2) && (role == 'ROLE_PROFESIONAL' || globalServ.UsuarioTipo === 'profesional') && estatusOrdenProfesional == 0"
+        shape="round" color="secondary" (click)="confirmar(2)" expand="block" class="ion-margin-bottom">
+        Confirmar orden
+    </ion-button>
+
+    <ion-button
+        *ngIf="(role == 'ROLE_PROFESIONAL' || globalServ.UsuarioTipo === 'profesional') && btnIniciar && !fechaHoraInicio && estatusOrdenProfesional == 1"
+        shape="round" color="secondary" (click)="iniciar()" expand="block" class="ion-margin-bottom">
+        Iniciar orden
+    </ion-button>
+
+    <ion-button
+        *ngIf="ordenServicio.estatus == 1 && (role == 'ROLE_PROFESIONAL' || globalServ.UsuarioTipo === 'profesional') && estatusOrdenProfesional == 0"
+        shape="round" color="danger" (click)="cancelar(3)" expand="block" class="ion-margin-bottom">
+        Rechazar orden
+    </ion-button>
+
+    <ion-button
+        *ngIf="ordenServicio.estatus == 2 && (role == 'ROLE_USER' || globalServ.UsuarioTipo === 'cliente') && sistemaTipo == 2"
+        shape="round" color="secondary" (click)="seleccionarProfesionales(2)" expand="block" class="ion-margin-bottom">
+        Seleccionar profesionales
+    </ion-button>
+
+    <ion-button *ngIf="ordenServicio.estatus == 6 && (role == 'ROLE_USER' || globalServ.UsuarioTipo === 'cliente')"
+        shape="round" color="secondary" (click)="pagar()" expand="block" class="ion-margin-bottom">
+        Pagar orden
+    </ion-button>
+
+    <ion-button
+        *ngIf="ordenServicio.estatus == 4 && (role == 'ROLE_PROFESIONAL' || globalServ.UsuarioTipo === 'profesional') && fechaHoraInicio"
+        shape="round" color="secondary" (click)="finalizarOrden(7)" expand="block" class="ion-margin-bottom">
+        Finalizar orden
+    </ion-button>
+
+    <ion-button *ngIf="ordenServicio.estatus == 1 && (role == 'ROLE_USER' || globalServ.UsuarioTipo === 'cliente')"
+        (click)="cancelar(0)" shape="round" color="danger" expand="block" class="ion-margin-bottom">
+        Cancelar orden
+    </ion-button>
+
+    <ion-button *ngIf="ordenServicio.estatus == 7 && (role == 'ROLE_USER' || globalServ.UsuarioTipo === 'cliente')"
+        (click)="calificar()" shape="round" color="danger" expand="block" class="ion-margin-bottom">
+        Calificar orden
+    </ion-button>
+
+    <ion-button *ngIf="ordenServicio.estatus == 5 && (role == 'ROLE_USER' || globalServ.UsuarioTipo === 'cliente')"
+        shape="round" color="secondary" (click)="actualizarTarea(0)" expand="block" class="ion-margin-bottom">
+        Confirmar modificación orden
+    </ion-button>
+
+    <ion-button *ngIf="ordenServicio.estatus == 5 && (role == 'ROLE_USER' || globalServ.UsuarioTipo === 'cliente')"
+        shape="round" color="danger" (click)="actualizarTarea(1)" expand="block" class="ion-margin-bottom">
+        Rechazar modificación orden
+    </ion-button>
+
+    <ion-button shape="round" color="secondary" (click)="ubicarDireccion()" expand="block" class="ion-margin-bottom">
+        Ver dirección
+    </ion-button>
+</ion-footer>

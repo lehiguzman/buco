@@ -1,0 +1,17 @@
+
+
+git fetch origin && git checkout -f -B master -t origin/master && git pull origin master
+
+git fetch origin && git checkout -f -B production -t origin/production && git pull origin production
+
+
+npm run actualizar:dependencias
+cordova plugin rm cordova-plugin-ionic-webview
+cordova plugin add cordova-plugin-ionic-webview@5.0.0
+
+// modificar el archivo node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/browser.js
+// modificar config:files del packager.json
+
+npm run construir:web-preprod && ionic cordova platform rm ios && ionic cordova platform add ios
+node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng run app:ionic-cordova-build --platform=ios
+ionic cordova prepare ios

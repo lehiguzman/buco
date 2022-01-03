@@ -1,0 +1,163 @@
+.header-img {
+    width: 100%;  
+    height: 90px;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.roundedInput {
+  border-radius: 25px 25px 25px 25px;
+  width: 4em;
+  height: 2em;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;   
+  margin-top: 5%;
+  -webkit-box-shadow: 0px 0px 10px -3px rgba(165,163,168,1);
+  -moz-box-shadow: 0px 0px 10px -3px rgba(165,163,168,1);
+  box-shadow: 0px 0px 10px -3px rgba(165,163,168,1);
+
+  --highlight-height: 0;   
+}
+
+.texto-titulo {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    color: white;
+    font-size: 1.3em !important;
+    font-weight: bold;
+  }
+
+  .texto-subtitulo {
+    position: absolute;
+    top: 68%;
+    left: 45%;
+    color: white;
+    font-size: 1em !important;    
+  }
+
+.circle-pic {   
+    position: absolute; 
+    top: 30%;
+    left: 5%;
+    width:35vw;
+    height:35vw;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #0066dd; 
+    z-index: 1;
+}
+.col-border {  
+  font-size: 1em !important;
+  border-right: 0.1px outset rgb(255, 255, 255);  
+}
+
+.text-style {
+  color: #ff9800;
+  font-size: 1em !important;
+}
+
+.shade-text {
+  color: #B8B8B8;      
+}
+
+.shade-btn {
+  color: #B8B8B8;
+  --border-color: #B8B8B8;
+  --border-width: 0.1em;
+  font-size: 1em !important;
+  text-transform: none;
+}
+
+.tarea-btn {
+  //color: #ff9800;
+  --border-color: #ff9800;
+  --border-width: 0.1em;  
+}
+
+.tarea-row {
+  margin-top: 2%;
+  padding-right: 0%;  
+  height: 10%;
+}
+
+.shade-text {
+  color: #B8B8B8;    
+  font-size: 1em !important;  
+  margin-top: 0;
+  //border: 1px solid;
+}
+
+
+.texto-tarea {
+  padding-top: 2%; 
+  font-size: 1.3em !important;  
+}
+
+.texto-monto {
+  padding-top: 4%; 
+  font-size: 1em !important;  
+}
+
+.texto {    
+  background-color: #DAF0F8;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: 0.04em;    
+}
+
+.fondo-input {
+  --background: #F8EEEC;
+  border-radius: 10px 10px 10px 10px;    
+  height: 2em;  
+  padding-top: 2%; 
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.border-col {   
+  border-radius: 20px 20px 20px 20px;
+  border: 1px outset #ff9800;   
+}
+
+.check-tarea {
+  width: 20px; 
+  height: 20px; 
+  padding-right: 2%;
+}
+
+.check-color {
+  --border-color: #ff9800;
+  --background-checked: #ff9800;  
+}
+
+@media (min-width: 320px) and (max-width: 380px) {  
+  .col-border {  
+    font-size: .8em !important;    
+  }
+
+  .text-style {    
+    font-size: 1em !important;
+  }
+
+  .shade-btn {
+    font-size: .8em !important;
+  }
+
+  .texto-tarea {
+    font-size: 1em !important;    
+  }
+
+  .monto-tarea {
+    font-size: 1em !important;      
+  }
+
+  .fondo-input {        
+    font-size: 1em;    
+  }
+}
+

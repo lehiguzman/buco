@@ -1,0 +1,59 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+      <ion-buttons slot="start" text="Atrás">
+          <ion-back-button color="light"></ion-back-button>
+      </ion-buttons>      
+  </ion-toolbar>
+  <ion-img src="/assets/imgs/pico.png"></ion-img>  
+  <ion-label class="texto-titulo"><b>Datos básicos</b></ion-label> 
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="registroForm">
+    <ion-list lines="none" class="ion-padding-horizontal">
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-input type="text" formControlName="name" name="name" placeholder="Nombre Completo" required>
+            <ion-icon class="align-self-center" name="contact" slot="start" class="icon-style"> </ion-icon>
+          </ion-input>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-icon name="people" class="icon-style-select"></ion-icon>
+          <ion-select formControlName="genero" name="genero" cancelText="Cancelar" placeholder="Genero"
+            class="select-style" required>
+            <ion-select-option value="1">Femenino</ion-select-option>
+            <ion-select-option value="2">Masculino</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput mandatory">
+          <ion-icon name="calendar" class="icon-style-date"></ion-icon>
+          <ion-datetime formControlName="fechaNacimiento" name="fechaNacimiento" dateFormat="DD MMMM YYYY"
+            placeholder="Fecha de nacimiento" cancelText="Cancelar" doneText="Continuar" [monthShortNames]="globalServ.meses"
+            class="date-style" required></ion-datetime>
+        </ion-item>
+      </div>
+      <div class="fileUpload ion-padding-vertical">
+        <ion-item class="roundedInput">          
+          <ion-icon class="align-self-center" name="cloud-upload" slot="start" class="icon-style"> </ion-icon>
+          <span class="shade-text-select">Imagen de perfil</span>
+          <input type="file" accept="image/png, image/jpeg" formControlName="ruta" class="upload" name="ruta" (change)="transformarArchivo($event)">
+        </ion-item>
+      </div>       
+    </ion-list>    
+  </form>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button shape="round" color="secondary" block outline expand="block" class="ion-padding-horizontal" (click)="actualizar()">
+      {{ accion }}
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
+
+

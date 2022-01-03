@@ -1,0 +1,87 @@
+.header-img {
+    width: 100%;    
+      position: relative;
+      top: 0;
+      left: 0;
+      height: 160px;
+      z-index: -1;
+  }
+
+  .texto-titulo {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    color: white;    
+    font-size: 1.5em !important;
+    font-weight: bold;
+  }
+
+  .btn-style {    
+    width: 50%; 
+    text-align: center;
+  }
+
+  .texto-filtro {
+    width: 80px;
+    height: 20px;
+    font-size: 12px;
+    padding-right: 20px;
+    text-transform: none;
+  }
+
+  .roundedInput {
+    border-radius: 25px 25px 25px 25px;
+    width: 90%;
+    height: 50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;     
+    -webkit-box-shadow: 0px 0px 10px -3px rgba(165,163,168,1);
+    -moz-box-shadow: 0px 0px 10px -3px rgba(165,163,168,1);
+    box-shadow: 0px 0px 10px -3px rgba(165,163,168,1);
+
+    highlight-height: 0;   
+  }
+
+  .buscador {
+    position: absolute;
+    top: 55%;
+    left: 5%;    
+    z-index: 1;
+  }
+
+  .icon-style {
+    padding-left: 10px; 
+    width: 15%;
+  }
+
+  .icon-pro {
+    border-radius: 20px 20px 20px 20px;      
+    width: 90%;
+    height: 8.2em;        
+    margin-top: 1em;
+    margin-left: 1em;
+  }
+
+  .col-dir {
+    border-radius: 20px 20px 20px 20px;
+    height: 100%;    
+    background-color: white;
+  }
+
+  .text-style-conf {
+    font-size: 0.9em !important;      
+    text-align: center;
+  }
+
+  .text-style {
+    font-size: 0.9em !important;      
+    text-align: center;
+  }
+
+  @media (min-height: 200px) and (max-height: 580px) { 
+    .text-style-conf {
+      font-size: 0.8em !important;      
+      text-align: center;
+    }
+  }

@@ -1,0 +1,31 @@
+<ion-app>   
+    <div class="estado-conexion ion-text-center" *ngIf="globalServ.onlineShow"
+        [ngClass]="globalServ.online ? 'on' : 'off'">
+        <span *ngIf="globalServ.online === true">Conexión establecida</span>
+        <span *ngIf="globalServ.online === false">Sin conexión</span>
+    </div>
+
+    <ion-menu side="start" menuId="primerMenu" contentId="principal">
+        <ion-content class="fondo-menu" color="graniente-4">
+            <app-menu></app-menu>
+
+            <div class="ion-text-end">
+                <div class="texto-version">
+                    <div>
+                        <strong>v{{ globalServ.versionApp }}</strong>
+                        <i class="ion-text-capitalize"> {{ globalServ.getVersionAmbiente() }} </i>
+                    </div>
+                </div>
+            </div>
+        </ion-content>
+    </ion-menu>
+
+    <div class="texto-version" *ngIf="globalServ.mostrarVersion">
+        <div>
+            <strong>v{{ globalServ.versionApp }}</strong>
+            <i class="ion-text-capitalize"> {{ globalServ.getVersionAmbiente() }} </i>
+        </div>
+    </div>
+
+    <ion-router-outlet id="principal"></ion-router-outlet>
+</ion-app>

@@ -1,0 +1,255 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+        <!--<ion-buttons slot="start">
+            <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+        </ion-buttons>-->
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="light" defaultHref="/profesional-favorito" mode="md"></ion-back-button>
+        </ion-buttons>
+        <!--<ion-buttons slot="end">
+            <ion-button class="texto-filtro" color="light" shape="round" fill="outline">Filtros</ion-button>
+        </ion-buttons>-->
+    </ion-toolbar>
+    <ion-text class="texto-titulo">Afiliados</ion-text>
+    <ion-img src="/assets/imgs/pico_light.png"></ion-img>
+</ion-header>
+
+<ion-content color="light">
+
+    <ion-item lines="none" color="light" class="item-style">
+        <ion-label class="ion-text-center label-style"><b>Filtros</b></ion-label>
+    </ion-item>
+
+    <ion-item lines="none" color="light" style="padding-bottom: 0px;" class="item-distancia">
+        <ion-label>
+            <div class="shade-text">Distancia <i><h6>(Cantidad de kms cerca de mi)</h6></i></div>
+            <div class="div-range">
+                <ion-range id="dual-range" min="0" max="100" step="5" snaps="true" ticks="true" pin="true" dual-knobs
+                    class="range" (ionBlur)="asignarValores($event)" mode="ios">
+                    <ion-text color="primary" slot="start">
+                        <h5>Km</h5>
+                    </ion-text>
+                </ion-range>
+            </div>
+        </ion-label>
+    </ion-item>
+
+      <!--<ion-list-header color="light">
+        <ion-label class="shade-text">Ordenar por </ion-label>
+      </ion-list-header>
+      <ion-item lines="none" color="light" *ngFor="let entry of form">
+        <ion-label>{{entry.val}}</ion-label>
+        <ion-checkbox slot="end" mode="ios" color="secondary" [(ngModel)]="entry.isChecked"></ion-checkbox>
+      </ion-item>
+    
+     <ion-item lines="none" color="light">
+      <ion-label>        
+        <div class="shade-text">Rango de precio</div>
+        <div>
+          <ion-range id="dual-range" min="0" max="2000" step="100" snaps="true" ticks="false" pin="true" dual-knobs class="range" (ionBlur)="filtrarDistancia()">
+            <ion-text color="primary" slot="start">
+              <h5> $ </h5>
+            </ion-text>          
+          </ion-range>
+        </div>      
+      </ion-label>      
+    </ion-item> -->
+
+    <ion-radio-group lines="none" color="light" (ionChange)="filtrarGenero( $event )">
+        <ion-item color="light" lines="none" class="item-style">
+            <ion-label class="shade-text">Género</ion-label>
+        </ion-item>
+
+        <ion-item color="light" class="item-radio-genero">
+            <ion-label class="label-genero">Mujer</ion-label>
+            <ion-radio class="radio-genero"  slot="end" color="primary" value="1"></ion-radio>
+        </ion-item>
+
+        <ion-item color="light" class="item-radio-genero">
+            <ion-label class="label-genero">Hombre</ion-label>
+            <ion-radio class="radio-genero" slot="end" color="primary" value="2"></ion-radio>
+        </ion-item>
+    </ion-radio-group>    
+    
+      <ion-item color="light" lines="none" class="item-style">
+          <ion-label class="shade-text">Método de pago</ion-label>
+      </ion-item>
+
+      <ion-item lines="none" color="light" *ngFor="let metodo of metodosPago" class="item-radio-genero">
+          <ion-label class="label-metodoPago">{{ metodo.nombre }}</ion-label>
+          <ion-checkbox class="check-metodoPago" slot="end" color="primary" value="{{ metodo.id }}" (ionChange)="seleccionMetodo( $event )"></ion-checkbox>
+      </ion-item>     
+
+      <!-- <ion-item color="light">
+          <ion-label>Transferencia</ion-label>
+          <ion-radio slot="end" color="primary" value="2"></ion-radio>
+      </ion-item>
+
+      <ion-item color="light"> 
+        <ion-label>Efectivo</ion-label>
+        <ion-radio slot="end" color="primary" value="3"></ion-radio>
+    </ion-item> -->
+
+    <ion-item color="light" lines="none" class="item-style">
+        <ion-label class="shade-text">Calificación</ion-label>
+    </ion-item>
+
+    <ionic4-star-rating #rating  
+        activeIcon = "ios-star"
+        defaultIcon = "ios-star-outline"
+        activeColor = "#ffde6a" 
+        defaultColor = "#DCDDDE"
+        class="calificacion"            
+        readonly="false"           
+        rating="0"
+        fontSize="8em">
+    </ionic4-star-rating> 
+
+    <ion-item color="light" lines="none" class="item-style" *ngIf="camposEspecificos.length>0">
+        <ion-label class="shade-text">Búsqueda avanzada</ion-label>
+    </ion-item>    
+
+    <div *ngFor="let campo of camposEspecificos">
+        <div *ngIf="campo.formulario_id == 1">
+            <ion-item color="light" lines="none">
+                <ion-label class="label-genero">{{ campo.nombre }}</ion-label>
+                <ion-input type="text" placeholder="{{ campo.nombre }}" [(ngModel)]="campo.valor" style="margin-left: 10px; border-radius: 25px 25px 25px 25px;"></ion-input>
+            </ion-item>
+        </div>    
+
+        <div *ngIf="campo.formulario_id == 2 || campo.formulario_id == 3 || campo.formulario_id == 4">
+
+            <ion-item color="light" lines="none" class="item-style">
+                <ion-label>{{ campo.nombre }}</ion-label>
+            </ion-item>
+
+            <ion-item color="light" lines="none" class="ion-padding-top">
+                <ion-label>Desde : </ion-label>
+                <ion-input type="number" placeholder="{{ campo.nombre }}" [(ngModel)]="campo.desde" style="margin-left: 10px; border-radius: 25px 25px 25px 25px;"></ion-input>
+            </ion-item>
+
+            <ion-item color="light" lines="none" class="ion-padding-top">
+                <ion-label>Hasta : </ion-label>
+                <ion-input type="number" placeholder="{{ campo.nombre }}" [(ngModel)]="campo.hasta" style="margin-left: 10px; border-radius: 25px 25px 25px 25px;"></ion-input>
+            </ion-item>
+        </div>
+    
+        <div *ngIf="campo.formulario_id == 5">     
+            <ion-item color="light" lines="none" class="item-style">
+                <ion-label>{{ campo.nombre }}</ion-label>
+            </ion-item>      
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput">                    
+                    <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Desde" [(ngModel)]="campo.desde" cancelText="Cancelar" doneText="Continuar" class="date-style"></ion-datetime>
+                </ion-item>
+            </div>
+            <div class="ion-padding-top">                
+                <ion-item class="roundedInput">                    
+                    <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Hasta" [(ngModel)]="campo.hasta" cancelText="Cancelar" doneText="Continuar" class="date-style"></ion-datetime>
+                </ion-item>
+            </div>
+        </div>
+
+        <div *ngIf="campo.formulario_id == 6">
+            
+            <ion-item color="light" lines="none" class="item-style">
+                <ion-label>{{ campo.nombre }}</ion-label>
+            </ion-item>
+            
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput">                
+                    <ion-datetime mode="md" displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="campo.desde" placeholder="Desde" cancelText="Cancelar" doneText="Confirmar">
+                    </ion-datetime>
+                </ion-item>  
+            </div>          
+            
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput">                
+                    <ion-datetime mode="md" displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="campo.hasta" placeholder="Hasta" cancelText="Cancelar" doneText="Confirmar">
+                    </ion-datetime>
+                </ion-item> 
+            </div>
+            
+        </div>
+
+        <div *ngIf="campo.formulario_id == 7">     
+            <ion-item color="light" lines="none" class="item-style">
+                <ion-label>{{ campo.nombre }}</ion-label>
+            </ion-item>      
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput">                    
+                    <ion-datetime displayFormat="MMM DD, YYYY HH:mm A" pickerFormat="DD MM YYYY h:mm A" placeholder="Desde" [(ngModel)]="campo.desde" cancelText="Cancelar" doneText="Continuar" class="date-style"></ion-datetime>
+                </ion-item>
+            </div>
+            <div class="ion-padding-top">                
+                <ion-item class="roundedInput">                    
+                    <ion-datetime displayFormat="MMM DD, YYYY HH:mm A" pickerFormat="DD MM YYYY h:mm A" placeholder="Hasta" [(ngModel)]="campo.hasta" cancelText="Cancelar" doneText="Continuar" class="date-style"></ion-datetime>
+                </ion-item>
+            </div>
+        </div>
+
+        <div *ngIf="campo.formulario_id == 8">            
+            <ion-radio-group lines="none" color="light" [(ngModel)]="campo.seleccion">
+                <ion-item color="light" lines="none" class="item-style">
+                    <ion-label>{{ campo.nombre }}</ion-label>
+                </ion-item>
+        
+                <ion-item color="light" class="item-radio-genero">
+                    <ion-label class="label-genero">Si</ion-label>
+                    <ion-radio class="radio-genero" slot="end" color="primary" value="SI"></ion-radio>
+                </ion-item>
+        
+                <ion-item color="light" class="item-radio-genero">
+                    <ion-label class="label-genero">No</ion-label>
+                    <ion-radio class="radio-genero" slot="end" color="primary" value="NO"></ion-radio>
+                </ion-item>
+            </ion-radio-group>            
+        </div>
+
+        <div *ngIf="campo.formulario_id == 9">     
+            <ion-item color="light" lines="none" class="item-style">
+                <ion-label>{{ campo.nombre }}</ion-label>
+            </ion-item>      
+            <div class="ion-padding-top">
+                <ion-item class="roundedInput">                    
+                    <ion-select cancelText="Cancelar" placeholder="{{ campo.nombre }}" class="select-style" [(ngModel)]="campo.seleccionSimple">
+                        <ion-select-option *ngFor="let opc of campo.opcionesSimple" value="{{ opc }}">{{ opc }}</ion-select-option>                        
+                    </ion-select>
+                </ion-item>
+            </div>
+        </div>
+
+        <div *ngIf="campo.formulario_id == 10">     
+            <ion-item color="light" lines="none" class="item-style">
+                <ion-label>{{ campo.nombre }}</ion-label>
+            </ion-item>      
+            <div class="ion-padding-top">
+                <ion-item color="light" class="item-radio-genero" *ngFor="let opc of campo.opcionesMultiple;">
+                    <ion-label class="label-genero">{{ opc.elemento }}</ion-label>
+                    <ion-radio class="radio-genero" slot="end" color="primary" value="{{ opc.elemento }}" [(ngModel)]="opc.seleccion"></ion-radio>
+                </ion-item>
+            </div>
+        </div>
+
+        <!--<ion-list color="light" *ngIf="campo.formulario_id == 10">
+            <ion-radio-group (ionChange)="selectItem()">
+              <ion-list-header class="item-style">
+                <ion-label>{{ campo.nombre }}</ion-label>
+              </ion-list-header>
+          
+              <ion-item *ngFor="let opc of campo.opcionesMultiple">
+                <ion-label>{{ opc }}</ion-label>
+                <ion-radio slot="start"></ion-radio>
+              </ion-item>              
+            </ion-radio-group>
+          </ion-list>-->
+    </div>    
+</ion-content>
+
+<ion-footer lines="none" no-border>
+    <ion-toolbar color="light">
+        <ion-button expand="block" shape="round" color="secondary" (click)="filtrar()">
+            Buscar
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

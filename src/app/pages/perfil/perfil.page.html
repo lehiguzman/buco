@@ -1,0 +1,184 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-azul">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+            <!-- <ion-back-button autoHide="false" color="light"></ion-back-button> -->
+        </ion-buttons>
+
+        <ion-buttons slot="end">
+            <!--<ion-icon name="notifications" class="bell"></ion-icon>                
+            <ion-badge class="badge">2</ion-badge> -->
+            <ion-label style="font-size: 1.2em;" *ngIf="perfilProfesional" color="light">Quiero Trabajar</ion-label>
+            <ion-label style="font-size: 1.2em;" *ngIf="!perfilProfesional" color="light">Quiero Contratar</ion-label>
+            <ion-toggle (ionChange)="cambiarPerfil($event)" [checked]="perfilProfesional" color="light"></ion-toggle>
+        </ion-buttons>
+
+        <ion-buttons (click)="verPopoverPerfil($event)" slot="end" size="large" color="light">
+            <p class="texto-editar">Opciones</p>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-img class="linea-azul" src="/assets/imgs/pico_transparente.png"></ion-img>
+
+    <img *ngIf="usuario.foto" src="{{ usuario.foto }}" class="circle-pic" />
+    <img *ngIf="!usuario.foto" src="assets/imgs/userDefault.png" class="circle-pic" />
+
+    <ion-text [ngClass]="perfilProfesional ? 'texto-titulo' : 'texto-titulo-user'"><b>{{ usuario.nombre }}</b></ion-text>
+
+    <ionic4-star-rating *ngIf="perfilProfesional" class="calificacion" readonly="true"
+        activeIcon="ios-star" defaultIcon="ios-star-outline"
+        activeColor="#ffde6a" defaultColor="#DCDDDE"
+        rating="{{ rating }}" fontSize="24px">
+    </ionic4-star-rating>
+    <ion-label class="texto-calificacion" *ngIf="perfilProfesional && rating > 0"><b>{{ rating | number:'1.2-2' }}</b></ion-label>
+
+    <ion-text class="texto-detalle" *ngIf="perfilProfesional && rating > 0" (click)="verCalificaciones()"><b>Ver más...</b></ion-text>
+</ion-header>
+
+<ion-content>
+
+    <div class="ion-padding-right" style="text-align: right;">
+        <ion-label class="ion-padding-horizontal" style="font-size: 1em">                        
+            <ion-icon name="radio-button-on" color="success" style="vertical-align: middle; font-size: 16px;" *ngIf="usuario.estatus == 1"></ion-icon>
+            <ion-icon name="radio-button-on" color="danger" style="vertical-align: middle; font-size: 16px;" *ngIf="usuario.estatus == 3"></ion-icon>
+            {{ usuario.estatusTexto }}
+        </ion-label>
+    </div>
+
+    <ion-list>
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">PERFIL </div>
+                <div class="ion-padding-left" *ngIf="!perfilProfesional">CLIENTE</div>
+                <div class="ion-padding-left" *ngIf="perfilProfesional">PROFESIONAL</div>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-list-header lines="inset">
+            <ion-label class="label-titulo">Credenciales de Acceso</ion-label>
+        </ion-list-header>
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">USUARIO </div>
+                <div class="ion-padding-left">{{ usuario.username }}</div>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">CORREO ELECTRÓNICO </div>
+                <div class="ion-padding-left">{{ usuario.email }}</div>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-list-header lines="inset">
+            <ion-label class="label-titulo">Datos Básicos</ion-label>
+        </ion-list-header>
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">NOMBRE </div>
+                <div class="ion-padding-left">{{ usuario.nombre }} {{ usuario.apellido }}</div>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">GÉNERO </div>
+                <div class="ion-padding-left">{{ usuario.generoTexto }}</div>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">FECHA DE NACIMIENTO </div>
+                <div class="ion-padding-left">{{ usuario.fechaNacimiento }}</div>
+            </ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="perfilProfesional">
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">CÉDULA </div>
+                <div class="ion-padding-left">{{ usuario.identificacion }}</div>
+            </ion-label>
+        </ion-item>
+        <ion-item *ngIf="perfilProfesional">
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">NACIONALIDAD </div>
+                <div class="ion-padding-left">{{ usuario.nacionalidad }}</div>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="perfilProfesional">
+        <ion-list-header lines="inset">
+            <ion-label class="label-titulo">Información sobre el Servicio</ion-label>
+        </ion-list-header>
+
+        <ion-item *ngIf="usuario.servicio">
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">SERVICIO </div>
+                <div class="ion-padding-left">{{ usuario.servicio.nombre }}</div>
+            </ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">ÀREA COBERTURA </div>
+                <div class="ion-padding-left">{{ usuario.radioCobertura }} Km</div>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">CELULAR </div>
+                <div class="ion-padding-left">{{ usuario.telefono }}</div>
+            </ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">POSEE AUTO PROPIO </div>
+                <div class="ion-padding-left">{{ usuario.vehiculo }}</div>
+            </ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">DESTREZA / ESPECIALIDAD </div>
+                <div class="ion-padding-left">{{ usuario.destrezaDetalle }}</div>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="usuario.redesSociales.fb || usuario.redesSociales.ig || usuario.redesSociales.in || usuario.redesSociales.tw">
+        <ion-list-header lines="inset">
+            <ion-label class="label-titulo">Redes Sociales</ion-label>
+        </ion-list-header>
+        <ion-item *ngIf="usuario.redesSociales.tw">
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">TWITTER </div>
+                <div class="ion-padding-left">{{ usuario.redesSociales.tw }}</div>
+            </ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="usuario.redesSociales.fb">
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">FACEBOOK </div>
+                <div class="ion-padding-left">{{ usuario.redesSociales.fb }}</div>
+            </ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="usuario.redesSociales.in">
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">LINKEDIN </div>
+                <div class="ion-padding-left">{{ usuario.redesSociales.in }}</div>
+            </ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="usuario.redesSociales.ig">
+            <ion-label>
+                <div class="ion-padding-bottom shade-text">INSTAGRAM </div>
+                <div class="ion-padding-left">{{ usuario.redesSociales.ig }}</div>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

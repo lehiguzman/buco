@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "623556925361",
+    "firebase_url": "https://app-buco.firebaseio.com",
+    "project_id": "app-buco",
+    "storage_bucket": "app-buco.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623556925361:android:2315010e3f603e27b4cf90",
+        "android_client_info": {
+          "package_name": "com.strappinc.buco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623556925361-ksbdu21tq3pihcnmd8qsv90jrpajbtsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuDAyK1Al7DJ7z4pSJ6MKrIj0zuSkxCa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623556925361-ksbdu21tq3pihcnmd8qsv90jrpajbtsm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "623556925361-uvqvvqer67ck58qsj18741t3e55blmvp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.strappinc.buco"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

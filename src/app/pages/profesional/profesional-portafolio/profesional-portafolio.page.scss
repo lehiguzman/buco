@@ -1,0 +1,52 @@
+.header-img {
+    width: 100%;  
+    height: 90px;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.circle-pic {   
+    position: absolute; 
+    top: 40%;
+    left: 5%;
+    width:25vw;
+    height:25vw;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #0066dd; 
+    z-index: 1;
+}
+
+  .texto-titulo {
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    color: white;
+    font-size: 1.3em !important;
+    font-weight: bold;
+  }
+
+  .texto-subtitulo {
+    position: absolute;
+    top: 68%;
+    left: 35%;
+    color: white;
+    font-size: 1em !important;    
+  }
+
+  .col-dir {
+    border-radius: 20px 20px 20px 20px;
+    height: 7em;    
+    background-color: white;
+    //border: 1px solid;  
+  }
+
+  .icon-pro {
+    //border-radius: 20px 20px 20px 20px;  
+    width: 4em;  
+    height: 3.5em;  
+    margin-top: .2em;  
+  }
+  

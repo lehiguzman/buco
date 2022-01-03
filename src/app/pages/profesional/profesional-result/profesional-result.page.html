@@ -1,0 +1,101 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button class="texto-filtro" color="light" shape="round" fill="outline" (click)="irAFiltro()">Filtros
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-text class="texto-titulo">Afiliados</ion-text>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>
+</ion-header>
+
+<ion-content color="light">
+
+  <ion-grid class="ion-no-padding" *ngIf="profesionales.length>0">
+    <ion-item color="light" lines="none">
+      <ion-label>Ordenar por : </ion-label>
+      <ion-button color="light" shape="round" (click)="sort('calificacion')">
+        Calificación
+      </ion-button>
+    </ion-item>
+    <div class="ion-padding-bottom ion-padding-top"
+      *ngFor="let pro of profesionales | orderBy: {property: column, direction: direction};">
+      <ion-row class="col-dir" (click)="detalle(pro.id)">
+
+        <ion-col size="4">
+
+          <img *ngIf="pro.foto" src="{{ pro.foto }}" class="icon-pro" />
+          <img *ngIf="!pro.foto" src="assets/icons/Outline.png" class="icon-pro" />
+
+        </ion-col>
+        <ion-col size="8">
+          <ion-row style="height: 20%;">
+            <ion-col size="6" class="ion-text-center">
+              <ion-text>
+                {{ pro.nombre }} {{ pro.apellido }}
+              </ion-text>
+            </ion-col>
+            <ion-col size="6" class="ion-text-right">
+              <ion-icon name="pin"></ion-icon>
+              <ion-text>
+                {{ pro.distancia| number:"1.0-2" }} Km
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="height: 30%;">
+            <ion-col size="1"></ion-col>
+            <ion-col size="11">
+              <ion-text>
+                {{ pro.destreza_detalle }}
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-text-center">
+            <ion-col size="5">
+              Puntuación
+            </ion-col>
+            <ion-col size="4">
+              Trabajos
+            </ion-col>
+            <ion-col size="3">
+              Tarifa
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-text-center">
+            <ion-col size="5">
+              <ion-icon name="star"></ion-icon>{{ pro.calificacion | number:"1.0-2"}}
+            </ion-col>
+            <ion-col size="4">
+              13
+            </ion-col>
+            <ion-col size="3">
+              $ 50/h
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+  <ion-grid *ngIf="profesionales.length==0">
+      <div class="ion-text-center">     
+        <ion-img color="light" src="assets/imgs/fondo-empty.png" ></ion-img>
+      </div>
+      <div class="ion-text-center"> 
+        <ion-label>
+          <h3><b>¡No se encontraron profesionales!</b></h3>
+        </ion-label>      
+      </div>
+      <div class="ion-text-center ion-margin">
+        <ion-label class="shade-text">
+          Explora para buscar a más profesionales en tu área
+        </ion-label>
+      </div> 
+      <ion-button expand="block" shape="round" color="secondary"  class="ion-margin" (click)="buscarProfesionales()" >
+        Buscar profesionales
+      </ion-button>   
+  </ion-grid>
+
+</ion-content>

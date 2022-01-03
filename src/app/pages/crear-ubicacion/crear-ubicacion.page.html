@@ -1,0 +1,70 @@
+<ion-header no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="secondary"></ion-back-button>
+        </ion-buttons>
+        <ion-title color="medium" class="ion-text-center">Agregar Dirección</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <form action="">
+        <ion-grid>
+            <ion-col>
+                <ion-item>
+                    <ion-label>Tipo Dirección</ion-label>
+                    <ion-select placeholder="Casa">
+                        <ion-select-option value="apt">Apartamento</ion-select-option>
+                        <ion-select-option value="casa">Casa</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Dirección</ion-label>
+                        <ion-input type="text" name="direccion" placeholder="Panama City, Calle XX" class="ion-margin-top" required></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Residencial / Urbanización</ion-label>
+                        <ion-input type="text" name="residencia" placeholder="Panama City, Calle XX" class="ion-margin-top" required></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Teléfono</ion-label>
+                        <ion-input type="text" name="telefono" placeholder="+507 555-5555" class="ion-margin-top" required></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item lines="none">
+                        <ion-label position="floating">Referencias</ion-label>
+                        <ion-textarea>
+
+                        </ion-textarea>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-img src="../assets/imgs/mapagris.jpg" class="img-maps">
+                    </ion-img>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-button expand="block" class="ion-margin-horizontal">
+                        Guardar
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

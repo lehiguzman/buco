@@ -1,0 +1,107 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+     <!-- <ion-button class="texto-filtro" color="light" shape="round" fill="outline" (click)="irAFiltro()">Filtros</ion-button>-->
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-text class="texto-titulo">Calificación</ion-text>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>
+</ion-header>
+
+<ion-content color="light">
+  <div>
+    <ion-text class="ion-margin" style="font-size: 22px; font-weight:bolder;">Valoración</ion-text>
+  </div>  
+  <div>
+    <ion-text class="ion-margin-start" style="font-size: 14px;">Queremos saber tu opinión</ion-text>
+  </div>
+  <div class="ion-text-center ion-padding-top">
+    <ion-text style="font-size: 22px; font-weight: bolder;">Servicio</ion-text>
+  </div>
+  <div class="ion-text-center">
+    <ion-text style="font-size: 10px;">Presiona sobre las estrellas del 1 al 5, donde 5 es el puntaje máximo</ion-text>
+  </div>
+  <div class="margins">
+    <ion-item lines="none" class="round">
+      <ion-label><b>Puntualidad</b></ion-label>
+      <ionic4-star-rating #rating
+        activeIcon = "ios-star"
+        defaultIcon = "ios-star-outline"
+        activeColor = "#ffde6a" 
+        defaultColor = "#DCDDDE"
+        readonly="false"
+        rating="0"
+        fontSize = "32px"
+        (ratingChanged)="calificaPuntualidad($event)">
+      </ionic4-star-rating>
+    </ion-item>
+  </div>
+  <div class="margins">
+    <ion-item lines="none" class="round">
+      <ion-label><b>Servicio</b></ion-label>
+      <ionic4-star-rating #rating
+        activeIcon = "ios-star"
+        defaultIcon = "ios-star-outline"
+        activeColor = "#ffde6a" 
+        defaultColor = "#DCDDDE"
+        readonly="false"
+        rating="0"
+        fontSize = "32px"
+        (ratingChanged)="calificaServicio($event)">
+      </ionic4-star-rating>
+    </ion-item>
+  </div>  
+  <div class="margins">
+    <ion-item lines="none" class="round">
+      <ion-label><b>Presencia</b></ion-label>
+      <ionic4-star-rating #rating
+        activeIcon = "ios-star"
+        defaultIcon = "ios-star-outline"
+        activeColor = "#ffde6a" 
+        defaultColor = "#DCDDDE"
+        readonly="false"
+        rating="0"
+        fontSize = "32px"
+        (ratingChanged)="calificaPresencia($event)">
+      </ionic4-star-rating>
+    </ion-item>
+  </div>
+  <div class="margins">
+    <ion-item lines="none" class="round">
+      <ion-label><b>Conocimiento</b></ion-label>
+      <ionic4-star-rating #rating
+        activeIcon = "ios-star"
+        defaultIcon = "ios-star-outline"
+        activeColor = "#ffde6a" 
+        defaultColor = "#DCDDDE"
+        readonly="false"
+        rating="0"
+        fontSize = "32px"
+        (ratingChanged)="calificaConocimiento($event)">
+      </ionic4-star-rating>
+    </ion-item>
+  </div>
+  <div class="margins">      
+    <ion-item lines="none" class="round">
+      <ion-label><b>¿Lo recomiendas?</b></ion-label>
+      <ion-select multiple="false" placeholder="Seleccione" (ionChange)="recomendacion($event)">
+        <ion-select-option value="1">Si</ion-select-option>
+        <ion-select-option value="0">No</ion-select-option>
+      </ion-select>    
+    </ion-item>
+  </div>
+  <div class="ion-text-center ion-padding-top">
+    <ion-text style="font-size: 14px;">Comentarios</ion-text>
+  </div>
+  <ion-item lines="none" class="ion-padding-bottom ion-padding-top" class="borde-textarea">
+    <ion-textarea [(ngModel)]="comentario"></ion-textarea>
+  </ion-item>
+</ion-content>
+<ion-footer>
+  <ion-button shape="round" color="secondary" expand="block" (click)="calificarProfesional()" class="ion-margin-bottom">
+    Calificar
+  </ion-button>
+</ion-footer>

@@ -1,0 +1,153 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-azul">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+            <!-- <ion-back-button autoHide="false" color="light"></ion-back-button> -->
+        </ion-buttons>
+        <ion-title class="perfil"><small>Perfil: {{ globalServ.UsuarioTipo }}</small></ion-title>
+
+        <ion-buttons *ngIf="role == 'ROLE_PROFESIONAL'" slot="end">
+            <ion-button class="texto-filtro" color="light" shape="round" fill="outline" (click)="irAFiltro()">Filtros </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-title class="header-titulo ht-30">Mis Servicios</ion-title>
+
+    <ion-img class="linea-azul" src="/assets/imgs/pico_light.png"></ion-img>
+
+    <ion-item class="roundedInput header-buscador">
+        <ion-input (ionChange)="buscarOrdenServicio( $event )" placeholder="¿Qué quieres buscar?">
+            <ion-icon class="align-self-center" name="search" slot="start" class="icon-style"> </ion-icon>
+        </ion-input>
+    </ion-item>
+</ion-header>
+
+<ion-content color="light">
+    <ion-grid fixed>
+        <ion-item color="light" lines="none" *ngIf="role == 'ROLE_PROFESIONAL' && hayRegistros == true">
+            <ion-button color="light" shape="round" mode="md" (click)="filtrarLista(2)" class="btn-style">
+                <b>Mis solicitudes</b>
+            </ion-button>
+            <ion-button color="light" shape="round" mode="md" (click)="filtrarLista(2)" class="btn-style">
+                <b>Mis servicios</b>
+            </ion-button>
+        </ion-item>
+
+        <div class="ion-padding-bottom" *ngFor="let orden of ordenesServicioFiltrados">
+            <ion-row class="col-dir" (click)="detalle(orden.id)">
+                <ion-col size="4">
+                    <img *ngIf="orden.foto" src="{{ orden.foto }}" class="icon-pro" />
+                    <img *ngIf="!orden.foto" src="assets/icons/Outline.png" class="icon-pro" />
+                </ion-col>
+
+                <ion-col size="8">
+                    <ion-row style="height: 20%;">
+                        <ion-col size="7" class="ion-text-center" *ngIf="sistemaTipo == 1 && tipoListado == 'cliente'">
+                            <ion-text class="text-style">
+                                <b> {{ primerNombre }} {{ primerApellido }} </b>
+                            </ion-text>
+                        </ion-col>
+                        <ion-col size="7" class="ion-text-center" *ngIf="sistemaTipo == 2 && tipoListado == 'cliente'">
+                            <ion-text class="text-style">
+                                <b> {{ orden.servicio }} </b>
+                            </ion-text>
+                        </ion-col>
+                        <ion-col size="7" class="ion-text-center" *ngIf="tipoListado == 'profesional'">
+                            <ion-text class="text-style">
+                                <b> {{ orden.nombreCliente }} </b>
+                            </ion-text>
+                        </ion-col>
+
+                        <ion-col size="5" class="ion-text-center">
+                            <ion-text color="secondary" class="text-style">
+                                <b>{{ orden.estatusTexto }}</b>
+                            </ion-text>
+                            <!-- <ion-text *ngIf="orden.estatus == 1 && tipoListado == 'cliente'" color="primary"
+                                class="text-style">
+                                <b>En espera</b>
+                            </ion-text>
+                            <ion-text
+                                *ngIf="(orden.estatus == 1 || orden.estatus == 2) && !orden.estatusProfesional && tipoListado == 'profesional'"
+                                color="primary" class="text-style">
+                                <b>En espera</b>
+                            </ion-text>
+                            <ion-text
+                                *ngIf="(orden.estatus == 1 || orden.estatus == 2) && orden.estatusProfesional == 1 && tipoListado == 'profesional'"
+                                color="secondary" class="text-style-conf">
+                                <b>Confirmada</b>
+                            </ion-text>
+                            <ion-text *ngIf="orden.estatus == 2 && tipoListado == 'cliente'" color="secondary"
+                                class="text-style-conf">
+                                <b>Confirmada</b>
+                            </ion-text>
+                            <ion-text *ngIf="orden.estatus == 4 && !orden.fechaHoraInicio" color="secondary"
+                                class="text-style-conf">
+                                <b>Confirmada</b>
+                            </ion-text>
+                            <ion-text *ngIf="orden.estatus == 4 && orden.fechaHoraInicio" color="secondary"
+                                class="text-style-conf">
+                                <b>Iniciada</b>
+                            </ion-text>
+                            <ion-text *ngIf="orden.estatus == 7" color="tertiary" class="text-style">
+                                <b>Finalizada</b>
+                            </ion-text>
+                            <ion-text *ngIf="orden.estatus == 3" color="warning" class="text-style">
+                                <b>Rechazada</b>
+                            </ion-text>
+                            <ion-text *ngIf="orden.estatus == 0" color="danger" class="text-style">
+                                <b>Cancelada</b>
+                            </ion-text>
+                            <ion-text *ngIf="orden.estatus == 5" color="dark" class="text-style">
+                                <b>Pendiente</b>
+                            </ion-text>
+                            <ion-text *ngIf="orden.estatus == 8" color="success" class="text-style">
+                                <b>Calificada</b>
+                            </ion-text> -->
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row style="height: 25%; margin-top: 5%;">
+                        <ion-col size="1"></ion-col>
+                        <ion-col size="11">
+                            <ion-text class="text-style" *ngIf="sistemaTipo == 1 && tipoListado == 'cliente'">
+                                {{ orden.servicio }}
+                            </ion-text>
+                            <ion-text class="text-style" *ngIf="sistemaTipo == 2 && tipoListado == 'cliente'">
+                                {{ orden.cantidadProfesionales }} Profesionales
+                            </ion-text>
+                            <ion-text class="text-style" *ngIf="tipoListado == 'profesional'">
+                                {{ orden.servicio }}
+                            </ion-text>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-text-center">
+                        <ion-col size="6">
+                            Fecha
+                        </ion-col>
+                        <ion-col size="6">
+                            Hora
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-text-center">
+                        <ion-col size="6">
+                            {{ orden.fecha }}
+                        </ion-col>
+                        <ion-col size="6">
+                            {{ orden.hora }}:00 {{ orden.meridiano }}
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </div>
+
+        <ion-grid *ngIf="hayRegistros == false">
+            <div class="ion-text-center">
+                <ion-img color="light" src="assets/imgs/fondo-empty.png"></ion-img>
+            </div>
+            <div class="ion-text-center">
+                <ion-label>
+                    <h3><b>¡No hay resultados!</b></h3>
+                </ion-label>
+            </div>
+        </ion-grid>
+    </ion-grid>
+</ion-content>

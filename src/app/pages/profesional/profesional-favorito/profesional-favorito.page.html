@@ -1,0 +1,101 @@
+<ion-header no-border>
+    <ion-toolbar color="graniente-menu" class="header-azul">
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+            <!-- <ion-back-button autoHide="false" color="light"></ion-back-button> -->
+        </ion-buttons>
+
+        <ion-buttons slot="end">
+            <ion-button class="texto-filtro" color="light" shape="round" fill="outline" (click)="irAFiltro()">Filtros</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-title class="header-titulo ht-30">Mis Favoritos</ion-title>
+
+    <ion-img class="linea-azul" src="/assets/imgs/pico_light.png"></ion-img>
+
+    <ion-item class="roundedInput header-buscador">
+        <ion-input (ionChange)="buscarProfesional( $event )" placeholder="¿Qué quieres buscar?">
+            <ion-icon class="align-self-center" name="search" slot="start" class="icon-style"> </ion-icon>
+        </ion-input>
+    </ion-item>
+</ion-header>
+
+<ion-content color="light">
+    <ion-grid *ngIf="resultados>0">
+      <div class="ion-padding-bottom" *ngFor="let pro of profesionales | filtro: textoBuscar: 'nombre'">
+        <ion-row class="col-dir" (click)="detalle(pro.id)">
+      
+          <ion-col size="4">
+            
+            <img *ngIf="pro.foto" src="{{ pro.foto }}" class="icon-pro" />           
+            <img *ngIf="!pro.foto" src="assets/icons/Outline.png" class="icon-pro" />           
+            
+          </ion-col>
+          <ion-col size="8">              
+                <ion-row style="height: 20%;">
+                  <ion-col size="7" class="ion-text-center">
+                    <ion-text>
+                     <b> {{ pro.nombre }} {{ pro.apellido }} </b>
+                    </ion-text>
+                  </ion-col>
+                  <ion-col size="5" class="ion-text-center" >
+                    <ion-icon name="pin"></ion-icon>
+                    <ion-text>
+                      {{ pro.distancia| number:"1.0-2" }} Km
+                    </ion-text>                     
+                  </ion-col>
+                </ion-row>
+                <ion-row style="height: 30%;">
+                  <ion-col size="1"></ion-col>
+                  <ion-col size="11">
+                    <ion-text>
+                      {{ pro.servicio }}
+                    </ion-text>
+                  </ion-col>
+                </ion-row>                  
+                <ion-row class="ion-text-center">
+                  <ion-col size="5">
+                    Puntuación
+                  </ion-col>
+                  <ion-col size="4">
+                    Trabajos
+                  </ion-col>
+                  <ion-col size="3">
+                    Tarifa
+                  </ion-col>
+                </ion-row>
+                <ion-row class="ion-text-center">
+                  <ion-col size="5" >                   
+                    <ion-icon name="star"></ion-icon>{{ pro.calificacion }}                  
+                  </ion-col>
+                  <ion-col size="4">
+                    13
+                  </ion-col>
+                  <ion-col size="3">
+                    $ 50/h
+                  </ion-col>
+                </ion-row>
+            </ion-col>        
+        </ion-row>
+      </div>
+    </ion-grid>
+    <ion-grid *ngIf="resultados == 0">
+      <div class="ion-text-center">      
+        <ion-img color="light" src="assets/imgs/fondo-empty.png" ></ion-img>
+      </div>
+      <div class="ion-text-center">
+        <ion-label>
+          <h3><b>¡Tus favoritos están vacios!</b></h3>
+        </ion-label>      
+      </div>
+      <div class="ion-text-center ion-margin">
+        <ion-label class="shade-text">
+          Explora para buscar a más profesionales en tu área
+        </ion-label>
+      </div> 
+      <ion-button expand="block" shape="round" color="secondary"  class="ion-margin" (click)="buscarProfesionales()" >
+        Buscar profesionales
+      </ion-button>   
+    </ion-grid>
+</ion-content> 
+

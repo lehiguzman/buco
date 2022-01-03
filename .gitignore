@@ -1,0 +1,114 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+# -- Sistemas Operativos ------------------------------
+# Windows
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.*
+!.gitignore
+!.htaccess
+*~
+
+# Mac OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+
+
+# -- Editores -----------------------------------------
+### Vim ###                  https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
+.*.sw[a-z]
+*.un~
+Session.vim
+Sessionx.vim
+.netrwhist
+[._]*.sw[a-p]
+[._]*.un~
+
+### PHPStorm ###
+.idea/
+
+### VisualStudioCode ###     https://github.com/github/gitignore/blob/master/Global/VisualStudioCode.gitignore
+.vscode/*
+.history
+*.code-workspace
+
+### SublimeText ###          https://github.com/github/gitignore/blob/master/Global/SublimeText.gitignore
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-project
+*.sublime-workspace
+
+### Xcode ###                https://github.com/github/gitignore/blob/master/Global/Xcode.gitignore
+xcuserdata/
+UserInterfaceState.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+### Other IDEs ###
+.angulardoc.json
+.versions/
+coverage/
+dist/
+
+
+
+### Ionic ###
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+log.txt
+/platforms/
+/plugins/
+/plugins/android.json
+/plugins/ios.json
+/www/
+
+# NPM (Node Package Manager) files
+npm-debug.log*
+node_modules/
+tmp/
+temp/
+
+# Preprocessors cache files
+.sourcemaps/
+.sass-cache/
+hooks/
+
+
+
+# -- Archivos/Carpetas del proyecto -------------------------------------------
+!.edit
+!.editorconfig
+!.gitlab-*
+!/docs
+!.firebaserc
+
+# Plataforma Android [Codigo Compilado]
+# !platforms/android/.gitignore
+# !platforms/android/.gradle
+# !platforms/android/gradle
+# !platforms/android/gradlew
+# !platforms/android/gradlew.bat
+# platforms/android/platform_www/
+# platforms/android/app/build
+# platforms/android/build
+# platforms/android/build.xml
+# platforms/android/CordovaLib/build
+# platforms/android/local.properties
+# /app
+# temporalmente comentado

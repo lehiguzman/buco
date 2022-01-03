@@ -1,0 +1,123 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-azul ha-5">
+      <ion-buttons slot="start">
+          <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+          <!-- <ion-back-button autoHide="false" color="light"></ion-back-button> -->
+      </ion-buttons>
+      <ion-title class="perfil"><small>Perfil: {{ globalService.UsuarioTipo }}</small></ion-title>
+  </ion-toolbar>
+
+  <ion-title class="header-titulo">Mis Calificaciones</ion-title>
+
+  <ion-img class="linea-azul" src="/assets/imgs/pico.png"></ion-img>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-grid class="col-dir" *ngFor="let calificacion of calificaciones" class="ion-padding-bottom">
+      <ion-row class="ion-padding-vertical" style="background-color: #DAF0F8; border-radius: 20px 20px;">
+        <ion-col size="1"></ion-col>
+        <ion-col size="4" class="ion-text-center">
+          <div>
+            <b>Ordén: # {{ calificacion.ordenServicio_id }}</b>
+          </div>
+        </ion-col>
+        <ion-col size="7" class="ion-text-center">
+          <div>
+            <b>{{ calificacion.user_nombre }}</b>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!--<ion-row>
+        <ion-col class="ion-text-center" style="background-color: #DAF0F8;">
+          <b>Calificaciones</b>
+        </ion-col>
+      </ion-row>-->
+      <ion-row style="height: 2.5em;">
+        <ion-col size="1"></ion-col>
+        <ion-col size="5">
+          <div class="ion-text-center" style="padding-top: 3%;">
+            Puntualidad
+          </div>
+        </ion-col>        
+        <ion-col size="5" class="ion-text-center">
+          <div>
+            <ionic4-star-rating class="calificacion" readonly="true"
+                activeIcon="ios-star" defaultIcon="ios-star-outline"
+                activeColor="#ffde6a" defaultColor="#DCDDDE"
+                rating="{{ calificacion.puntualidad }}" fontSize="24px">
+            </ionic4-star-rating>
+          </div>            
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <ion-row style="height: 2.5em;">
+        <ion-col size="1"></ion-col>
+        <ion-col size="5">
+          <div class="ion-text-center" style="padding-top: 3%;">
+            Servicio
+          </div>
+        </ion-col>        
+        <ion-col size="5" class="ion-text-center">
+          <div>
+            <ionic4-star-rating class="calificacion" readonly="true"
+                activeIcon="ios-star" defaultIcon="ios-star-outline"
+                activeColor="#ffde6a" defaultColor="#DCDDDE"
+                rating="{{ calificacion.servicio }}" fontSize="24px">
+            </ionic4-star-rating>
+          </div>            
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <ion-row style="height: 2.5em;">
+        <ion-col size="1"></ion-col>
+        <ion-col size="5">
+          <div class="ion-text-center" style="padding-top: 3%;">
+            Presencia
+          </div>
+        </ion-col>        
+        <ion-col size="5" class="ion-text-center">
+          <div>
+            <ionic4-star-rating class="calificacion" readonly="true"
+                activeIcon="ios-star" defaultIcon="ios-star-outline"
+                activeColor="#ffde6a" defaultColor="#DCDDDE"
+                rating="{{ calificacion.presencia }}" fontSize="24px">
+            </ionic4-star-rating>
+          </div>            
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <ion-row style="height: 2.5em;">
+        <ion-col size="1"></ion-col>
+        <ion-col size="5">
+          <div class="ion-text-center" style="padding-top: 3%;">
+            Conocimiento
+          </div>
+        </ion-col>        
+        <ion-col size="5" class="ion-text-center">
+          <div>
+            <ionic4-star-rating class="calificacion" readonly="true"
+                activeIcon="ios-star" defaultIcon="ios-star-outline"
+                activeColor="#ffde6a" defaultColor="#DCDDDE"
+                rating="{{ calificacion.conocimiento }}" fontSize="24px">
+            </ionic4-star-rating>
+          </div>            
+        </ion-col>
+        <ion-col size="1"></ion-col>        
+      </ion-row>
+      <ion-row style="height: 2.5em;">
+        <ion-col size="1"></ion-col>
+        <ion-col size="5">
+          <div class="ion-text-center">
+            ¿Te Recomendó?
+          </div>
+        </ion-col>        
+        <ion-col size="5" class="ion-text-center">
+          <div *ngIf="calificacion.recomendado == 1">Si</div>  
+          <div *ngIf="calificacion.recomendado == 2">No</div>  
+          <ion-col size="1"></ion-col>        
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

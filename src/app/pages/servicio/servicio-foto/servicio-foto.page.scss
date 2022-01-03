@@ -1,0 +1,25 @@
+.header-img {
+    width: 100%;    
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 120px;
+    z-index: -1;
+  }
+
+.texto-titulo {
+    position: absolute;
+    top: 25%;
+    left: 5%;
+    color: white;
+    font-size: 1.5em !important;
+    font-weight: bold;
+  }
+
+.texto-subtitulo {
+  position: absolute; 
+  top:43%;
+  left:32%;  
+  color: white;
+  font-size: 1.2em !important;
+}

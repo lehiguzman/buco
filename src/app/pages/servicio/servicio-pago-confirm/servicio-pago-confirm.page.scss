@@ -1,0 +1,42 @@
+.header-img {
+    width: 100%;    
+      position: relative;
+      top: 0;
+      left: 0;
+      height: 180px;
+      z-index: -1;
+  }  
+
+  .texto-titulo {
+    position: absolute;
+    top: 25%;
+    left: 20%;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .header-img-2 {
+    position: absolute;
+    top: 47%;
+    left: 5%;
+    height: 90%;
+    width: 90%;
+    z-index: 1;
+}
+
+.borde-der {
+  border-right-style: solid;
+  border-right-color: #B8B8B8;
+  border-right-width: thin;   
+}
+
+.borde-inf {
+  border-bottom-style: solid;
+  border-bottom-color: #B8B8B8;
+  border-bottom-width: thin;
+}
+
+.text-row {
+  font-size: small;
+}

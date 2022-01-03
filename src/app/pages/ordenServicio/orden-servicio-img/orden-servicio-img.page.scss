@@ -1,0 +1,38 @@
+.header-img {
+    width: 100%;    
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 120px;
+    z-index: -1;
+  }
+
+.texto-titulo {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    color: white;
+    font-size: 2em !important;
+    font-weight: bold;
+  }
+
+.image-modal {
+    position: relative;
+    width: 100% !important;
+    height: 100%;    
+    top: 0 !important;
+    left: 0 !important;    
+  }
+
+.fullscreen-image {
+    max-width: 90%;
+    max-height: 80%;
+    background-color: #cbd4db;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+  }

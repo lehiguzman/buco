@@ -1,0 +1,42 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+      <ion-buttons slot="start" text="Atrás">
+          <ion-back-button color="light"></ion-back-button>
+      </ion-buttons>      
+  </ion-toolbar>
+  <ion-img src="/assets/imgs/pico.png"></ion-img>
+  <!-- <img *ngIf="usuario.foto" src="{{ usuario.foto }}" class="circle-pic" />
+  <img *ngIf="!usuario.foto" src="assets/imgs/userDefault.png" class="circle-pic" /> -->
+  <ion-label class="texto-titulo"><b>Documentación</b></ion-label> 
+</ion-header>
+<ion-content>
+  <form [formGroup]="registroForm" (ngSubmit)="registro()">
+    <ion-list lines="none" class="ion-padding">      
+
+      <div class="ion-padding-top">
+        <ion-item class="roundedInput">          
+          <ion-icon name="document" class="icon-style-select"> </ion-icon>
+          <ion-select formControlName="tipo_documento" name="tipo_documento" cancelText="Cancelar" placeholder="Tipo" class="select-style">
+            <ion-select-option *ngFor="let tipo of tipos" value="{{ tipo.id }}">
+              {{ tipo.tipoDocumento.nombre }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <div class="fileUpload ion-padding-vertical">
+        <ion-item class="roundedInput">          
+          <ion-icon class="align-self-center" name="cloud-upload" slot="start" class="icon-style"> </ion-icon>
+          <span class="shade-text-select">Documento</span>
+          <input accept="application/pdf" type="file" class="upload" formControlName="ruta" name="ruta" (change)="transformarArchivo($event)">            
+        </ion-item>
+      </div>
+    </ion-list>
+    <ion-button *ngIf="!editarDocumento" shape="round" color="secondary" block outline expand="block" class="ion-padding-horizontal" type="submit">
+      Registrar
+    </ion-button>
+    <ion-button *ngIf="editarDocumento" shape="round" color="secondary" block outline expand="block" class="ion-padding-horizontal" type="button" (click)="editar()">
+      Editar
+    </ion-button>
+  </form>
+</ion-content> 

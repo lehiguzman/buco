@@ -1,0 +1,7 @@
+{
+    "name": "Buco",
+    "integrations": {
+        "cordova": {}
+    },
+    "type": "angular"
+}

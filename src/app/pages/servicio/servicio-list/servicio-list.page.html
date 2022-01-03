@@ -1,0 +1,54 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-label class="texto-titulo">{{ nombre_departamento }}</ion-label>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>  
+  <ion-item class="roundedInput buscador">   
+    <ion-input (ionChange) = "buscarServicio( $event )" placeholder="¿Qué quieres buscar?">    
+        <ion-icon class="align-self-center" name="search" slot="start" class="icon-style"> </ion-icon>  
+    </ion-input>
+  </ion-item>
+</ion-header>
+
+<ion-content color="light">
+  
+    <ion-grid>
+      <ion-row class="item-no-padding">
+        <ion-col size="12">          
+          <img src="assets/imgs/departamentos/publicidad.jpg" class="icon-pro" />          
+        </ion-col>
+      </ion-row> 
+      <ion-row>
+          <ion-col size="4" class="ion-text-center">          
+            <ion-text class="texto-azul" >
+              Servicios
+            </ion-text>
+          </ion-col>
+          <ion-col size="8" class="ion-text-right" *ngIf="mostrar == 'si'">          
+           <ion-text class="texto-azul" (click) = "listarServicios(true)" *ngIf="todo==false" >
+                Ver más ({{ nroServicios }})  
+            </ion-text>  
+           <ion-text class="texto-azul" (click) = "listarServicios(false)" *ngIf="todo==true" >            
+                Ver menos (6)  
+            </ion-text>  
+          </ion-col>
+        </ion-row> 
+      <ion-row class="ion-padding-bottom">
+        <ion-col size="4" class="text-center" *ngFor="let ser of servicios | filtro: textoBuscar: 'nombre'">
+          <div class="col-dir" (click) = "profesional(ser.id)">
+            <!-- <img src="assets/icons/Outline.png" class="icon-dep" /> -->
+            <img *ngIf="ser.icono" src="{{ ser.icono }}" class="icon-dep" />
+            <img *ngIf="!ser.icono" src="assets/icons/Outline.png" class="icon-dep" />      
+            <div>
+              <ion-text class="texto-servicio">{{ ser.nombre }}</ion-text> 
+            </div>            
+          </div>
+        </ion-col>        
+      </ion-row>
+    </ion-grid>
+
+  
+</ion-content>

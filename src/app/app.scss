@@ -1,0 +1,141 @@
+// App Styles
+// ----------------------------------------------------------------------------
+// Put style rules here that you want to apply to the entire application. These
+// styles are for the entire app and not just one component. Additionally, this
+// file can hold Sass mixins, functions, and placeholder classes to be imported
+// and used throughout the application.
+// importar CSS principal de la Aplicación
+@import "../theme/ionic.theme.custom.scss";
+@import "../theme/application.theme.scss";
+
+ion-loading {
+    .loading-wrapper {
+        box-shadow: none !important;
+        border-radius: 1em !important;
+        padding: 1.5em !important;
+    }
+    &.cargador {
+        .loading-wrapper {
+            background-color: transparent !important;
+        }
+    }
+    &.cargador-texto {
+        .loading-wrapper {
+            color: #f16521;
+        }
+    }
+    &.cargadorPrincipal {
+        -webkit-transition: all 500ms ease-out;
+        -moz-transition: all 500ms ease-out;
+        -ms-transition: all 500ms ease-out;
+        -o-transition: all 500ms ease-out;
+        transition: all 500ms ease-out;
+        .loading-wrapper {
+            //background: url("../assets/imgs/splashLoading.png");
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            min-height: 100% !important;
+            min-width: 100% !important;
+            border-radius: 0px !important;
+            padding: 0px !important;
+        }
+    }
+}
+
+ion-toast.mensaje-gps {
+    div.toast-wrapper {
+        background: #f16521;
+        opacity: 0.85;
+    }
+    div.toast-message {
+        color: white;
+        font-size: medium;
+        font-weight: bold;
+    }
+}
+
+button.button:not([only-icon]) {
+    border-radius: 5px !important;
+}
+
+.texto-version {
+    // width: 100%;
+    position: absolute;
+    bottom: 1vh;
+    right: 1vw;
+    // text-align: end;
+    // font-size: 0.85rem;
+    color: white;
+    z-index: 999;
+
+    i {
+        // color: black;
+        font-size: 0.85rem;
+    }
+
+    div {
+        background-color: darkgray;
+        border-radius: 15px;
+        padding: 5px;
+    }
+}
+
+.estado-conexion {
+    color: black;
+    z-index: 9999;
+    &.on {
+        background-color: lightgreen;
+    }
+    &.off {
+        background-color: lightgrey;
+    }
+}
+
+// HEADER AZUL
+.header-azul {
+    height: 10rem;
+    position: relative;
+    z-index: -1;
+
+    &.ha-5 {
+        height: 5rem;
+    }
+
+    ion-title {
+        color: white;
+        // font-weight: bold;
+        &.ht-ml {
+            margin-left: -2.5rem;
+        }
+        &.perfil {
+            margin-right: 10px;
+            text-align: right !important;
+        }
+    }
+}
+
+.header-titulo {
+    position: absolute;
+    top: 35%;
+    left: 8%;
+    color: white;
+    font-size: 1.5em !important;
+    font-weight: bold;
+    &.ht-30 {
+        top: 30%;
+    }
+}
+
+.linea-azul {
+    margin-top: -1px;
+}
+
+.header-buscador {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    z-index: 1;
+}

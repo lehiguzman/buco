@@ -1,0 +1,46 @@
+<ion-header no-border>
+  <ion-toolbar color="graniente-menu" class="header-img ion-padding-right">
+    <!--<ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>-->
+    <!--<ion-buttons slot="end">
+      <ion-button class="texto-filtro" color="light" shape="round" fill="outline" (click)="irAFiltro()">Filtros</ion-button>
+    </ion-buttons> -->
+    <ion-buttons slot="start">
+      <ion-back-button autoHide="false" color="light" mode="md"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-label class="texto-titulo">Solicitud de Servicio</ion-label>
+  <ion-label class="texto-subtitulo">Elija su dirección</ion-label>
+  <ion-img src="/assets/imgs/pico_light.png"></ion-img>  
+  <ion-item class="roundedInput buscador">   
+    <ion-input (ionChange) = "buscarDireccion( $event )" placeholder="Introduzca la dirección">    
+        <ion-icon class="align-self-center" name="search" slot="start" class="icon-style"> </ion-icon>  
+    </ion-input>
+  </ion-item>
+</ion-header>
+<ion-content color="light">
+
+  <div *ngFor="let dir of direcciones | filtro: textoBuscar: 'direccion'">  
+    <ion-row (click)="irAMetodoPago(dir.longitud, dir.latitud, dir.direccion)">       
+        <ion-col size="2">
+          <ion-img [src]="pinNegro" style="height: 50%;"></ion-img>
+        </ion-col>
+        <ion-col size="10">
+          <ion-label color="dark" class="texto-lista">
+            {{ dir.tipoTexto }}
+          </ion-label>
+        </ion-col>    
+    </ion-row>
+  </div>
+  <ion-row (click)="irAMapa()">   
+    <ion-col size="2">
+      <ion-img [src]="pinAzul" style="height: 50%"></ion-img>
+    </ion-col>
+    <ion-col size="10">
+      <ion-label class="texto-lista">
+         Fijar la ubicación en el mapa
+      </ion-label>
+    </ion-col>
+  </ion-row>
+</ion-content>

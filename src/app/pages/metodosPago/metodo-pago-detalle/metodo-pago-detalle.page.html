@@ -1,0 +1,79 @@
+<ion-header no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" text="Atrás">
+            <ion-back-button color="secondary" (click)="irAtras()" mode="md"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center"><b>Método de pago</b></ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">Número</div>
+            <div class="ion-padding-left"> {{ metodoPago.numero }} </div>
+        </ion-label>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">Fecha de Expiración</div>
+            <div class="ion-padding-left"> {{ metodoPago.fechaExpiracion }} </div>
+        </ion-label>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">CVV</div>
+            <div class="ion-padding-left">{{ metodoPago.cvv }}</div>
+        </ion-label>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">Nombre</div>
+            <div class="ion-padding-left">{{ metodoPago.nombre }}</div>
+        </ion-label>
+    </ion-item>
+
+    <!--
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">Mes de Expiración</div>
+            <div class="ion-padding-left" *ngIf="metodoPago.mes_anio_expiracion">
+                {{ metodoPago.mes_anio_expiracion | slice:0:2  }}
+            </div>
+            <div class="ion-padding-left" *ngIf="metodoPago.mesAnioExpiracion">
+                {{ metodoPago.mesAnioExpiracion | slice:0:2  }}
+            </div>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+            <div class="ion-padding-bottom shade-text">Año de Expiración</div>
+            <div class="ion-padding-left" *ngIf="metodoPago.mes_anio_expiracion">
+                20{{ metodoPago.mes_anio_expiracion | slice:3:5 }}
+            </div>
+            <div class="ion-padding-left" *ngIf="metodoPago.mesAnioExpiracion">
+                20{{ metodoPago.mesAnioExpiracion | slice:3:5 }}
+            </div>
+        </ion-label>
+    </ion-item>
+    -->
+
+    <ion-item lines="none">
+        <ion-grid>
+            <ion-row class="ion-padding-top">
+                <ion-col col-3></ion-col>
+                <!-- <ion-col col-3 class="ion-text-center">
+                    <img src="assets/icons/edit-icon.png" height="30" width="30" (click)="editar(metodoPago.id)" />
+                </ion-col> -->
+
+                <ion-col col-3 class="ion-text-center">
+                    <img src="assets/icons/delete-icon.png" height="30" width="30" (click)="eliminar(metodoPago.id)" />
+                </ion-col>
+                <ion-col col-3></ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+</ion-content>
